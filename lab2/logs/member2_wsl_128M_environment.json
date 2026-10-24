@@ -1,0 +1,17 @@
+{
+  "timestamp_utc": "2026-10-24T05:04:19.067445+00:00",
+  "system": {
+    "system": "Linux",
+    "node": "pointzu",
+    "release": "6.18.33.2-microsoft-standard-WSL2",
+    "version": "#1 SMP PREEMPT_DYNAMIC Thu Jun 18 21:54:43 UTC 2026",
+    "machine": "x86_64",
+    "processor": "x86_64"
+  },
+  "profile": "portable",
+  "qemu": "/opt/qemu/bin/qemu-system-riscv64",
+  "compiler": "/home/pointzu/riscv-elf-toolchains/bin/riscv64-unknown-elf-gcc",
+  "memory": "128M",
+  "riscv64-unknown-elf-gcc": "riscv64-unknown-elf-gcc (g1b306039ac4) 15.1.0",
+  "qemu-system-riscv64": "QEMU emulator version 7.0.0"
+}

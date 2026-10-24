@@ -1,0 +1,5 @@
+PASS protected kern/mm/pmm.c:page_init
+PASS protected kern/mm/best_fit_pmm.c:basic_check
+PASS protected kern/mm/best_fit_pmm.c:best_fit_check
+PASS protected kern/mm/default_pmm.c:basic_check
+PASS protected kern/mm/default_pmm.c:default_check

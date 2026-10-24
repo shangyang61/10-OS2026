@@ -1,0 +1,11 @@
+PASS normal
+PASS partial tail page
+PASS clamped upper bound
+PASS missing base
+PASS missing size
+PASS overflow
+PASS wrong DRAM base
+PASS kernel outside memory
+PASS descriptors do not fit
+PASS descriptors fit without free page
+10/10 page_init boundary tests passed

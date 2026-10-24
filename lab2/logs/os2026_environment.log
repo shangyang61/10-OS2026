@@ -1,0 +1,10 @@
+os2026
+Linux os2026 7.0.0-38-generic #38-Ubuntu SMP PREEMPT_DYNAMIC Fri Sep  4 09:10:14 UTC 2026 x86_64 GNU/Linux
+riscv64-unknown-elf-gcc (SiFive GCC-Metal 10.2.0-2020.12.8) 10.2.0
+GNU gdb (SiFive GDB-Metal 10.1.0-2020.12.7) 10.1
+GNU gdb (Ubuntu 17.1-2ubuntu1) 17.1
+QEMU emulator version 4.1.1
+d5af8c7a5037d6cd10243538aee5aaf1b72d69b62746653ecf670a6d3416703b  lab2/kern/mm/pmm.c
+ac636e63b5f6546d4ab498185ad8e2764f1393030b9a476fe7311b633be28790  verification/lab2/bin/kernel
+ec1d32c8d143b4520d712cfdc9c4c07e97f67be0f59397dc1fb2da8b79cb15be  /home/vmuser/src/qemu-4.1.1/target/riscv/cpu_helper.c
+09b6e4d97009e1530ff0ad931304731781a7e4b3430e9250a5a7a6eeb0fef754  /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c

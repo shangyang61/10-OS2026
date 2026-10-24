@@ -1,0 +1,11 @@
+# Lab build products and local tooling state
+**/obj/
+**/bin/
+**/__pycache__/
+*.pyc
+**/.qemu.out
+**/.gdb.in
+**/vcs/
+**/cscope*
+**/tags
+**/proj*-handin.tar.gz

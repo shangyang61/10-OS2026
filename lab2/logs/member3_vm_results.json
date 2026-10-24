@@ -1,0 +1,21 @@
+[
+  {
+    "profile": "buddy",
+    "markers": [
+      "memory management: buddy_pmm_manager",
+      "check_alloc_page() succeeded!",
+      "member3_buddy_test() succeeded!",
+      "member3_slub_test() succeeded!"
+    ],
+    "result": "PASS"
+  },
+  {
+    "profile": "best_fit",
+    "markers": [
+      "memory management: best_fit_pmm_manager",
+      "check_alloc_page() succeeded!",
+      "member3_slub_test() succeeded!"
+    ],
+    "result": "PASS"
+  }
+]

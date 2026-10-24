@@ -1,0 +1,33 @@
+[
+  {
+    "case": "member3_bestfit_128M",
+    "profile": "course",
+    "memory": "128M",
+    "markers": [
+      "memory management: best_fit_pmm_manager",
+      "check_alloc_page() succeeded!",
+      "member2_page_check() succeeded!",
+      "slub_check() succeeded!"
+    ],
+    "image_sha256": "b6e6e5918a48c974bf8e20301c671298e2ef0961599ed49aeee10d4f09b20246",
+    "result": "PASS"
+  },
+  {
+    "case": "original make grade",
+    "result": "PASS",
+    "score": "20/20"
+  },
+  {
+    "case": "member3_bestfit_128M_first_fit",
+    "profile": "course",
+    "memory": "128M",
+    "markers": [
+      "memory management: default_pmm_manager",
+      "check_alloc_page() succeeded!",
+      "first_fit_tail_check() succeeded!",
+      "slub_check() succeeded!"
+    ],
+    "image_sha256": "6afae7fbb884db47b0e7d160fba474beeb9188b7a637e73409d9f5c0e6219e12",
+    "result": "PASS"
+  }
+]
