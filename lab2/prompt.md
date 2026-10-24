@@ -55,3 +55,12 @@ best_fit_pmm.c 和 libs/list.h。在 lab2 function2-2 标记处完成 Best-Fit�
 若页层为Buddy，先明确请求页数与真实阶数的释放契约。
 给出覆盖说明、为何能发现缺陷，以及真实环境和原始日志。
 ```
+
+## 成员三提示词
+
+Buddy 实现、Buddy 测试与独立 SLUB 测试的完整提示词放在以下文件，本文件
+不重复粘贴，避免两份文本不同步：
+
+- [Buddy 实现 prompt](prompts/member3/01_buddy_implementation_prompt.md)
+- [Buddy 测试 prompt](prompts/member3/02_buddy_test_prompt.md)
+- [SLUB 独立测试 prompt](prompts/member3/03_slub_independent_test_prompt.md)
