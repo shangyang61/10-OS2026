@@ -1,0 +1,21 @@
+[
+  {
+    "portable_boot": 0,
+    "root_va": "0xffffffffc0206000",
+    "nonzero_root_ptes": {
+      "511": "0x200000cf"
+    },
+    "image_sha256": "ba480c4be8d6d38e67f68aa0e67a3280aa317ded1bd13d8f82aad73a048b2520",
+    "result": "PASS"
+  },
+  {
+    "portable_boot": 1,
+    "root_va": "0xffffffffc0206000",
+    "nonzero_root_ptes": {
+      "2": "0x200000cf",
+      "511": "0x200000cf"
+    },
+    "image_sha256": "a2407b9a61e8c462a16d3d9a5dbd2bb205459997dc6340ec1bc1dc34dfd56dc4",
+    "result": "PASS"
+  }
+]

@@ -1,0 +1,598 @@
+Breakpoint 1 at 0x395740: file /home/vmuser/src/qemu-4.1.1/target/riscv/cpu_helper.c, line 158.
+Breakpoint 2 at 0x395740: file /home/vmuser/src/qemu-4.1.1/target/riscv/cpu_helper.c, line 158.
+Breakpoint 3 at 0x3959f0: file /home/vmuser/src/qemu-4.1.1/target/riscv/cpu_helper.c, line 256.
+Breakpoint 4 at 0x395b21: file /home/vmuser/src/qemu-4.1.1/target/riscv/cpu_helper.c, line 337.
+Breakpoint 5 at 0x395f50: file /home/vmuser/src/qemu-4.1.1/target/riscv/cpu_helper.c, line 438.
+Breakpoint 6 at 0x319760: file /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c, line 700.
+Breakpoint 7 at 0x319760: file /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c, line 700.
+Breakpoint 8 at 0x317615: accel/tcg/cputlb.c:1271. (14 locations)
+Breakpoint 9 at 0x319d82: file /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c, line 1030.
+Temporary breakpoint 10 at 0x3959f0: file /home/vmuser/src/qemu-4.1.1/target/riscv/cpu_helper.c, line 256.
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/usr/lib/x86_64-linux-gnu/libthread_db.so.1".
+[New Thread 0x7ffff77ff6c0 (LWP 5716)]
+[New Thread 0x7ffff4dff6c0 (LWP 5717)]
+
+EVIDENCE walk entry hit=1
+addr = 18446744072637911040
+access_type = 0
+mmu_idx = 3
+env->satp = 0
+#0  get_physical_address (env=0x55555630e9d0, physical=physical@entry=0x7fffffffb3e0, prot=prot@entry=0x7fffffffb3dc, addr=addr@entry=18446744072637911040, access_type=access_type@entry=0, mmu_idx=3) at /home/vmuser/src/qemu-4.1.1/target/riscv/cpu_helper.c:158
+#1  0x00005555558e9e0c in riscv_cpu_get_phys_page_debug (cs=<optimized out>, addr=18446744072637911040) at /home/vmuser/src/qemu-4.1.1/target/riscv/cpu_helper.c:389
+#2  0x0000555555809fee in cpu_get_phys_page_attrs_debug (cpu=0x7fffffffb550, addr=18446744072637911040, attrs=0x7fffffffb464) at /home/vmuser/src/qemu-4.1.1/include/qom/cpu.h:607
+#3  cpu_memory_rw_debug (cpu=cpu@entry=0x555556305fc0, addr=addr@entry=18446744072637911808, buf=buf@entry=0x7fffffffb564 "", len=len@entry=64, is_write=<optimized out>) at /home/vmuser/src/qemu-4.1.1/exec.c:3976
+#4  0x00005555558523b7 in target_memory_rw_debug (cpu=<optimized out>, addr=<optimized out>, buf=0x7fffffffb564 "", len=<optimized out>, is_write=false) at /home/vmuser/src/qemu-4.1.1/gdbstub.c:84
+
+EVIDENCE walk entry hit=2
+addr = 18446744072637911040
+access_type = 0
+mmu_idx = 3
+env->satp = 0
+#0  get_physical_address (env=0x55555630e9d0, physical=physical@entry=0x7fffffffb3e0, prot=prot@entry=0x7fffffffb3dc, addr=addr@entry=18446744072637911040, access_type=access_type@entry=0, mmu_idx=3) at /home/vmuser/src/qemu-4.1.1/target/riscv/cpu_helper.c:158
+#1  0x00005555558e9e0c in riscv_cpu_get_phys_page_debug (cs=<optimized out>, addr=18446744072637911040) at /home/vmuser/src/qemu-4.1.1/target/riscv/cpu_helper.c:389
+#2  0x0000555555809fee in cpu_get_phys_page_attrs_debug (cpu=0x7fffffffb550, addr=18446744072637911040, attrs=0x7fffffffb464) at /home/vmuser/src/qemu-4.1.1/include/qom/cpu.h:607
+#3  cpu_memory_rw_debug (cpu=cpu@entry=0x555556305fc0, addr=addr@entry=18446744072637911816, buf=buf@entry=0x7fffffffb564 "", len=len@entry=2, is_write=<optimized out>) at /home/vmuser/src/qemu-4.1.1/exec.c:3976
+#4  0x00005555558523b7 in target_memory_rw_debug (cpu=<optimized out>, addr=<optimized out>, buf=0x7fffffffb564 "", len=<optimized out>, is_write=false) at /home/vmuser/src/qemu-4.1.1/gdbstub.c:84
+
+EVIDENCE walk entry hit=3
+addr = 18446744072637911816
+access_type = 0
+mmu_idx = 3
+env->satp = 0
+#0  get_physical_address (env=0x55555630e9d0, physical=physical@entry=0x7fffffffb410, prot=prot@entry=0x7fffffffb40c, addr=addr@entry=18446744072637911816, access_type=access_type@entry=0, mmu_idx=3) at /home/vmuser/src/qemu-4.1.1/target/riscv/cpu_helper.c:158
+#1  0x00005555558e9e0c in riscv_cpu_get_phys_page_debug (cs=<optimized out>, addr=18446744072637911816) at /home/vmuser/src/qemu-4.1.1/target/riscv/cpu_helper.c:389
+#2  0x0000555555801094 in cpu_get_phys_page_attrs_debug (cpu=0x555556305fc0, addr=18446744072637911816, attrs=0x7fffffffb434) at /home/vmuser/src/qemu-4.1.1/include/qom/cpu.h:607
+#3  breakpoint_invalidate (cpu=cpu@entry=0x555556305fc0, pc=18446744072637911816) at /home/vmuser/src/qemu-4.1.1/exec.c:1054
+#4  0x0000555555801409 in cpu_breakpoint_insert (cpu=cpu@entry=0x555556305fc0, pc=pc@entry=18446744072637911816, flags=flags@entry=16, breakpoint=breakpoint@entry=0x0) at /home/vmuser/src/qemu-4.1.1/exec.c:1196
+
+OpenSBI v0.4 (Jul  2 2019 11:53:53)
+   ____                    _____ ____ _____
+  / __ \                  / ____|  _ \_   _|
+ | |  | |_ __   ___ _ __ | (___ | |_) || |
+ | |  | | '_ \ / _ \ '_ \ \___ \|  _ < | |
+ | |__| | |_) |  __/ | | |____) | |_) || |_
+  \____/| .__/ \___|_| |_|_____/|____/_____|
+        | |
+        |_|
+
+Platform Name          : QEMU Virt Machine
+Platform HART Features : RV64ACDFIMSU
+Platform Max HARTs     : 8
+Current Hart           : 0
+Firmware Base          : 0x80000000
+Firmware Size          : 112 KB
+Runtime SBI Version    : 0.1
+
+PMP0: 0x0000000080000000-0x000000008001ffff (A)
+PMP1: 0x0000000000000000-0xffffffffffffffff (A,R,W,X)
+
+EVIDENCE before paging hit=1
+addr = 2149580800
+access_type = 2
+mmu_idx = 1
+env->satp = 0
+#0  get_physical_address (env=env@entry=0x55555630e9d0, physical=physical@entry=0x7ffff4dfe7a0, prot=prot@entry=0x7ffff4dfe79c, addr=addr@entry=2149580800, access_type=access_type@entry=2, mmu_idx=mmu_idx@entry=1) at /home/vmuser/src/qemu-4.1.1/target/riscv/cpu_helper.c:158
+#1  0x00005555558e9fdb in riscv_cpu_tlb_fill (cs=0x555556305fc0, address=2149580800, size=0, access_type=MMU_INST_FETCH, mmu_idx=1, probe=false, retaddr=0) at /home/vmuser/src/qemu-4.1.1/target/riscv/cpu_helper.c:451
+#2  0x000055555586a944 in tlb_fill (cpu=cpu@entry=0x555556305fc0, addr=addr@entry=2149580800, size=size@entry=0, access_type=access_type@entry=MMU_INST_FETCH, mmu_idx=mmu_idx@entry=1, retaddr=retaddr@entry=0) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:878
+#3  0x000055555586de41 in get_page_addr_code (env=0x55555630e9d0, addr=addr@entry=2149580800) at /home/vmuser/src/qemu-4.1.1/include/exec/cpu-all.h:404
+#4  0x0000555555887e26 in tb_htable_lookup (cpu=cpu@entry=0x555556305fc0, pc=pc@entry=2149580800, cs_base=cs_base@entry=0, flags=flags@entry=24577, cf_mask=4278714368) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cpu-exec.c:339
+
+EVIDENCE Bare TLB install hit=1
+vaddr = 2149580800
+paddr = 2149580800
+prot = 7
+mmu_idx = 1
+#0  tlb_set_page_with_attrs (cpu=cpu@entry=0x555556305fc0, vaddr=vaddr@entry=2149580800, paddr=2149580800, attrs=attrs@entry={unspecified = 1, secure = 0, user = 0, requester_id = 0, target_tlb_bit0 = 0, target_tlb_bit1 = 0, target_tlb_bit2 = 0}, prot=7, mmu_idx=mmu_idx@entry=1, size=4096) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:700
+#1  0x000055555586dd2a in tlb_set_page (cpu=cpu@entry=0x555556305fc0, vaddr=vaddr@entry=2149580800, paddr=<optimized out>, prot=<optimized out>, mmu_idx=mmu_idx@entry=1, size=size@entry=4096) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:847
+#2  0x00005555558ea13d in riscv_cpu_tlb_fill (cs=0x555556305fc0, address=2149580800, size=<optimized out>, access_type=MMU_INST_FETCH, mmu_idx=1, probe=<optimized out>, retaddr=0) at /home/vmuser/src/qemu-4.1.1/target/riscv/cpu_helper.c:472
+#3  0x000055555586a944 in tlb_fill (cpu=cpu@entry=0x555556305fc0, addr=addr@entry=2149580800, size=size@entry=0, access_type=access_type@entry=MMU_INST_FETCH, mmu_idx=mmu_idx@entry=1, retaddr=retaddr@entry=0) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:878
+#4  0x000055555586de41 in get_page_addr_code (env=0x55555630e9d0, addr=addr@entry=2149580800) at /home/vmuser/src/qemu-4.1.1/include/exec/cpu-all.h:404
+
+EVIDENCE instruction TLB lookup hit=1
+addr = 18446744072637907160
+entry->addr_code = 18446744073709551615
+mmu_idx = 1
+#0  get_page_addr_code (env=0x55555630e9d0, addr=addr@entry=18446744072637907160) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:1030
+#1  0x0000555555887e26 in tb_htable_lookup (cpu=cpu@entry=0x555556305fc0, pc=pc@entry=18446744072637907160, cs_base=cs_base@entry=0, flags=flags@entry=24577, cf_mask=4278714368) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cpu-exec.c:339
+#2  0x0000555555883098 in tb_lookup__cpu_state (cpu=<optimized out>, pc=<synthetic pointer>, cs_base=<synthetic pointer>, flags=<synthetic pointer>, cf_mask=<optimized out>) at /home/vmuser/src/qemu-4.1.1/include/exec/tb-lookup.h:43
+#3  helper_lookup_tb_ptr (env=0x55555630e9d0) at /home/vmuser/src/qemu-4.1.1/accel/tcg/tcg-runtime.c:154
+#4  0x00007ffff4e50df7 in code_gen_buffer ()
+
+EVIDENCE TLB fill hit=1
+address = 18446744072637907160
+access_type = MMU_INST_FETCH
+mmu_idx = 1
+#0  riscv_cpu_tlb_fill (cs=0x555556305fc0, address=18446744072637907160, size=0, access_type=MMU_INST_FETCH, mmu_idx=1, probe=false, retaddr=0) at /home/vmuser/src/qemu-4.1.1/target/riscv/cpu_helper.c:438
+#1  0x000055555586a944 in tlb_fill (cpu=cpu@entry=0x555556305fc0, addr=addr@entry=18446744072637907160, size=size@entry=0, access_type=access_type@entry=MMU_INST_FETCH, mmu_idx=mmu_idx@entry=1, retaddr=retaddr@entry=0) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:878
+#2  0x000055555586de41 in get_page_addr_code (env=0x55555630e9d0, addr=addr@entry=18446744072637907160) at /home/vmuser/src/qemu-4.1.1/include/exec/cpu-all.h:404
+#3  0x0000555555887e26 in tb_htable_lookup (cpu=cpu@entry=0x555556305fc0, pc=pc@entry=18446744072637907160, cs_base=cs_base@entry=0, flags=flags@entry=24577, cf_mask=4278714368) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cpu-exec.c:339
+#4  0x0000555555883098 in tb_lookup__cpu_state (cpu=<optimized out>, pc=<synthetic pointer>, cs_base=<synthetic pointer>, flags=<synthetic pointer>, cf_mask=<optimized out>) at /home/vmuser/src/qemu-4.1.1/include/exec/tb-lookup.h:43
+
+EVIDENCE walk entry hit=4
+addr = 18446744072637907160
+access_type = 2
+mmu_idx = 1
+env->satp = 9223372036855300613
+#0  get_physical_address (env=env@entry=0x55555630e9d0, physical=physical@entry=0x7ffff4dfe2c0, prot=prot@entry=0x7ffff4dfe2bc, addr=addr@entry=18446744072637907160, access_type=access_type@entry=2, mmu_idx=mmu_idx@entry=1) at /home/vmuser/src/qemu-4.1.1/target/riscv/cpu_helper.c:158
+#1  0x00005555558e9fdb in riscv_cpu_tlb_fill (cs=0x555556305fc0, address=18446744072637907160, size=0, access_type=MMU_INST_FETCH, mmu_idx=1, probe=false, retaddr=0) at /home/vmuser/src/qemu-4.1.1/target/riscv/cpu_helper.c:451
+#2  0x000055555586a944 in tlb_fill (cpu=cpu@entry=0x555556305fc0, addr=addr@entry=18446744072637907160, size=size@entry=0, access_type=access_type@entry=MMU_INST_FETCH, mmu_idx=mmu_idx@entry=1, retaddr=retaddr@entry=0) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:878
+#3  0x000055555586de41 in get_page_addr_code (env=0x55555630e9d0, addr=addr@entry=18446744072637907160) at /home/vmuser/src/qemu-4.1.1/include/exec/cpu-all.h:404
+#4  0x0000555555887e26 in tb_htable_lookup (cpu=cpu@entry=0x555556305fc0, pc=pc@entry=18446744072637907160, cs_base=cs_base@entry=0, flags=flags@entry=24577, cf_mask=4278714368) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cpu-exec.c:339
+
+EVIDENCE PTE loaded hit=1
+addr = 18446744072637907160
+base = 2149601280
+i = 0
+levels = 3
+ptshift = 18
+idx = 511
+pte_addr = 2149605368
+pte = 536871119
+ppn = 524288
+#0  get_physical_address (env=env@entry=0x55555630e9d0, physical=physical@entry=0x7ffff4dfe2c0, prot=prot@entry=0x7ffff4dfe2bc, addr=addr@entry=18446744072637907160, access_type=access_type@entry=2, mmu_idx=mmu_idx@entry=1) at /home/vmuser/src/qemu-4.1.1/target/riscv/cpu_helper.c:256
+#1  0x00005555558e9fdb in riscv_cpu_tlb_fill (cs=0x555556305fc0, address=18446744072637907160, size=0, access_type=MMU_INST_FETCH, mmu_idx=1, probe=false, retaddr=0) at /home/vmuser/src/qemu-4.1.1/target/riscv/cpu_helper.c:451
+#2  0x000055555586a944 in tlb_fill (cpu=cpu@entry=0x555556305fc0, addr=addr@entry=18446744072637907160, size=size@entry=0, access_type=access_type@entry=MMU_INST_FETCH, mmu_idx=mmu_idx@entry=1, retaddr=retaddr@entry=0) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:878
+#3  0x000055555586de41 in get_page_addr_code (env=0x55555630e9d0, addr=addr@entry=18446744072637907160) at /home/vmuser/src/qemu-4.1.1/include/exec/cpu-all.h:404
+#4  0x0000555555887e26 in tb_htable_lookup (cpu=cpu@entry=0x555556305fc0, pc=pc@entry=18446744072637907160, cs_base=cs_base@entry=0, flags=flags@entry=24577, cf_mask=4278714368) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cpu-exec.c:339
+[Switching to Thread 0x7ffff4dff6c0 (LWP 5717)]
+
+Thread 3 "qemu-system-ris" hit Temporary breakpoint 10, get_physical_address (env=env@entry=0x55555630e9d0, physical=physical@entry=0x7ffff4dfe2c0, prot=prot@entry=0x7ffff4dfe2bc, addr=addr@entry=18446744072637907160, access_type=access_type@entry=2, mmu_idx=mmu_idx@entry=1) at /home/vmuser/src/qemu-4.1.1/target/riscv/cpu_helper.c:256
+256	        if (!(pte & PTE_V)) {
+
+HOST single stepping the first kernel instruction translation
+$1 = 0xffffffffc02000d8
+$2 = 0x200000cf
+$3 = 18
+259	        } else if (!(pte & (PTE_R | PTE_W | PTE_X))) {
+265	        } else if ((pte & (PTE_R | PTE_W | PTE_X)) == (PTE_W | PTE_X)) {
+268	        } else if ((pte & PTE_U) && ((mode != PRV_U) &&
+273	        } else if (!(pte & PTE_U) && (mode != PRV_S)) {
+276	        } else if (ppn & ((1ULL << ptshift) - 1)) {
+279	        } else if (access_type == MMU_DATA_LOAD && !((pte & PTE_R) ||
+283	        } else if (access_type == MMU_DATA_STORE && !(pte & PTE_W)) {
+286	        } else if (access_type == MMU_INST_FETCH && !(pte & PTE_X)) {
+295	            if (updated_pte != pte) {
+334	            *physical = (ppn | (vpn & ((1L << ptshift) - 1))) << PGSHIFT;
+
+EVIDENCE translated page hit=1
+addr = 18446744072637907160
+*physical = 2149580800
+pte = 536871119
+ptshift = 18
+#0  get_physical_address (env=env@entry=0x55555630e9d0, physical=physical@entry=0x7ffff4dfe2c0, prot=prot@entry=0x7ffff4dfe2bc, addr=addr@entry=18446744072637907160, access_type=access_type@entry=2, mmu_idx=mmu_idx@entry=1) at /home/vmuser/src/qemu-4.1.1/target/riscv/cpu_helper.c:337
+#1  0x00005555558e9fdb in riscv_cpu_tlb_fill (cs=0x555556305fc0, address=18446744072637907160, size=0, access_type=MMU_INST_FETCH, mmu_idx=1, probe=false, retaddr=0) at /home/vmuser/src/qemu-4.1.1/target/riscv/cpu_helper.c:451
+#2  0x000055555586a944 in tlb_fill (cpu=cpu@entry=0x555556305fc0, addr=addr@entry=18446744072637907160, size=size@entry=0, access_type=access_type@entry=MMU_INST_FETCH, mmu_idx=mmu_idx@entry=1, retaddr=retaddr@entry=0) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:878
+#3  0x000055555586de41 in get_page_addr_code (env=0x55555630e9d0, addr=addr@entry=18446744072637907160) at /home/vmuser/src/qemu-4.1.1/include/exec/cpu-all.h:404
+#4  0x0000555555887e26 in tb_htable_lookup (cpu=cpu@entry=0x555556305fc0, pc=pc@entry=18446744072637907160, cs_base=cs_base@entry=0, flags=flags@entry=24577, cf_mask=4278714368) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cpu-exec.c:339
+337	            if ((pte & PTE_R) || ((pte & PTE_X) && mxr)) {
+338	                *prot |= PAGE_READ;
+
+EVIDENCE TLB install hit=1
+vaddr = 18446744072637906944
+paddr = 2149580800
+prot = 7
+mmu_idx = 1
+#0  tlb_set_page_with_attrs (cpu=cpu@entry=0x555556305fc0, vaddr=vaddr@entry=18446744072637906944, paddr=2149580800, attrs=attrs@entry={unspecified = 1, secure = 0, user = 0, requester_id = 0, target_tlb_bit0 = 0, target_tlb_bit1 = 0, target_tlb_bit2 = 0}, prot=7, mmu_idx=mmu_idx@entry=1, size=4096) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:700
+#1  0x000055555586dd2a in tlb_set_page (cpu=cpu@entry=0x555556305fc0, vaddr=vaddr@entry=18446744072637906944, paddr=<optimized out>, prot=<optimized out>, mmu_idx=mmu_idx@entry=1, size=size@entry=4096) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:847
+#2  0x00005555558ea13d in riscv_cpu_tlb_fill (cs=0x555556305fc0, address=18446744072637907160, size=<optimized out>, access_type=MMU_INST_FETCH, mmu_idx=1, probe=<optimized out>, retaddr=0) at /home/vmuser/src/qemu-4.1.1/target/riscv/cpu_helper.c:472
+#3  0x000055555586a944 in tlb_fill (cpu=cpu@entry=0x555556305fc0, addr=addr@entry=18446744072637907160, size=size@entry=0, access_type=access_type@entry=MMU_INST_FETCH, mmu_idx=mmu_idx@entry=1, retaddr=retaddr@entry=0) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:878
+#4  0x000055555586de41 in get_page_addr_code (env=0x55555630e9d0, addr=addr@entry=18446744072637907160) at /home/vmuser/src/qemu-4.1.1/include/exec/cpu-all.h:404
+
+EVIDENCE instruction TLB lookup hit=2
+addr = 18446744072637907160
+entry->addr_code = 18446744072637906944
+mmu_idx = 1
+#0  get_page_addr_code (env=0x55555630e9d0, addr=addr@entry=18446744072637907160) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:1030
+#1  0x0000555555887e26 in tb_htable_lookup (cpu=cpu@entry=0x555556305fc0, pc=pc@entry=18446744072637907160, cs_base=cs_base@entry=0, flags=flags@entry=24577, cf_mask=4278714368) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cpu-exec.c:339
+#2  0x0000555555888211 in tb_lookup__cpu_state (cpu=0x555556305fc0, cpu@entry=0x0, pc=<synthetic pointer>, cs_base=<synthetic pointer>, flags=<synthetic pointer>, cf_mask=<optimized out>) at /home/vmuser/src/qemu-4.1.1/include/exec/tb-lookup.h:43
+#3  tb_find (cpu=cpu@entry=0x555556305fc0, last_tb=last_tb@entry=0x0, tb_exit=0, cf_mask=524288) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cpu-exec.c:406
+#4  0x00005555558885d2 in cpu_exec (cpu=cpu@entry=0x555556305fc0) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cpu-exec.c:731
+
+EVIDENCE instruction TLB lookup hit=3
+addr = 18446744072637907160
+entry->addr_code = 18446744072637906944
+mmu_idx = 1
+#0  get_page_addr_code (env=env@entry=0x55555630e9d0, addr=addr@entry=18446744072637907160) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:1030
+#1  0x000055555588a1d9 in tb_gen_code (cpu=cpu@entry=0x555556305fc0, pc=pc@entry=18446744072637907160, cs_base=cs_base@entry=0, flags=24577, cflags=cflags@entry=524288) at /home/vmuser/src/qemu-4.1.1/accel/tcg/translate-all.c:1686
+#2  0x0000555555888310 in tb_find (cpu=cpu@entry=0x555556305fc0, last_tb=last_tb@entry=0x0, tb_exit=0, cf_mask=524288) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cpu-exec.c:409
+#3  0x00005555558885d2 in cpu_exec (cpu=cpu@entry=0x555556305fc0) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cpu-exec.c:731
+#4  0x000055555584fd25 in tcg_cpu_exec (cpu=0x555556305fc0) at /home/vmuser/src/qemu-4.1.1/cpus.c:1435
+
+EVIDENCE TLB fill hit=2
+address = 18446744072637927416
+access_type = MMU_DATA_STORE
+mmu_idx = 1
+#0  riscv_cpu_tlb_fill (cs=0x555556305fc0, address=18446744072637927416, size=8, access_type=MMU_DATA_STORE, mmu_idx=1, probe=false, retaddr=140737302040421) at /home/vmuser/src/qemu-4.1.1/target/riscv/cpu_helper.c:438
+#1  0x000055555586a944 in tlb_fill (cpu=cpu@entry=0x555556305fc0, addr=addr@entry=18446744072637927416, size=size@entry=8, access_type=access_type@entry=MMU_DATA_STORE, mmu_idx=mmu_idx@entry=1, retaddr=retaddr@entry=140737302040421) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:878
+#2  0x000055555586f72a in store_helper (env=0x55555630e9d0, addr=18446744072637927416, val=2147486210, oi=49, retaddr=140737302040421, size=8, big_endian=false) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:1522
+#3  helper_le_stq_mmu (env=0x55555630e9d0, addr=18446744072637927416, val=2147486210, oi=49, retaddr=140737302040421) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:1672
+#4  0x00007ffff4e50f65 in code_gen_buffer ()
+
+EVIDENCE walk entry hit=5
+addr = 18446744072637927416
+access_type = 1
+mmu_idx = 1
+env->satp = 9223372036855300613
+#0  get_physical_address (env=env@entry=0x55555630e9d0, physical=physical@entry=0x7ffff4dfe350, prot=prot@entry=0x7ffff4dfe34c, addr=addr@entry=18446744072637927416, access_type=access_type@entry=1, mmu_idx=mmu_idx@entry=1) at /home/vmuser/src/qemu-4.1.1/target/riscv/cpu_helper.c:158
+#1  0x00005555558e9fdb in riscv_cpu_tlb_fill (cs=0x555556305fc0, address=18446744072637927416, size=8, access_type=MMU_DATA_STORE, mmu_idx=1, probe=false, retaddr=140737302040421) at /home/vmuser/src/qemu-4.1.1/target/riscv/cpu_helper.c:451
+#2  0x000055555586a944 in tlb_fill (cpu=cpu@entry=0x555556305fc0, addr=addr@entry=18446744072637927416, size=size@entry=8, access_type=access_type@entry=MMU_DATA_STORE, mmu_idx=mmu_idx@entry=1, retaddr=retaddr@entry=140737302040421) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:878
+#3  0x000055555586f72a in store_helper (env=0x55555630e9d0, addr=18446744072637927416, val=2147486210, oi=49, retaddr=140737302040421, size=8, big_endian=false) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:1522
+#4  helper_le_stq_mmu (env=0x55555630e9d0, addr=18446744072637927416, val=2147486210, oi=49, retaddr=140737302040421) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:1672
+
+EVIDENCE PTE loaded hit=2
+addr = 18446744072637927416
+base = 2149601280
+i = 0
+levels = 3
+ptshift = 18
+idx = 511
+pte_addr = 2149605368
+pte = 536871119
+ppn = 524288
+#0  get_physical_address (env=env@entry=0x55555630e9d0, physical=physical@entry=0x7ffff4dfe350, prot=prot@entry=0x7ffff4dfe34c, addr=addr@entry=18446744072637927416, access_type=access_type@entry=1, mmu_idx=mmu_idx@entry=1) at /home/vmuser/src/qemu-4.1.1/target/riscv/cpu_helper.c:256
+#1  0x00005555558e9fdb in riscv_cpu_tlb_fill (cs=0x555556305fc0, address=18446744072637927416, size=8, access_type=MMU_DATA_STORE, mmu_idx=1, probe=false, retaddr=140737302040421) at /home/vmuser/src/qemu-4.1.1/target/riscv/cpu_helper.c:451
+#2  0x000055555586a944 in tlb_fill (cpu=cpu@entry=0x555556305fc0, addr=addr@entry=18446744072637927416, size=size@entry=8, access_type=access_type@entry=MMU_DATA_STORE, mmu_idx=mmu_idx@entry=1, retaddr=retaddr@entry=140737302040421) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:878
+#3  0x000055555586f72a in store_helper (env=0x55555630e9d0, addr=18446744072637927416, val=2147486210, oi=49, retaddr=140737302040421, size=8, big_endian=false) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:1522
+#4  helper_le_stq_mmu (env=0x55555630e9d0, addr=18446744072637927416, val=2147486210, oi=49, retaddr=140737302040421) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:1672
+
+EVIDENCE translated page hit=2
+addr = 18446744072637927416
+*physical = 2149597184
+pte = 536871119
+ptshift = 18
+#0  get_physical_address (env=env@entry=0x55555630e9d0, physical=physical@entry=0x7ffff4dfe350, prot=prot@entry=0x7ffff4dfe34c, addr=addr@entry=18446744072637927416, access_type=access_type@entry=1, mmu_idx=mmu_idx@entry=1) at /home/vmuser/src/qemu-4.1.1/target/riscv/cpu_helper.c:337
+#1  0x00005555558e9fdb in riscv_cpu_tlb_fill (cs=0x555556305fc0, address=18446744072637927416, size=8, access_type=MMU_DATA_STORE, mmu_idx=1, probe=false, retaddr=140737302040421) at /home/vmuser/src/qemu-4.1.1/target/riscv/cpu_helper.c:451
+#2  0x000055555586a944 in tlb_fill (cpu=cpu@entry=0x555556305fc0, addr=addr@entry=18446744072637927416, size=size@entry=8, access_type=access_type@entry=MMU_DATA_STORE, mmu_idx=mmu_idx@entry=1, retaddr=retaddr@entry=140737302040421) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:878
+#3  0x000055555586f72a in store_helper (env=0x55555630e9d0, addr=18446744072637927416, val=2147486210, oi=49, retaddr=140737302040421, size=8, big_endian=false) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:1522
+#4  helper_le_stq_mmu (env=0x55555630e9d0, addr=18446744072637927416, val=2147486210, oi=49, retaddr=140737302040421) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:1672
+
+EVIDENCE TLB install hit=2
+vaddr = 18446744072637923328
+paddr = 2149597184
+prot = 7
+mmu_idx = 1
+#0  tlb_set_page_with_attrs (cpu=cpu@entry=0x555556305fc0, vaddr=vaddr@entry=18446744072637923328, paddr=2149597184, attrs=attrs@entry={unspecified = 1, secure = 0, user = 0, requester_id = 0, target_tlb_bit0 = 0, target_tlb_bit1 = 0, target_tlb_bit2 = 0}, prot=7, mmu_idx=mmu_idx@entry=1, size=4096) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:700
+#1  0x000055555586dd2a in tlb_set_page (cpu=cpu@entry=0x555556305fc0, vaddr=vaddr@entry=18446744072637923328, paddr=<optimized out>, prot=<optimized out>, mmu_idx=mmu_idx@entry=1, size=size@entry=4096) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:847
+#2  0x00005555558ea13d in riscv_cpu_tlb_fill (cs=0x555556305fc0, address=18446744072637927416, size=<optimized out>, access_type=MMU_DATA_STORE, mmu_idx=1, probe=<optimized out>, retaddr=140737302040421) at /home/vmuser/src/qemu-4.1.1/target/riscv/cpu_helper.c:472
+#3  0x000055555586a944 in tlb_fill (cpu=cpu@entry=0x555556305fc0, addr=addr@entry=18446744072637927416, size=size@entry=8, access_type=access_type@entry=MMU_DATA_STORE, mmu_idx=mmu_idx@entry=1, retaddr=retaddr@entry=140737302040421) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:878
+#4  0x000055555586f72a in store_helper (env=0x55555630e9d0, addr=18446744072637927416, val=2147486210, oi=49, retaddr=140737302040421, size=8, big_endian=false) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:1522
+
+EVIDENCE instruction TLB lookup hit=4
+addr = 18446744072637913536
+entry->addr_code = 18446744073709551615
+mmu_idx = 1
+#0  get_page_addr_code (env=0x55555630e9d0, addr=addr@entry=18446744072637913536) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:1030
+#1  0x0000555555887e26 in tb_htable_lookup (cpu=cpu@entry=0x555556305fc0, pc=pc@entry=18446744072637913536, cs_base=cs_base@entry=0, flags=flags@entry=24577, cf_mask=4278714368) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cpu-exec.c:339
+#2  0x0000555555883098 in tb_lookup__cpu_state (cpu=<optimized out>, pc=<synthetic pointer>, cs_base=<synthetic pointer>, flags=<synthetic pointer>, cf_mask=<optimized out>) at /home/vmuser/src/qemu-4.1.1/include/exec/tb-lookup.h:43
+#3  helper_lookup_tb_ptr (env=0x55555630e9d0) at /home/vmuser/src/qemu-4.1.1/accel/tcg/tcg-runtime.c:154
+#4  0x00007ffff4e50f81 in code_gen_buffer ()
+
+EVIDENCE TLB fill hit=3
+address = 18446744072637913536
+access_type = MMU_INST_FETCH
+mmu_idx = 1
+#0  riscv_cpu_tlb_fill (cs=0x555556305fc0, address=18446744072637913536, size=0, access_type=MMU_INST_FETCH, mmu_idx=1, probe=false, retaddr=0) at /home/vmuser/src/qemu-4.1.1/target/riscv/cpu_helper.c:438
+#1  0x000055555586a944 in tlb_fill (cpu=cpu@entry=0x555556305fc0, addr=addr@entry=18446744072637913536, size=size@entry=0, access_type=access_type@entry=MMU_INST_FETCH, mmu_idx=mmu_idx@entry=1, retaddr=retaddr@entry=0) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:878
+#2  0x000055555586de41 in get_page_addr_code (env=0x55555630e9d0, addr=addr@entry=18446744072637913536) at /home/vmuser/src/qemu-4.1.1/include/exec/cpu-all.h:404
+#3  0x0000555555887e26 in tb_htable_lookup (cpu=cpu@entry=0x555556305fc0, pc=pc@entry=18446744072637913536, cs_base=cs_base@entry=0, flags=flags@entry=24577, cf_mask=4278714368) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cpu-exec.c:339
+#4  0x0000555555883098 in tb_lookup__cpu_state (cpu=<optimized out>, pc=<synthetic pointer>, cs_base=<synthetic pointer>, flags=<synthetic pointer>, cf_mask=<optimized out>) at /home/vmuser/src/qemu-4.1.1/include/exec/tb-lookup.h:43
+
+EVIDENCE PTE loaded hit=3
+addr = 18446744072637913536
+base = 2149601280
+i = 0
+levels = 3
+ptshift = 18
+idx = 511
+pte_addr = 2149605368
+pte = 536871119
+ppn = 524288
+#0  get_physical_address (env=env@entry=0x55555630e9d0, physical=physical@entry=0x7ffff4dfe2c0, prot=prot@entry=0x7ffff4dfe2bc, addr=addr@entry=18446744072637913536, access_type=access_type@entry=2, mmu_idx=mmu_idx@entry=1) at /home/vmuser/src/qemu-4.1.1/target/riscv/cpu_helper.c:256
+#1  0x00005555558e9fdb in riscv_cpu_tlb_fill (cs=0x555556305fc0, address=18446744072637913536, size=0, access_type=MMU_INST_FETCH, mmu_idx=1, probe=false, retaddr=0) at /home/vmuser/src/qemu-4.1.1/target/riscv/cpu_helper.c:451
+#2  0x000055555586a944 in tlb_fill (cpu=cpu@entry=0x555556305fc0, addr=addr@entry=18446744072637913536, size=size@entry=0, access_type=access_type@entry=MMU_INST_FETCH, mmu_idx=mmu_idx@entry=1, retaddr=retaddr@entry=0) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:878
+#3  0x000055555586de41 in get_page_addr_code (env=0x55555630e9d0, addr=addr@entry=18446744072637913536) at /home/vmuser/src/qemu-4.1.1/include/exec/cpu-all.h:404
+#4  0x0000555555887e26 in tb_htable_lookup (cpu=cpu@entry=0x555556305fc0, pc=pc@entry=18446744072637913536, cs_base=cs_base@entry=0, flags=flags@entry=24577, cf_mask=4278714368) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cpu-exec.c:339
+
+EVIDENCE translated page hit=3
+addr = 18446744072637913536
+*physical = 2149584896
+pte = 536871119
+ptshift = 18
+#0  get_physical_address (env=env@entry=0x55555630e9d0, physical=physical@entry=0x7ffff4dfe2c0, prot=prot@entry=0x7ffff4dfe2bc, addr=addr@entry=18446744072637913536, access_type=access_type@entry=2, mmu_idx=mmu_idx@entry=1) at /home/vmuser/src/qemu-4.1.1/target/riscv/cpu_helper.c:337
+#1  0x00005555558e9fdb in riscv_cpu_tlb_fill (cs=0x555556305fc0, address=18446744072637913536, size=0, access_type=MMU_INST_FETCH, mmu_idx=1, probe=false, retaddr=0) at /home/vmuser/src/qemu-4.1.1/target/riscv/cpu_helper.c:451
+#2  0x000055555586a944 in tlb_fill (cpu=cpu@entry=0x555556305fc0, addr=addr@entry=18446744072637913536, size=size@entry=0, access_type=access_type@entry=MMU_INST_FETCH, mmu_idx=mmu_idx@entry=1, retaddr=retaddr@entry=0) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:878
+#3  0x000055555586de41 in get_page_addr_code (env=0x55555630e9d0, addr=addr@entry=18446744072637913536) at /home/vmuser/src/qemu-4.1.1/include/exec/cpu-all.h:404
+#4  0x0000555555887e26 in tb_htable_lookup (cpu=cpu@entry=0x555556305fc0, pc=pc@entry=18446744072637913536, cs_base=cs_base@entry=0, flags=flags@entry=24577, cf_mask=4278714368) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cpu-exec.c:339
+
+EVIDENCE TLB install hit=3
+vaddr = 18446744072637911040
+paddr = 2149584896
+prot = 7
+mmu_idx = 1
+#0  tlb_set_page_with_attrs (cpu=cpu@entry=0x555556305fc0, vaddr=vaddr@entry=18446744072637911040, paddr=2149584896, attrs=attrs@entry={unspecified = 1, secure = 0, user = 0, requester_id = 0, target_tlb_bit0 = 0, target_tlb_bit1 = 0, target_tlb_bit2 = 0}, prot=7, mmu_idx=mmu_idx@entry=1, size=4096) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:700
+#1  0x000055555586dd2a in tlb_set_page (cpu=cpu@entry=0x555556305fc0, vaddr=vaddr@entry=18446744072637911040, paddr=<optimized out>, prot=<optimized out>, mmu_idx=mmu_idx@entry=1, size=size@entry=4096) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:847
+#2  0x00005555558ea13d in riscv_cpu_tlb_fill (cs=0x555556305fc0, address=18446744072637913536, size=<optimized out>, access_type=MMU_INST_FETCH, mmu_idx=1, probe=<optimized out>, retaddr=0) at /home/vmuser/src/qemu-4.1.1/target/riscv/cpu_helper.c:472
+#3  0x000055555586a944 in tlb_fill (cpu=cpu@entry=0x555556305fc0, addr=addr@entry=18446744072637913536, size=size@entry=0, access_type=access_type@entry=MMU_INST_FETCH, mmu_idx=mmu_idx@entry=1, retaddr=retaddr@entry=0) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:878
+#4  0x000055555586de41 in get_page_addr_code (env=0x55555630e9d0, addr=addr@entry=18446744072637913536) at /home/vmuser/src/qemu-4.1.1/include/exec/cpu-all.h:404
+
+EVIDENCE instruction TLB lookup hit=5
+addr = 18446744072637913536
+entry->addr_code = 18446744072637911040
+mmu_idx = 1
+#0  get_page_addr_code (env=0x55555630e9d0, addr=addr@entry=18446744072637913536) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:1030
+#1  0x0000555555887e26 in tb_htable_lookup (cpu=cpu@entry=0x555556305fc0, pc=pc@entry=18446744072637913536, cs_base=cs_base@entry=0, flags=flags@entry=24577, cf_mask=4278714368) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cpu-exec.c:339
+#2  0x0000555555888211 in tb_lookup__cpu_state (cpu=0x555556305fc0, cpu@entry=0x0, pc=<synthetic pointer>, cs_base=<synthetic pointer>, flags=<synthetic pointer>, cf_mask=<optimized out>) at /home/vmuser/src/qemu-4.1.1/include/exec/tb-lookup.h:43
+#3  tb_find (cpu=cpu@entry=0x555556305fc0, last_tb=last_tb@entry=0x0, tb_exit=0, cf_mask=524288) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cpu-exec.c:406
+#4  0x00005555558885d2 in cpu_exec (cpu=cpu@entry=0x555556305fc0) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cpu-exec.c:731
+
+EVIDENCE instruction TLB lookup hit=6
+addr = 18446744072637913536
+entry->addr_code = 18446744072637911040
+mmu_idx = 1
+#0  get_page_addr_code (env=env@entry=0x55555630e9d0, addr=addr@entry=18446744072637913536) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:1030
+#1  0x000055555588a1d9 in tb_gen_code (cpu=cpu@entry=0x555556305fc0, pc=pc@entry=18446744072637913536, cs_base=cs_base@entry=0, flags=24577, cflags=cflags@entry=524288) at /home/vmuser/src/qemu-4.1.1/accel/tcg/translate-all.c:1686
+#2  0x0000555555888310 in tb_find (cpu=cpu@entry=0x555556305fc0, last_tb=last_tb@entry=0x0, tb_exit=0, cf_mask=524288) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cpu-exec.c:409
+#3  0x00005555558885d2 in cpu_exec (cpu=cpu@entry=0x555556305fc0) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cpu-exec.c:731
+#4  0x000055555584fd25 in tcg_cpu_exec (cpu=0x555556305fc0) at /home/vmuser/src/qemu-4.1.1/cpus.c:1435
+
+EVIDENCE instruction TLB lookup hit=7
+addr = 18446744072637913538
+entry->addr_code = 18446744072637911040
+mmu_idx = 1
+#0  get_page_addr_code (env=0x55555630e9d0, addr=addr@entry=18446744072637913538) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:1030
+#1  0x0000555555887e26 in tb_htable_lookup (cpu=cpu@entry=0x555556305fc0, pc=pc@entry=18446744072637913538, cs_base=cs_base@entry=0, flags=flags@entry=24577, cf_mask=4278714368) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cpu-exec.c:339
+#2  0x0000555555888211 in tb_lookup__cpu_state (cpu=0x555556305fc0, cpu@entry=0x7ffff4e51000 <code_gen_buffer+331731>, pc=<synthetic pointer>, cs_base=<synthetic pointer>, flags=<synthetic pointer>, cf_mask=<optimized out>) at /home/vmuser/src/qemu-4.1.1/include/exec/tb-lookup.h:43
+#3  tb_find (cpu=cpu@entry=0x555556305fc0, last_tb=last_tb@entry=0x7ffff4e51000 <code_gen_buffer+331731>, tb_exit=1, cf_mask=524288) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cpu-exec.c:406
+#4  0x00005555558885d2 in cpu_exec (cpu=cpu@entry=0x555556305fc0) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cpu-exec.c:731
+
+EVIDENCE instruction TLB lookup hit=8
+addr = 18446744072637913538
+entry->addr_code = 18446744072637911040
+mmu_idx = 1
+#0  get_page_addr_code (env=env@entry=0x55555630e9d0, addr=addr@entry=18446744072637913538) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:1030
+#1  0x000055555588a1d9 in tb_gen_code (cpu=cpu@entry=0x555556305fc0, pc=pc@entry=18446744072637913538, cs_base=cs_base@entry=0, flags=24577, cflags=cflags@entry=524288) at /home/vmuser/src/qemu-4.1.1/accel/tcg/translate-all.c:1686
+#2  0x0000555555888310 in tb_find (cpu=cpu@entry=0x555556305fc0, last_tb=last_tb@entry=0x7ffff4e51000 <code_gen_buffer+331731>, tb_exit=1, cf_mask=524288) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cpu-exec.c:409
+#3  0x00005555558885d2 in cpu_exec (cpu=cpu@entry=0x555556305fc0) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cpu-exec.c:731
+#4  0x000055555584fd25 in tcg_cpu_exec (cpu=0x555556305fc0) at /home/vmuser/src/qemu-4.1.1/cpus.c:1435
+
+EVIDENCE TLB fill hit=4
+address = 18446744072637931544
+access_type = MMU_DATA_STORE
+mmu_idx = 1
+#0  riscv_cpu_tlb_fill (cs=0x555556305fc0, address=18446744072637931544, size=1, access_type=MMU_DATA_STORE, mmu_idx=1, probe=false, retaddr=140737302041175) at /home/vmuser/src/qemu-4.1.1/target/riscv/cpu_helper.c:438
+#1  0x000055555586a944 in tlb_fill (cpu=cpu@entry=0x555556305fc0, addr=addr@entry=18446744072637931544, size=size@entry=1, access_type=access_type@entry=MMU_DATA_STORE, mmu_idx=mmu_idx@entry=1, retaddr=retaddr@entry=140737302041175) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:878
+#2  0x000055555586e893 in store_helper (env=0x55555630e9d0, addr=18446744072637931544, val=<optimized out>, oi=<optimized out>, retaddr=140737302041175, size=1, big_endian=false) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:1522
+#3  helper_ret_stb_mmu (env=0x55555630e9d0, addr=18446744072637931544, val=0 '\000', oi=<optimized out>, retaddr=140737302041175) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:1642
+#4  0x00007ffff4e51257 in code_gen_buffer ()
+
+EVIDENCE PTE loaded hit=4
+addr = 18446744072637931544
+base = 2149601280
+i = 0
+levels = 3
+ptshift = 18
+idx = 511
+pte_addr = 2149605368
+pte = 536871119
+ppn = 524288
+#0  get_physical_address (env=env@entry=0x55555630e9d0, physical=physical@entry=0x7ffff4dfe360, prot=prot@entry=0x7ffff4dfe35c, addr=addr@entry=18446744072637931544, access_type=access_type@entry=1, mmu_idx=mmu_idx@entry=1) at /home/vmuser/src/qemu-4.1.1/target/riscv/cpu_helper.c:256
+#1  0x00005555558e9fdb in riscv_cpu_tlb_fill (cs=0x555556305fc0, address=18446744072637931544, size=1, access_type=MMU_DATA_STORE, mmu_idx=1, probe=false, retaddr=140737302041175) at /home/vmuser/src/qemu-4.1.1/target/riscv/cpu_helper.c:451
+#2  0x000055555586a944 in tlb_fill (cpu=cpu@entry=0x555556305fc0, addr=addr@entry=18446744072637931544, size=size@entry=1, access_type=access_type@entry=MMU_DATA_STORE, mmu_idx=mmu_idx@entry=1, retaddr=retaddr@entry=140737302041175) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:878
+#3  0x000055555586e893 in store_helper (env=0x55555630e9d0, addr=18446744072637931544, val=<optimized out>, oi=<optimized out>, retaddr=140737302041175, size=1, big_endian=false) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:1522
+#4  helper_ret_stb_mmu (env=0x55555630e9d0, addr=18446744072637931544, val=0 '\000', oi=<optimized out>, retaddr=140737302041175) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:1642
+
+EVIDENCE translated page hit=4
+addr = 18446744072637931544
+*physical = 2149605376
+pte = 536871119
+ptshift = 18
+#0  get_physical_address (env=env@entry=0x55555630e9d0, physical=physical@entry=0x7ffff4dfe360, prot=prot@entry=0x7ffff4dfe35c, addr=addr@entry=18446744072637931544, access_type=access_type@entry=1, mmu_idx=mmu_idx@entry=1) at /home/vmuser/src/qemu-4.1.1/target/riscv/cpu_helper.c:337
+#1  0x00005555558e9fdb in riscv_cpu_tlb_fill (cs=0x555556305fc0, address=18446744072637931544, size=1, access_type=MMU_DATA_STORE, mmu_idx=1, probe=false, retaddr=140737302041175) at /home/vmuser/src/qemu-4.1.1/target/riscv/cpu_helper.c:451
+#2  0x000055555586a944 in tlb_fill (cpu=cpu@entry=0x555556305fc0, addr=addr@entry=18446744072637931544, size=size@entry=1, access_type=access_type@entry=MMU_DATA_STORE, mmu_idx=mmu_idx@entry=1, retaddr=retaddr@entry=140737302041175) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:878
+#3  0x000055555586e893 in store_helper (env=0x55555630e9d0, addr=18446744072637931544, val=<optimized out>, oi=<optimized out>, retaddr=140737302041175, size=1, big_endian=false) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:1522
+#4  helper_ret_stb_mmu (env=0x55555630e9d0, addr=18446744072637931544, val=0 '\000', oi=<optimized out>, retaddr=140737302041175) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:1642
+
+EVIDENCE TLB install hit=4
+vaddr = 18446744072637931520
+paddr = 2149605376
+prot = 7
+mmu_idx = 1
+#0  tlb_set_page_with_attrs (cpu=cpu@entry=0x555556305fc0, vaddr=vaddr@entry=18446744072637931520, paddr=2149605376, attrs=attrs@entry={unspecified = 1, secure = 0, user = 0, requester_id = 0, target_tlb_bit0 = 0, target_tlb_bit1 = 0, target_tlb_bit2 = 0}, prot=7, mmu_idx=mmu_idx@entry=1, size=4096) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:700
+#1  0x000055555586dd2a in tlb_set_page (cpu=cpu@entry=0x555556305fc0, vaddr=vaddr@entry=18446744072637931520, paddr=<optimized out>, prot=<optimized out>, mmu_idx=mmu_idx@entry=1, size=size@entry=4096) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:847
+#2  0x00005555558ea13d in riscv_cpu_tlb_fill (cs=0x555556305fc0, address=18446744072637931544, size=<optimized out>, access_type=MMU_DATA_STORE, mmu_idx=1, probe=<optimized out>, retaddr=140737302041175) at /home/vmuser/src/qemu-4.1.1/target/riscv/cpu_helper.c:472
+#3  0x000055555586a944 in tlb_fill (cpu=cpu@entry=0x555556305fc0, addr=addr@entry=18446744072637931544, size=size@entry=1, access_type=access_type@entry=MMU_DATA_STORE, mmu_idx=mmu_idx@entry=1, retaddr=retaddr@entry=140737302041175) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:878
+#4  0x000055555586e893 in store_helper (env=0x55555630e9d0, addr=18446744072637931544, val=<optimized out>, oi=<optimized out>, retaddr=140737302041175, size=1, big_endian=false) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:1522
+DTB Init
+HartID: 
+EVIDENCE C TLB read lookup hit=1
+addr = 18446744072637916664
+tlb_addr = <optimized out>
+mmu_idx = 1
+#0  load_helper (env=0x55555630e9d0, addr=18446744072637916664, oi=97, retaddr=140737302072206, size=4, big_endian=false, code_read=false, full_load=0x55555586b9f0 <full_le_ldul_mmu>) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:1272
+#1  full_le_ldul_mmu (env=0x55555630e9d0, addr=18446744072637916664, oi=97, retaddr=140737302072206) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:1423
+#2  0x00007ffff4e58bcc in code_gen_buffer ()
+#3  0x0000555555887b08 in cpu_tb_exec (cpu=cpu@entry=0x555556305fc0, itb=0x7ffff4e58a80 <code_gen_buffer+363091>) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cpu-exec.c:173
+#4  0x00005555558885dd in cpu_loop_exec_tb (cpu=0x555556305fc0, tb=<optimized out>, last_tb=<synthetic pointer>, tb_exit=<synthetic pointer>) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cpu-exec.c:621
+
+EVIDENCE TLB fill hit=5
+address = 18446744072637916664
+access_type = MMU_DATA_LOAD
+mmu_idx = 1
+#0  riscv_cpu_tlb_fill (cs=0x555556305fc0, address=18446744072637916664, size=4, access_type=MMU_DATA_LOAD, mmu_idx=1, probe=false, retaddr=140737302072206) at /home/vmuser/src/qemu-4.1.1/target/riscv/cpu_helper.c:438
+#1  0x000055555586a944 in tlb_fill (cpu=cpu@entry=0x555556305fc0, addr=addr@entry=18446744072637916664, size=size@entry=4, access_type=access_type@entry=MMU_DATA_LOAD, mmu_idx=mmu_idx@entry=1, retaddr=retaddr@entry=140737302072206) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:878
+#2  0x000055555586bc55 in load_helper (env=0x55555630e9d0, addr=18446744072637916664, oi=97, retaddr=140737302072206, size=4, big_endian=false, code_read=false, full_load=0x55555586b9f0 <full_le_ldul_mmu>) at /home/vmuser/src/qemu-4.1.1/include/exec/cpu-all.h:404
+#3  full_le_ldul_mmu (env=0x55555630e9d0, addr=18446744072637916664, oi=97, retaddr=140737302072206) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:1423
+#4  0x00007ffff4e58bcc in code_gen_buffer ()
+
+EVIDENCE PTE loaded hit=5
+addr = 18446744072637916664
+base = 2149601280
+i = 0
+levels = 3
+ptshift = 18
+idx = 511
+pte_addr = 2149605368
+pte = 536871119
+ppn = 524288
+#0  get_physical_address (env=env@entry=0x55555630e9d0, physical=physical@entry=0x7ffff4dfe350, prot=prot@entry=0x7ffff4dfe34c, addr=addr@entry=18446744072637916664, access_type=access_type@entry=0, mmu_idx=mmu_idx@entry=1) at /home/vmuser/src/qemu-4.1.1/target/riscv/cpu_helper.c:256
+#1  0x00005555558e9fdb in riscv_cpu_tlb_fill (cs=0x555556305fc0, address=18446744072637916664, size=4, access_type=MMU_DATA_LOAD, mmu_idx=1, probe=false, retaddr=140737302072206) at /home/vmuser/src/qemu-4.1.1/target/riscv/cpu_helper.c:451
+#2  0x000055555586a944 in tlb_fill (cpu=cpu@entry=0x555556305fc0, addr=addr@entry=18446744072637916664, size=size@entry=4, access_type=access_type@entry=MMU_DATA_LOAD, mmu_idx=mmu_idx@entry=1, retaddr=retaddr@entry=140737302072206) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:878
+#3  0x000055555586bc55 in load_helper (env=0x55555630e9d0, addr=18446744072637916664, oi=97, retaddr=140737302072206, size=4, big_endian=false, code_read=false, full_load=0x55555586b9f0 <full_le_ldul_mmu>) at /home/vmuser/src/qemu-4.1.1/include/exec/cpu-all.h:404
+#4  full_le_ldul_mmu (env=0x55555630e9d0, addr=18446744072637916664, oi=97, retaddr=140737302072206) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:1423
+
+EVIDENCE translated page hit=5
+addr = 18446744072637916664
+*physical = 2149588992
+pte = 536871119
+ptshift = 18
+#0  get_physical_address (env=env@entry=0x55555630e9d0, physical=physical@entry=0x7ffff4dfe350, prot=prot@entry=0x7ffff4dfe34c, addr=addr@entry=18446744072637916664, access_type=access_type@entry=0, mmu_idx=mmu_idx@entry=1) at /home/vmuser/src/qemu-4.1.1/target/riscv/cpu_helper.c:337
+#1  0x00005555558e9fdb in riscv_cpu_tlb_fill (cs=0x555556305fc0, address=18446744072637916664, size=4, access_type=MMU_DATA_LOAD, mmu_idx=1, probe=false, retaddr=140737302072206) at /home/vmuser/src/qemu-4.1.1/target/riscv/cpu_helper.c:451
+#2  0x000055555586a944 in tlb_fill (cpu=cpu@entry=0x555556305fc0, addr=addr@entry=18446744072637916664, size=size@entry=4, access_type=access_type@entry=MMU_DATA_LOAD, mmu_idx=mmu_idx@entry=1, retaddr=retaddr@entry=140737302072206) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:878
+#3  0x000055555586bc55 in load_helper (env=0x55555630e9d0, addr=18446744072637916664, oi=97, retaddr=140737302072206, size=4, big_endian=false, code_read=false, full_load=0x55555586b9f0 <full_le_ldul_mmu>) at /home/vmuser/src/qemu-4.1.1/include/exec/cpu-all.h:404
+#4  full_le_ldul_mmu (env=0x55555630e9d0, addr=18446744072637916664, oi=97, retaddr=140737302072206) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:1423
+
+EVIDENCE TLB install hit=5
+vaddr = 18446744072637915136
+paddr = 2149588992
+prot = 7
+mmu_idx = 1
+#0  tlb_set_page_with_attrs (cpu=cpu@entry=0x555556305fc0, vaddr=vaddr@entry=18446744072637915136, paddr=2149588992, attrs=attrs@entry={unspecified = 1, secure = 0, user = 0, requester_id = 0, target_tlb_bit0 = 0, target_tlb_bit1 = 0, target_tlb_bit2 = 0}, prot=7, mmu_idx=mmu_idx@entry=1, size=4096) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:700
+#1  0x000055555586dd2a in tlb_set_page (cpu=cpu@entry=0x555556305fc0, vaddr=vaddr@entry=18446744072637915136, paddr=<optimized out>, prot=<optimized out>, mmu_idx=mmu_idx@entry=1, size=size@entry=4096) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:847
+#2  0x00005555558ea13d in riscv_cpu_tlb_fill (cs=0x555556305fc0, address=18446744072637916664, size=<optimized out>, access_type=MMU_DATA_LOAD, mmu_idx=1, probe=<optimized out>, retaddr=140737302072206) at /home/vmuser/src/qemu-4.1.1/target/riscv/cpu_helper.c:472
+#3  0x000055555586a944 in tlb_fill (cpu=cpu@entry=0x555556305fc0, addr=addr@entry=18446744072637916664, size=size@entry=4, access_type=access_type@entry=MMU_DATA_LOAD, mmu_idx=mmu_idx@entry=1, retaddr=retaddr@entry=140737302072206) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:878
+#4  0x000055555586bc55 in load_helper (env=0x55555630e9d0, addr=18446744072637916664, oi=97, retaddr=140737302072206, size=4, big_endian=false, code_read=false, full_load=0x55555586b9f0 <full_le_ldul_mmu>) at /home/vmuser/src/qemu-4.1.1/include/exec/cpu-all.h:404
+0
+DTB Address: 0x82200000
+Physical Memory from DTB:
+  Base: 0x0000000080000000
+  Size: 0x0000000008000000 (128 MB)
+  End:  0x0000000087ffffff
+DTB init completed
+(THU.CST) os is loading ...
+Special kernel symbols:
+  entry  0xffffffffc02000d8 (virtual)
+  etext  0xffffffffc02019d2 (virtual)
+  edata  0xffffffffc0206018 (virtual)
+  end    0xffffffffc0206078 (virtual)
+Kernel executable memory footprint: 24KB
+memory management: default_pmm_manager
+physical memory map:
+  memory: 0x0000000008000000, [0x0000000080000000, 0x0000000087ffffff].
+
+EVIDENCE TLB fill hit=6
+address = 18446744072637935624
+access_type = MMU_DATA_STORE
+mmu_idx = 1
+#0  riscv_cpu_tlb_fill (cs=0x555556305fc0, address=18446744072637935624, size=8, access_type=MMU_DATA_STORE, mmu_idx=1, probe=false, retaddr=140737301764564) at /home/vmuser/src/qemu-4.1.1/target/riscv/cpu_helper.c:438
+#1  0x000055555586a944 in tlb_fill (cpu=cpu@entry=0x555556305fc0, addr=addr@entry=18446744072637935624, size=size@entry=8, access_type=access_type@entry=MMU_DATA_STORE, mmu_idx=mmu_idx@entry=1, retaddr=retaddr@entry=140737301764564) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:878
+#2  0x000055555586f72a in store_helper (env=0x55555630e9d0, addr=18446744072637935624, val=1, oi=49, retaddr=140737301764564, size=8, big_endian=false) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:1522
+#3  helper_le_stq_mmu (env=0x55555630e9d0, addr=18446744072637935624, val=1, oi=49, retaddr=140737301764564) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:1672
+#4  0x00007ffff4e0d9d4 in code_gen_buffer ()
+
+EVIDENCE TLB install hit=6
+vaddr = 18446744072637935616
+paddr = 2149609472
+prot = 7
+mmu_idx = 1
+#0  tlb_set_page_with_attrs (cpu=cpu@entry=0x555556305fc0, vaddr=vaddr@entry=18446744072637935616, paddr=2149609472, attrs=attrs@entry={unspecified = 1, secure = 0, user = 0, requester_id = 0, target_tlb_bit0 = 0, target_tlb_bit1 = 0, target_tlb_bit2 = 0}, prot=7, mmu_idx=mmu_idx@entry=1, size=4096) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:700
+#1  0x000055555586dd2a in tlb_set_page (cpu=cpu@entry=0x555556305fc0, vaddr=vaddr@entry=18446744072637935616, paddr=<optimized out>, prot=<optimized out>, mmu_idx=mmu_idx@entry=1, size=size@entry=4096) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:847
+#2  0x00005555558ea13d in riscv_cpu_tlb_fill (cs=0x555556305fc0, address=18446744072637935624, size=<optimized out>, access_type=MMU_DATA_STORE, mmu_idx=1, probe=<optimized out>, retaddr=140737301764564) at /home/vmuser/src/qemu-4.1.1/target/riscv/cpu_helper.c:472
+#3  0x000055555586a944 in tlb_fill (cpu=cpu@entry=0x555556305fc0, addr=addr@entry=18446744072637935624, size=size@entry=8, access_type=access_type@entry=MMU_DATA_STORE, mmu_idx=mmu_idx@entry=1, retaddr=retaddr@entry=140737301764564) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:878
+#4  0x000055555586f72a in store_helper (env=0x55555630e9d0, addr=18446744072637935624, val=1, oi=49, retaddr=140737301764564, size=8, big_endian=false) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:1522
+
+EVIDENCE TLB fill hit=7
+address = 18446744072637912086
+access_type = MMU_INST_FETCH
+mmu_idx = 1
+#0  riscv_cpu_tlb_fill (cs=0x555556305fc0, address=18446744072637912086, size=0, access_type=MMU_INST_FETCH, mmu_idx=1, probe=false, retaddr=0) at /home/vmuser/src/qemu-4.1.1/target/riscv/cpu_helper.c:438
+#1  0x000055555586a944 in tlb_fill (cpu=cpu@entry=0x555556305fc0, addr=addr@entry=18446744072637912086, size=size@entry=0, access_type=access_type@entry=MMU_INST_FETCH, mmu_idx=mmu_idx@entry=1, retaddr=retaddr@entry=0) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:878
+#2  0x000055555586de41 in get_page_addr_code (env=0x55555630e9d0, addr=addr@entry=18446744072637912086) at /home/vmuser/src/qemu-4.1.1/include/exec/cpu-all.h:404
+#3  0x0000555555887e26 in tb_htable_lookup (cpu=cpu@entry=0x555556305fc0, pc=pc@entry=18446744072637912086, cs_base=cs_base@entry=0, flags=flags@entry=24577, cf_mask=4278714368) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cpu-exec.c:339
+#4  0x0000555555888211 in tb_lookup__cpu_state (cpu=0x555556305fc0, cpu@entry=0x7ffff4e0dc00 <code_gen_buffer+56275>, pc=<synthetic pointer>, cs_base=<synthetic pointer>, flags=<synthetic pointer>, cf_mask=<optimized out>) at /home/vmuser/src/qemu-4.1.1/include/exec/tb-lookup.h:43
+
+EVIDENCE TLB install hit=7
+vaddr = 18446744072637911040
+paddr = 2149584896
+prot = 7
+mmu_idx = 1
+#0  tlb_set_page_with_attrs (cpu=cpu@entry=0x555556305fc0, vaddr=vaddr@entry=18446744072637911040, paddr=2149584896, attrs=attrs@entry={unspecified = 1, secure = 0, user = 0, requester_id = 0, target_tlb_bit0 = 0, target_tlb_bit1 = 0, target_tlb_bit2 = 0}, prot=7, mmu_idx=mmu_idx@entry=1, size=4096) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:700
+#1  0x000055555586dd2a in tlb_set_page (cpu=cpu@entry=0x555556305fc0, vaddr=vaddr@entry=18446744072637911040, paddr=<optimized out>, prot=<optimized out>, mmu_idx=mmu_idx@entry=1, size=size@entry=4096) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:847
+#2  0x00005555558ea13d in riscv_cpu_tlb_fill (cs=0x555556305fc0, address=18446744072637912086, size=<optimized out>, access_type=MMU_INST_FETCH, mmu_idx=1, probe=<optimized out>, retaddr=0) at /home/vmuser/src/qemu-4.1.1/target/riscv/cpu_helper.c:472
+#3  0x000055555586a944 in tlb_fill (cpu=cpu@entry=0x555556305fc0, addr=addr@entry=18446744072637912086, size=size@entry=0, access_type=access_type@entry=MMU_INST_FETCH, mmu_idx=mmu_idx@entry=1, retaddr=retaddr@entry=0) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:878
+#4  0x000055555586de41 in get_page_addr_code (env=0x55555630e9d0, addr=addr@entry=18446744072637912086) at /home/vmuser/src/qemu-4.1.1/include/exec/cpu-all.h:404
+
+EVIDENCE C TLB read lookup hit=2
+addr = 18446744072637931608
+tlb_addr = <optimized out>
+mmu_idx = 1
+#0  load_helper (env=0x55555630e9d0, addr=18446744072637931608, oi=49, retaddr=140737301766844, size=8, big_endian=false, code_read=false, full_load=0x55555586e100 <helper_le_ldq_mmu>) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:1272
+#1  helper_le_ldq_mmu (env=0x55555630e9d0, addr=18446744072637931608, oi=49, retaddr=140737301766844) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:1449
+#2  0x00007ffff4e0e378 in code_gen_buffer ()
+#3  0x0000555555887b08 in cpu_tb_exec (cpu=cpu@entry=0x555556305fc0, itb=0x7ffff4e0e1c0 <code_gen_buffer+57747>) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cpu-exec.c:173
+#4  0x00005555558885dd in cpu_loop_exec_tb (cpu=0x555556305fc0, tb=<optimized out>, last_tb=<synthetic pointer>, tb_exit=<synthetic pointer>) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cpu-exec.c:621
+
+EVIDENCE TLB fill hit=8
+address = 18446744072637931608
+access_type = MMU_DATA_LOAD
+mmu_idx = 1
+#0  riscv_cpu_tlb_fill (cs=0x555556305fc0, address=18446744072637931608, size=8, access_type=MMU_DATA_LOAD, mmu_idx=1, probe=false, retaddr=140737301766844) at /home/vmuser/src/qemu-4.1.1/target/riscv/cpu_helper.c:438
+#1  0x000055555586a944 in tlb_fill (cpu=cpu@entry=0x555556305fc0, addr=addr@entry=18446744072637931608, size=size@entry=8, access_type=access_type@entry=MMU_DATA_LOAD, mmu_idx=mmu_idx@entry=1, retaddr=retaddr@entry=140737301766844) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:878
+#2  0x000055555586e365 in load_helper (env=0x55555630e9d0, addr=18446744072637931608, oi=49, retaddr=140737301766844, size=8, big_endian=false, code_read=false, full_load=0x55555586e100 <helper_le_ldq_mmu>) at /home/vmuser/src/qemu-4.1.1/include/exec/cpu-all.h:404
+#3  helper_le_ldq_mmu (env=0x55555630e9d0, addr=18446744072637931608, oi=49, retaddr=140737301766844) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:1449
+#4  0x00007ffff4e0e378 in code_gen_buffer ()
+
+EVIDENCE TLB install hit=8
+vaddr = 18446744072637931520
+paddr = 2149605376
+prot = 7
+mmu_idx = 1
+#0  tlb_set_page_with_attrs (cpu=cpu@entry=0x555556305fc0, vaddr=vaddr@entry=18446744072637931520, paddr=2149605376, attrs=attrs@entry={unspecified = 1, secure = 0, user = 0, requester_id = 0, target_tlb_bit0 = 0, target_tlb_bit1 = 0, target_tlb_bit2 = 0}, prot=7, mmu_idx=mmu_idx@entry=1, size=4096) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:700
+#1  0x000055555586dd2a in tlb_set_page (cpu=cpu@entry=0x555556305fc0, vaddr=vaddr@entry=18446744072637931520, paddr=<optimized out>, prot=<optimized out>, mmu_idx=mmu_idx@entry=1, size=size@entry=4096) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:847
+#2  0x00005555558ea13d in riscv_cpu_tlb_fill (cs=0x555556305fc0, address=18446744072637931608, size=<optimized out>, access_type=MMU_DATA_LOAD, mmu_idx=1, probe=<optimized out>, retaddr=140737301766844) at /home/vmuser/src/qemu-4.1.1/target/riscv/cpu_helper.c:472
+#3  0x000055555586a944 in tlb_fill (cpu=cpu@entry=0x555556305fc0, addr=addr@entry=18446744072637931608, size=size@entry=8, access_type=access_type@entry=MMU_DATA_LOAD, mmu_idx=mmu_idx@entry=1, retaddr=retaddr@entry=140737301766844) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:878
+#4  0x000055555586e365 in load_helper (env=0x55555630e9d0, addr=18446744072637931608, oi=49, retaddr=140737301766844, size=8, big_endian=false, code_read=false, full_load=0x55555586e100 <helper_le_ldq_mmu>) at /home/vmuser/src/qemu-4.1.1/include/exec/cpu-all.h:404
+
+EVIDENCE C TLB read lookup hit=3
+addr = 18446744072637915144
+tlb_addr = <optimized out>
+mmu_idx = 1
+#0  load_helper (env=0x55555630e9d0, addr=18446744072637915144, oi=49, retaddr=140737301766927, size=8, big_endian=false, code_read=false, full_load=0x55555586e100 <helper_le_ldq_mmu>) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:1272
+#1  helper_le_ldq_mmu (env=0x55555630e9d0, addr=18446744072637915144, oi=49, retaddr=140737301766927) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:1449
+#2  0x00007ffff4e0e395 in code_gen_buffer ()
+#3  0x0000555555887b08 in cpu_tb_exec (cpu=cpu@entry=0x555556305fc0, itb=0x7ffff4e0e1c0 <code_gen_buffer+57747>) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cpu-exec.c:173
+#4  0x00005555558885dd in cpu_loop_exec_tb (cpu=0x555556305fc0, tb=<optimized out>, last_tb=<synthetic pointer>, tb_exit=<synthetic pointer>) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cpu-exec.c:621
+
+EVIDENCE C TLB read lookup hit=4
+addr = 18446744072637931560
+tlb_addr = <optimized out>
+mmu_idx = 1
+#0  load_helper (env=0x55555630e9d0, addr=18446744072637931560, oi=97, retaddr=140737301769348, size=4, big_endian=false, code_read=false, full_load=0x55555586b9f0 <full_le_ldul_mmu>) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:1272
+#1  full_le_ldul_mmu (env=0x55555630e9d0, addr=18446744072637931560, oi=97, retaddr=140737301769348) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:1423
+#2  0x00007ffff4e0edf6 in code_gen_buffer ()
+#3  0x0000555555887b08 in cpu_tb_exec (cpu=cpu@entry=0x555556305fc0, itb=0x7ffff4e0eb40 <code_gen_buffer+60179>) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cpu-exec.c:173
+#4  0x00005555558885dd in cpu_loop_exec_tb (cpu=0x555556305fc0, tb=<optimized out>, last_tb=<synthetic pointer>, tb_exit=<synthetic pointer>) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cpu-exec.c:621
+
+EVIDENCE C TLB read lookup hit=5
+addr = 18446744072637927352
+tlb_addr = <optimized out>
+mmu_idx = 1
+#0  load_helper (env=0x55555630e9d0, addr=18446744072637927352, oi=49, retaddr=140737301770177, size=8, big_endian=false, code_read=false, full_load=0x55555586e100 <helper_le_ldq_mmu>) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:1272
+#1  helper_le_ldq_mmu (env=0x55555630e9d0, addr=18446744072637927352, oi=49, retaddr=140737301770177) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:1449
+#2  0x00007ffff4e0f0d4 in code_gen_buffer ()
+#3  0x0000555555887b08 in cpu_tb_exec (cpu=cpu@entry=0x555556305fc0, itb=0x7ffff4e0eec0 <code_gen_buffer+61075>) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cpu-exec.c:173
+#4  0x00005555558885dd in cpu_loop_exec_tb (cpu=0x555556305fc0, tb=<optimized out>, last_tb=<synthetic pointer>, tb_exit=<synthetic pointer>) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cpu-exec.c:621
+
+EVIDENCE C TLB read lookup hit=6
+addr = 18446744072637915168
+tlb_addr = <optimized out>
+mmu_idx = 1
+#0  load_helper (env=0x55555630e9d0, addr=18446744072637915168, oi=49, retaddr=140737301714108, size=8, big_endian=false, code_read=false, full_load=0x55555586e100 <helper_le_ldq_mmu>) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:1272
+#1  helper_le_ldq_mmu (env=0x55555630e9d0, addr=18446744072637915168, oi=49, retaddr=140737301714108) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cputlb.c:1449
+#2  0x00007ffff4e0151c in code_gen_buffer ()
+#3  0x0000555555887b08 in cpu_tb_exec (cpu=cpu@entry=0x555556305fc0, itb=0x7ffff4e01380 <code_gen_buffer+4947>) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cpu-exec.c:173
+#4  0x00005555558885dd in cpu_loop_exec_tb (cpu=0x555556305fc0, tb=<optimized out>, last_tb=<synthetic pointer>, tb_exit=<synthetic pointer>) at /home/vmuser/src/qemu-4.1.1/accel/tcg/cpu-exec.c:621
+[Test 1] Page Init: PASS
+check_alloc_page() succeeded!
+satp virtual address: 0xffffffffc0205000
+satp physical address: 0x0000000080205000

@@ -1,0 +1,7 @@
+{
+  "result": "EXPECTED_FAILURE",
+  "framework_check": "PASS",
+  "new_invariant": "detected broken predecessor link",
+  "profile": "portable",
+  "delivered_source_modified": false
+}

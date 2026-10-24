@@ -1,0 +1,6 @@
+.gitattributes text eol=lf
+.gitignore text eol=lf
+/README.md text eol=lf
+lab2/** text eol=lf
+lab2/logs/** -text
+lab2/debug/member1/** -text

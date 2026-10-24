@@ -1,0 +1,41 @@
+The target architecture is set to "riscv:rv64".
+0x0000000000001000 in ?? ()
+Breakpoint 1 at 0xffffffffc0201308: file kern/mm/pmm.c, line 74.
+
+Breakpoint 1, 0xffffffffc0201308 in page_init () at kern/mm/pmm.c:74
+74	    va_pa_offset = PHYSICAL_MEMORY_OFFSET;
+
+GUEST page_init entry
+#0  0xffffffffc0201308 in page_init () at kern/mm/pmm.c:74
+#1  pmm_init () at kern/mm/pmm.c:133
+#2  0xffffffffc0200110 in kern_init () at kern/init/init.c:40
+#3  0x0000000080000a02 in ?? ()
+=> 0xffffffffc0201308 <pmm_init+48>:	auipc	s1,0x5
+   0xffffffffc020130c <pmm_init+52>:	addi	s1,s1,-664
+   0xffffffffc0201310 <pmm_init+56>:	ld	a5,8(a5)
+   0xffffffffc0201312 <pmm_init+58>:	jalr	a5
+   0xffffffffc0201314 <pmm_init+60>:	jal	ra,0xffffffffc02005bc <get_memory_base>
+default_init () at kern/mm/default_pmm.c:13
+13	    list_init(&free_list);
+14	    nr_free = 0;
+Breakpoint 2 at 0xffffffffc02010da: file kern/mm/pmm.c, line 154.
+
+Breakpoint 2, test_page_init () at kern/mm/pmm.c:154
+154	    uint64_t mem_base = get_memory_base();
+
+GUEST initialization complete
+$1 = 0xffffffff40000000
+$2 = 0x88000
+$3 = 0x80000
+$4 = 0xffffffffc0207000
+$5 = 40
+$6 = 0xffffffffc0206078
+$7 = 0x8000000000080205
+0xffffffffc0205ff8:	0x00000000200000cf
+   0xffffffffc02000d8 <kern_init>:	auipc	a0,0x6
+   0xffffffffc02000dc <kern_init+4>:	addi	a0,a0,-192
+   0xffffffffc02000e0 <kern_init+8>:	auipc	a2,0x6
+   0xffffffffc02000e4 <kern_init+12>:	addi	a2,a2,-104
+   0xffffffffc02000e8 <kern_init+16>:	addi	sp,sp,-16
+   0xffffffffc02000ea <kern_init+18>:	sub	a2,a2,a0
+[Inferior 1 (process 1) detached]
