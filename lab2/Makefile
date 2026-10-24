@@ -19,6 +19,27 @@ ifeq ($(PORTABLE_BOOT),1)
 DEFS += -DBOOT_IDENTITY_MAP
 endif
 
+# Page allocator selection. Best-Fit stays the default so the graded path is
+# unchanged; PMM=buddy boots the same kernel on the Buddy System instead.
+# Changing PMM requires "make clean": the choice is a compile-time define and
+# stale objects would otherwise be reused.
+PMM ?= best_fit
+ifeq ($(PMM),buddy)
+DEFS += -DUSE_BUDDY_PMM
+else ifeq ($(PMM),best_fit)
+DEFS += -DUSE_BEST_FIT_PMM
+else
+$(error PMM must be best_fit or buddy, got '$(PMM)')
+endif
+
+# MEMBER3_TESTS=1 also runs the member-three independent suites (buddy tests
+# when PMM=buddy, SLUB tests always). Off by default so the graded boot path
+# prints only the original markers.
+MEMBER3_TESTS ?= 0
+ifeq ($(MEMBER3_TESTS),1)
+DEFS += -DUSE_MEMBER3_TESTS
+endif
+
 ifndef SPIKE
 SPIKE := spike
 endif

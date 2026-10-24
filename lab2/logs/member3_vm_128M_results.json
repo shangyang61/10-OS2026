@@ -1,0 +1,33 @@
+[
+  {
+    "case": "member3_vm_128M",
+    "profile": "course",
+    "memory": "128M",
+    "markers": [
+      "memory management: best_fit_pmm_manager",
+      "check_alloc_page() succeeded!",
+      "member2_page_check() succeeded!",
+      "slub_check() succeeded!"
+    ],
+    "image_sha256": "460d690eda6ac3ec0c8713791e19869a86dfb795eab6126e1514d689c35dfe5d",
+    "result": "PASS"
+  },
+  {
+    "case": "original make grade",
+    "result": "PASS",
+    "score": "20/20"
+  },
+  {
+    "case": "member3_vm_128M_first_fit",
+    "profile": "course",
+    "memory": "128M",
+    "markers": [
+      "memory management: default_pmm_manager",
+      "check_alloc_page() succeeded!",
+      "first_fit_tail_check() succeeded!",
+      "slub_check() succeeded!"
+    ],
+    "image_sha256": "c542c27ac1d3fd0fa2ac34c47ced3b76650f17bdc7cbebb4ecdbbb8c038f901a",
+    "result": "PASS"
+  }
+]
