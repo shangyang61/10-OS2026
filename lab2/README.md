@@ -2,6 +2,8 @@
 
 当前目录汇总成员一交付，并接入成员二的 Best-Fit 与简化 SLUB。实验报告见 [实验报告.md](实验报告.md)。
 
+交接入口：[交接给成员三.md](交接给成员三.md)；本机操作步骤：[VMware手动验证.md](VMware手动验证.md)。
+
 ## 当前状态
 
 - 成员一 page_init、原报告及 VMware 原始日志已保留。
@@ -21,7 +23,7 @@ make qemu QEMU=/实际课程QEMU路径/qemu-system-riscv64
 python3 tests/run_checks.py --profile course --qemu /实际课程QEMU路径/qemu-system-riscv64 --grade --first-fit --log-prefix member2_vm
 ```
 
-成员一原环境的 QEMU 路径为 `/home/vmuser/src/qemu-4.1.1/riscv64-softmmu/qemu-system-riscv64`。本轮已定位用户配置的 VMware，但主机 VMnet8 缺少客体子网地址，SSH 流量走向无线默认路由；添加临时地址被 Windows 权限拒绝，待管理员处理后复跑。当前不能把 WSL 日志当作该虚拟机实测。
+成员一原环境的 QEMU 路径为 `/home/vmuser/src/qemu-4.1.1/riscv64-softmmu/qemu-system-riscv64`。本轮已定位用户配置的 VMware，用户补齐主机 VMnet8 临时地址后已能 ping 通客体，但 SSH 22 端口未监听；整合版本尚未在该 VMware 中实测。可按手动指南在 Ubuntu 终端直接复跑，当前 WSL 日志仍单独记录。
 
 ## 现代 QEMU 与 OpenSBI
 
