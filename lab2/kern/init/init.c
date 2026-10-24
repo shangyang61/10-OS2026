@@ -5,6 +5,7 @@
 #include <string.h>
 #include <dtb.h>
 #include <slub.h>
+#include <member3_check.h>
 
 void member2_page_check(void);
 
@@ -41,9 +42,21 @@ int kern_init(void) {
 
     // grade_backtrace();
     pmm_init();  // init physical memory management
+    /* member2_page_check asserts Best-Fit specific choices (exact physical
+     * address of the best block, one-call allocation of the whole free
+     * region), so it must not run under Buddy. member3_buddy_test covers the
+     * page layer for the Buddy configuration instead. */
+#if !defined(USE_BUDDY_PMM)
     member2_page_check();
+#endif
     slub_init();
     slub_check();
+#if defined(USE_MEMBER3_TESTS)
+#if defined(USE_BUDDY_PMM)
+    member3_buddy_test();
+#endif
+    member3_slub_test();
+#endif
 
     /* do nothing */
     while (1)

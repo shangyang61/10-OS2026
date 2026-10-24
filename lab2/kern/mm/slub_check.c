@@ -18,10 +18,36 @@ void slub_check(void) {
     kfree(NULL);
     assert(kmalloc((size_t)-1) == NULL);
     assert(kmalloc((npage - nbase + 1) * PGSIZE) == NULL);
+    /* OOM by page exhaustion. Best-Fit keeps the whole free region as one
+     * contiguous block, so a single request can take it all. Buddy splits its
+     * free space over several orders, so that same call may legitimately fail;
+     * there we take one page at a time instead. Either way the page layer is
+     * empty afterwards, which is what this check needs. */
+#if defined(USE_BUDDY_PMM)
+    size_t taken = 0;
+    while (alloc_page() != NULL) {
+        ++taken;
+    }
+    assert(taken == before); // Single pages must exhaust the machine.
+#else
     struct Page *all = alloc_pages(before);
     assert(all != NULL);
+#endif
     assert(kmalloc(16) == NULL && kmalloc(4096) == NULL);
+#if defined(USE_BUDDY_PMM)
+    /* No SLUB object is live yet, so every non-reserved descriptor is a page
+     * we just took. Walk downward: a free may merge upward and move the block
+     * head to the current index, which we never revisit. */
+    for (size_t i = npage - nbase; i > 0; --i) {
+        struct Page *q = &pages[i - 1];
+        if (!PageReserved(q)) {
+            free_pages(q, 1);
+        }
+    }
+#else
     free_pages(all, before);
+#endif
+    assert(nr_free_pages() == before);
     for (size_t i = 0; i < 300; ++i) {
         sizes[i] = i < 260 ? 16 :
                    boundaries[(i - 260) % (sizeof(boundaries) / sizeof(size_t))];

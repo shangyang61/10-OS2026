@@ -1,0 +1,19 @@
+{
+  "timestamp_utc": "2026-10-24T11:51:19.378860+00:00",
+  "system": {
+    "system": "Linux",
+    "node": "monstern-VMware-Virtual-Platform",
+    "release": "7.0.0-38-generic",
+    "version": "#38-Ubuntu SMP PREEMPT_DYNAMIC Fri Sep  4 09:10:14 UTC 2026",
+    "machine": "x86_64",
+    "processor": ""
+  },
+  "qemu": "/opt/ucore-manual/qemu-4.1.1/bin/qemu-system-riscv64",
+  "compiler": "/usr/bin/riscv64-unknown-elf-gcc",
+  "profiles": [
+    "buddy",
+    "best_fit"
+  ],
+  "/usr/bin/riscv64-unknown-elf-gcc": "riscv64-unknown-elf-gcc (14.2.0+19) 14.2.0",
+  "/opt/ucore-manual/qemu-4.1.1/bin/qemu-system-riscv64": "QEMU emulator version 4.1.1"
+}
