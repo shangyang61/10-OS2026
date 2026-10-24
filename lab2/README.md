@@ -8,7 +8,7 @@
 - 默认管理器为 Best-Fit，原有两个测试未改；成员二补充页测试与 SLUB 实现自检通过。
 - 本轮 WSL/QEMU 7 实测原始评分 20/20，初始化边界 10/10，First-Fit 回归通过。
 - Buddy、成员三独立 SLUB 测试与最终小组验收待对应交付合入。
-- 成员二姓名和学号尚待本人确认，提交前须完成代码学号标记与报告署名。
+- 成员二为邹俊轩（2412592），代码学号标记与报告署名已补齐。
 
 ## 课程环境 QEMU 4.1.1
 
@@ -21,7 +21,7 @@ make qemu QEMU=/实际课程QEMU路径/qemu-system-riscv64
 python3 tests/run_checks.py --profile course --qemu /实际课程QEMU路径/qemu-system-riscv64 --grade --first-fit --log-prefix member2_vm
 ```
 
-成员一原环境的 QEMU 路径为 `/home/vmuser/src/qemu-4.1.1/riscv64-softmmu/qemu-system-riscv64`。本轮尚未连通该 VMware SSH，不能把新 WSL 日志当作该虚拟机实测。
+成员一原环境的 QEMU 路径为 `/home/vmuser/src/qemu-4.1.1/riscv64-softmmu/qemu-system-riscv64`。本轮已定位用户配置的 VMware，但主机 VMnet8 缺少客体子网地址，SSH 流量走向无线默认路由；添加临时地址被 Windows 权限拒绝，待管理员处理后复跑。当前不能把 WSL 日志当作该虚拟机实测。
 
 ## 现代 QEMU 与 OpenSBI
 
