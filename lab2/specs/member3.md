@@ -45,6 +45,10 @@ free_pages(base,3) -> 由块首记录恢复 order 2，完整归还 4 页
 `free_pages` **不接受**只释放大块的一部分。调用者必须传入
 `alloc_pages` 返回的块首和相同的请求页数。
 
+当前保存的是阶数而非原始 n；断言只检验传入 n 是否对应同一阶，不能识别
+同阶范围内误记的其他 n。因此“传回原请求”属于调用契约，不等于实现能
+检查出所有错误请求或非法指针。
+
 ### 不变量
 
 1. 空闲链表按阶组织，第 k 条链上的块大小恰为 2^k 页。
@@ -74,10 +78,10 @@ free_pages(base,3) -> 由块首记录恢复 order 2，完整归还 4 页
 ```sh
 make clean
 make PMM=buddy MEMBER3_TESTS=1
-make qemu QEMU=/课程QEMU路径/qemu-system-riscv64
+make qemu PMM=buddy MEMBER3_TESTS=1 QEMU=/课程QEMU路径/qemu-system-riscv64
 
 # 或一次性跑两种配置并留下日志
-python3 tests/member3/run_member3_checks.py \
+python3 tests/run_member3_checks.py \
   --qemu /课程QEMU路径/qemu-system-riscv64
 ```
 

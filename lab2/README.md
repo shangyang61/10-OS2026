@@ -1,6 +1,6 @@
 # Lab2 物理内存和页表
 
-当前目录汇总成员一交付，并接入成员二的 Best-Fit 与简化 SLUB。实验报告见 [实验报告.md](实验报告.md)。
+当前目录已整合三位成员的初始化、Best-Fit、Buddy、简化 SLUB 与独立测试。完整实验报告见 [实验报告.md](实验报告.md)，本人需补的图片与操作见 [截图操作指南.md](截图操作指南.md)。
 
 交接入口：[交接给成员三.md](交接给成员三.md)；本机操作步骤：[VMware手动验证.md](VMware手动验证.md)。
 
@@ -19,12 +19,13 @@
 
 ```sh
 export PATH=/opt/riscv/bin:$PATH
-make
-make qemu QEMU=/实际课程QEMU路径/qemu-system-riscv64
+make clean
+make PMM=best_fit
+make qemu PMM=best_fit QEMU=/实际课程QEMU路径/qemu-system-riscv64
 python3 tests/run_checks.py --profile course --qemu /实际课程QEMU路径/qemu-system-riscv64 --grade --first-fit --log-prefix member2_vm
 ```
 
-成员一原环境的 QEMU 路径为 `/home/vmuser/src/qemu-4.1.1/riscv64-softmmu/qemu-system-riscv64`。本轮已定位用户配置的 VMware，用户补齐主机 VMnet8 临时地址后已能 ping 通客体，但 SSH 22 端口未监听；整合版本尚未在该 VMware 中实测。可按手动指南在 Ubuntu 终端直接复跑，当前 WSL 日志仍单独记录。
+成员三已在 VMware 的课程 QEMU 4.1.1 环境完成集成，路径为 `/opt/ucore-manual/qemu-4.1.1/bin/qemu-system-riscv64`，证据见 logs/member3_vm_* 与 member3_bestfit_128M_*。成员一和成员二的历史环境与日志另行保留，具体区别见报告。其他机器复跑时先核对自己的工具路径。
 
 ## 现代 QEMU 与 OpenSBI
 
@@ -44,7 +45,7 @@ python3 tests/run_checks.py --profile portable --grade --first-fit --log-prefix 
 ```sh
 make clean
 make PMM=buddy MEMBER3_TESTS=1
-make qemu QEMU=/实际课程QEMU路径/qemu-system-riscv64
+make qemu PMM=buddy MEMBER3_TESTS=1 QEMU=/实际课程QEMU路径/qemu-system-riscv64
 ```
 
 或一次跑完两种配置并留下日志：
@@ -58,9 +59,9 @@ python3 tests/run_member3_checks.py \
 契约见 [成员三规格](specs/member3.md)，实现与测试说明见
 [成员三工作说明](reports/成员三工作说明.md)，prompt 见 `prompts/member3/`。
 
-`member2_page_check` 与 `slub_check` 含 Best-Fit 专属假设（见
-`交接给成员三.md`），因此 Buddy 配置下单独运行成员三测试，不把它们当作
-Buddy 的验收标准。
+`member2_page_check` 含 Best-Fit 的地址选择假设，Buddy 下不运行；`slub_check`
+已为 Buddy 增加逐页耗尽分支，两种配置都运行。MEMBER3_TESTS=1 进一步运行
+独立测试，当前完整结果以实验报告和成员三日志为准。
 
 ## 复核命令
 
