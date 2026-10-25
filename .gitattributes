@@ -4,3 +4,4 @@
 lab2/** text eol=lf
 lab2/logs/** -text
 lab2/debug/member1/** -text
+lab2/images/*.png binary
