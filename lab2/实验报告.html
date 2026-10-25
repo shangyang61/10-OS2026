@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Lab2 &#x7269;&#x7406;&#x5185;&#x5b58;&#x548c;&#x9875;&#x8868;&#x5b9e;&#x9a8c;&#x62a5;&#x544a;</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <span id="markdown-mermaid" aria-hidden="true" data-config="{&quot;darkModeTheme&quot;:&quot;vscode&quot;,&quot;lightModeTheme&quot;:&quot;vscode&quot;,&quot;maxTextSize&quot;:50000,&quot;clickDrag&quot;:&quot;alt&quot;,&quot;showControls&quot;:&quot;onHoverOrFocus&quot;,&quot;resizable&quot;:true,&quot;maxHeight&quot;:&quot;&quot;}"></span>
+				<h1 id="lab2-物理内存和页表实验报告">Lab2 物理内存和页表实验报告</h1>
+<h2 id="一-实验信息与完成情况">一 实验信息与完成情况</h2>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>实验名称</td>
+<td>Lab2 物理内存和页表</td>
+</tr>
+<tr>
+<td>成员一</td>
+<td>石昊洋，2411804；物理内存初始化、QEMU/GDB 与 TLB 调试、内存探测思考题</td>
+</tr>
+<tr>
+<td>成员二</td>
+<td>邹俊轩，2412592；First-Fit 分析、Best-Fit、简化 SLUB、实验报告整理</td>
+</tr>
+<tr>
+<td>成员三</td>
+<td>秦东杰，2411738；Buddy System、独立 Buddy/SLUB 测试、集成验收</td>
+</tr>
+<tr>
+<td>代码仓库</td>
+<td><a href="https://github.com/shangyang61/10-OS2026">https://github.com/shangyang61/10-OS2026</a></td>
+</tr>
+<tr>
+<td>实现基线</td>
+<td><code>27a9202e66fbbec859b06c7b3054afa4fb6558f4</code>，已合入成员三成果</td>
+</tr>
+<tr>
+<td>报告整理日期</td>
+<td>初稿 2026-10-24；截图与本人 VMware 复验记录更新于 2026-10-25</td>
+</tr>
+</tbody>
+</table>
+<p>我们已经完成物理页初始化、First-Fit 分析与修复、Best-Fit、Buddy System、简化 SLUB，以及独立测试和集成验证。默认 Best-Fit 路径在课程 QEMU 4.1.1 中评分为 20/20；Buddy 六组独立测试与 SLUB 八组独立测试通过，SLUB 在 Best-Fit 和 Buddy 两种页策略下均完成验证。</p>
+<p>本文依据各成员提交的源码、规格、提示词和原始日志整理，并插入邹俊轩于 2026-10-25 在 VMware 中实际操作的 8 张原始截图。成员一的 Sv39/TLB 调试、成员二的 WSL 开发验证、成员三的 VMware 集成以及本次本人 VMware 复验属于不同运行，分别注明来源和构建参数。各成员原始日志与本人终端截图互相补充；截图来源清单见 <a href="images/README.html">images/README.md</a>，复现步骤见<a href="%E6%88%AA%E5%9B%BE%E6%93%8D%E4%BD%9C%E6%8C%87%E5%8D%97.html">截图操作指南</a>。</p>
+<h2 id="二-实验整体逻辑与环境">二 实验整体逻辑与环境</h2>
+<h3 id="21-从启动到对象分配">2.1 从启动到对象分配</h3>
+<p>本实验围绕两个问题展开：一是哪些物理页可以交给内核使用，二是如何按不同粒度分配这些页。地址翻译负责把虚拟地址转换为物理地址，页分配器负责页的所有权与空闲状态，SLUB 再把页拆成供小对象使用的槽位。</p>
+<pre><code class="language-text">OpenSBI 传入 Hart ID 和设备树地址
+  → entry.S 建立启动根页表、设置 satp、切换高地址与启动栈
+  → kern_init 清 BSS，dtb_init 读取 RAM，初始化控制台
+  → pmm_init
+      → init_pmm_manager 选择 Best-Fit 或 Buddy 并初始化内部结构
+      → page_init 布置 Page 数组、保留占用区、登记完整空闲页
+      → pmm_manager-&gt;check 检查当前页分配器
+  → Best-Fit 配置运行 member2_page_check
+  → slub_init、slub_check
+  → MEMBER3_TESTS=1 时运行独立测试
+      → Buddy 配置：member3_buddy_test
+      → 两种配置：member3_slub_test
+  → while (1)
+</code></pre>
+<p>page_init 执行时 Sv39 已开启，它初始化的是物理页管理状态。申请物理页不会自动为任意虚拟地址建立页表项；本实验通过已有内核直接映射访问页数据。</p>
+<h3 id="22-各成员原始证据的环境">2.2 各成员原始证据的环境</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>成员一初始化与调试</th>
+<th>成员二开发验证</th>
+<th>成员三最终集成验证</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>系统标识</td>
+<td>VMware <code>os2026</code></td>
+<td>WSL2 Ubuntu-22.04</td>
+<td>VMware <code>monstern-VMware-Virtual-Platform</code></td>
+</tr>
+<tr>
+<td>Linux 内核</td>
+<td>7.0.0-38-generic</td>
+<td>带 microsoft-standard-WSL2 标识</td>
+<td>7.0.0-38-generic</td>
+</tr>
+<tr>
+<td>RISC-V GCC</td>
+<td>SiFive 10.2.0</td>
+<td>15.1.0</td>
+<td>14.2.0</td>
+</tr>
+<tr>
+<td>QEMU</td>
+<td>4.1.1，含源码调试信息</td>
+<td>7.0.0</td>
+<td>4.1.1</td>
+</tr>
+<tr>
+<td>OpenSBI 串口版本</td>
+<td>v0.4</td>
+<td>v1.0</td>
+<td>v0.6</td>
+</tr>
+<tr>
+<td>RAM</td>
+<td>128 MiB</td>
+<td>128 MiB</td>
+<td>128 MiB</td>
+</tr>
+<tr>
+<td>启动配置</td>
+<td>课程 loader</td>
+<td>portable</td>
+<td>课程 loader</td>
+</tr>
+<tr>
+<td>原始证据</td>
+<td><code>logs/os2026_*</code></td>
+<td><code>logs/member2_wsl_128M_*</code></td>
+<td><code>logs/member3_vm_*</code>、<code>member3_bestfit_128M_*</code></td>
+</tr>
+</tbody>
+</table>
+<p>成员三 QEMU 路径为 <code>/opt/ucore-manual/qemu-4.1.1/bin/qemu-system-riscv64</code>，编译器为 <code>/usr/bin/riscv64-unknown-elf-gcc</code>。具体版本、时间与系统标识见<a href="logs/member3_vm_environment.json">成员三集成环境</a>和<a href="logs/member3_bestfit_128M_environment.json">Best-Fit 回归环境</a>。本机存在 VMware 并不说明其中已经配置了相同工具，复验前需核对路径。</p>
+<p><strong>本人 VMware 复验环境（2026-10-25）。</strong> 本次终端为 <code>pointzu@pointzu-VMware-Virtual-Platform</code>，实验目录 <code>/opt/riscv/lab2/lab2</code>。系统为 Linux 7.0.0-38-generic，交叉 GCC 为 SiFive 10.2.0，交叉 GDB 为 SiFive 10.1，主机 GDB 为 Ubuntu 17.1，Python 为 3.14.4，GNU Make 为 4.4.1。运行测试使用 <code>/usr/local/bin/qemu-system-riscv64</code>（QEMU 4.1.1）；源码调试使用 <code>/opt/riscv/qemu-4.1.1/riscv64-softmmu/qemu-system-riscv64</code>，后者保留调试信息。两者由本人 <code>file</code> 检查得到相同 BuildID，但安装副本已 stripped，不能用于查找 C 函数断点。</p>
+<p><img src="file:///c:\Users\pointzu\Desktop\大三上\操作系统\实验\lab2_new\10-OS2026\lab2\images\S01_environment_overview.png" alt="图1a 本人 VMware 的实验目录、系统与 QEMU 实际路径"></p>
+<p>图1a：本人终端的 <code>pwd</code>、<code>uname</code>、交叉编译器、<code>LAB_QEMU</code> 和版本查询。末尾可见一次粘贴残留字符；环境输出本身完整。该图未显示 Git 提交号，因此不把它当作客体代码提交身份的证明。</p>
+<p><img src="file:///c:\Users\pointzu\Desktop\大三上\操作系统\实验\lab2_new\10-OS2026\lab2\images\S01_tool_versions.png" alt="图1b 本人 VMware 的 GCC、QEMU、Python 和 Make 版本"></p>
+<p>图1b：补充完整工具版本。本次复验记录依据原始截图和操作时保存的终端文本整理，不把截图重写成程序自动生成的原始日志。</p>
+<h3 id="23-构建参数与两种启动方式">2.3 构建参数与两种启动方式</h3>
+<p><code>PMM=best_fit</code> 为默认值，<code>PMM=buddy</code> 选择 Buddy；<code>MEMBER3_TESTS=1</code> 打开成员三独立测试；<code>PORTABLE_BOOT=0</code> 为课程默认启动，<code>PORTABLE_BOOT=1</code> 用于现代固件。三者都是编译参数，手动切换前执行 make clean，并在 build 与 qemu 两个命令中使用同一套参数。</p>
+<p>课程配置使用 loader 把镜像放在 0x80200000，根表仅第 511 项有效。portable 配置改用 -kernel，并在根表索引 2 加入启动过渡同址映射，供写 satp 后跳转高地址之前取指使用。成员二曾分别构建两套镜像，检查根项为 <code>{511}</code> 与 <code>{2,511}</code>，见<a href="logs/member2_boot_profiles.json">检查记录</a>；其中镜像摘要属于当时构建，不冒充新增 Buddy 后的镜像摘要。</p>
+<h2 id="三-物理内存初始化">三 物理内存初始化</h2>
+<h3 id="31-规格如何制定">3.1 规格如何制定</h3>
+<p>page_init 的输入来自设备树中的内存起址、长度和链接符号 end，输出为 va_pa_offset、npage、pages，以及分配器的初始空闲区。我们先明确地址单位，再把占用区保护、整页对齐和异常处理写成规格：</p>
+<ol>
+<li>设备树起址和长度不得缺失，求和前检查溢出，RAM 必须覆盖本框架 DRAM 基址和内核。</li>
+<li>管理末端取设备树末端与 PHYSICAL_MEMORY_END 的较小值，再向下按 4096 B 对齐。</li>
+<li>npage 是管理末端的绝对物理页号，描述符数量为 npage-nbase。</li>
+<li>描述符数组位于内核末端向上对齐之后，写入前确认完整数组位于可管理 RAM 中。</li>
+<li>先把所有 Page 置为 Reserved，再将元数据之后的完整空闲页交给 init_memmap。</li>
+<li>无完整空闲页时不调用 init_memmap(base,0)；无效布局调用 panic。</li>
+</ol>
+<p>这使固件所在低地址保留区、内核和描述符自身不会被误分配。当前实现按单段 DRAM 与固定 nbase 管理，没有实现通用的多段 RAM、设备树全部 reserved-memory 与热插拔处理。</p>
+<h3 id="32-四种地址量">3.2 四种地址量</h3>
+<p>end 是内核虚拟地址，设备树给出物理地址；Page 指针是元数据地址，不是所管理页的数据地址。转换关系为：</p>
+<pre><code class="language-c">page2ppn(p) = p - pages + nbase;
+page2pa(p)  = page2ppn(p) &lt;&lt; PGSHIFT;
+pa2page(pa) = &amp;pages[PPN(pa) - nbase];
+</code></pre>
+<p>本实验 RAM 为 <code>[0x80000000,0x88000000)</code>，nbase=0x80000、npage=0x88000，因此有 32768 个描述符。该数量包含保留页，不等于可分配页数。PADDR 只适用于本实验的内核直接映射，不能用固定偏移处理任意进程地址。</p>
+<h3 id="33-当前集成版本的布局">3.3 当前集成版本的布局</h3>
+<p>按日志中的 end、4096 B 页和 RV64 的 sizeof(Page)=40 计算，描述符总大小为 <code>32768×40=0x140000</code> B。下表前两列来自成员三开启独立测试的运行，第三列为成员一旧验证内核。</p>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>Buddy 集成配置</th>
+<th>Best-Fit 集成配置</th>
+<th>成员一旧验证内核</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>end 虚拟地址</td>
+<td><code>0xffffffffc020b63c</code></td>
+<td><code>0xffffffffc020a2fc</code></td>
+<td><code>0xffffffffc0206078</code></td>
+</tr>
+<tr>
+<td>Page 数组起点 PA</td>
+<td><code>0x8020c000</code></td>
+<td><code>0x8020b000</code></td>
+<td><code>0x80207000</code></td>
+</tr>
+<tr>
+<td>空闲区起点 PA</td>
+<td><code>0x8034c000</code></td>
+<td><code>0x8034b000</code></td>
+<td><code>0x80347000</code></td>
+</tr>
+<tr>
+<td>初始可分配页数</td>
+<td><strong>31924</strong></td>
+<td><strong>31925</strong></td>
+<td><strong>31929</strong></td>
+</tr>
+<tr>
+<td>启动根表 PA</td>
+<td><code>0x80208000</code></td>
+<td><code>0x80207000</code></td>
+<td><code>0x80205000</code></td>
+</tr>
+</tbody>
+</table>
+<p>例如 Buddy 空闲页数为 <code>(0x88000000-0x8034c000)/4096=31924</code>，与其 T2、SLUB T8 日志一致。代码、静态测试数组和编译参数会改变 end，因此不能沿用旧文档中的 0x8038c000 或 31796，也不能要求不同配置具有完全相同的空闲页数。当前两套布局分别见<a href="logs/member3_vm_buddy_qemu.log">Buddy 日志</a>和<a href="logs/member3_vm_best_fit_qemu.log">Best-Fit 日志</a>。</p>
+<h3 id="34-本人-vmware-中的初始化断点复核">3.4 本人 VMware 中的初始化断点复核</h3>
+<p>本次使用 <code>make clean</code> 后构建 <code>make -j2 PMM=best_fit MEMBER3_TESTS=0 PORTABLE_BOOT=0</code>。在主机 GDB 内启动带符号的 QEMU 并开放 1235 端口；RISC-V GDB 连接成功后设置 <code>hbreak slub_init</code> 并继续，停在 <code>kern/mm/slub.c:38</code>。此时 <code>pmm_init</code> 和页分配器自检已经完成，SLUB 尚未开始分配。图中的调用栈为 <code>slub_init → kern_init</code>，避免把未连接目标时从文件中读到的零初值误当作运行结果。</p>
+<p><img src="file:///c:\Users\pointzu\Desktop\大三上\操作系统\实验\lab2_new\10-OS2026\lab2\images\S05_page_init_gdb.png" alt="图2 本人 VMware 在 slub_init 入口观察页初始化结果"></p>
+<p>图2：本人实际 GDB 现场，日志名为 <code>my_vm_guest_gdb_S05_ok.log</code>。该原始日志保存在虚拟机 <code>logs/</code> 中；仓库提交的是上图及下列数值整理。</p>
+<table>
+<thead>
+<tr>
+<th>观察量</th>
+<th>本次现场数值</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>va_pa_offset</code></td>
+<td><code>0xffffffff40000000</code></td>
+<td>内核直接映射的虚实偏移</td>
+</tr>
+<tr>
+<td><code>nbase</code> / <code>npage</code></td>
+<td><code>0x80000</code> / <code>0x88000</code></td>
+<td>起始与末端绝对物理页号，差值为 32768</td>
+</tr>
+<tr>
+<td><code>pages</code></td>
+<td><code>0xffffffffc0209000</code></td>
+<td>描述符数组 KVA，换算 PA 为 <code>0x80209000</code></td>
+</tr>
+<tr>
+<td><code>sizeof(struct Page)</code></td>
+<td>40 B</td>
+<td>描述符总大小 <code>32768×40=0x140000</code> B</td>
+</tr>
+<tr>
+<td><code>&amp;end</code></td>
+<td><code>0xffffffffc02083fc</code></td>
+<td>内核末端，对齐后放置描述符</td>
+</tr>
+<tr>
+<td><code>satp</code></td>
+<td><code>0x8000000000080206</code></td>
+<td>MODE=8，根表 PA 为 <code>0x80206000</code></td>
+</tr>
+<tr>
+<td>根表第 511 项</td>
+<td><code>0x200000cf</code></td>
+<td>位于 KVA <code>0xffffffffc0206ff8</code></td>
+</tr>
+</tbody>
+</table>
+<p>由这些实测量计算，空闲区起点为 <code>0x80209000+0x140000=0x80349000</code>，初始空闲页数为 <code>(0x88000000-0x80349000)/4096=31927</code>。这里的 <strong>31927 是根据初始化布局计算的值</strong>，不是图中直接打印的耗尽页数。它与开启 <code>MEMBER3_TESTS=1</code> 后集成构建的 31924/31925 不同，原因是独立测试的静态数据和构建配置改变了内核末端；三个结果分别对应各自镜像。</p>
+<h2 id="四-first-fit-分析与改进">四 First-Fit 分析与改进</h2>
+<h3 id="41-四个核心函数">4.1 四个核心函数</h3>
+<p>default_init 初始化链表哨兵和 nr_free=0。default_init_memmap 接收合法连续页区间，解除 Reserved、清旧状态，在块首记录页数 property 并按地址插入链表；一个空闲块只占一个链表节点。</p>
+<p>default_alloc_pages(n) 从低地址起寻找首个 property≥n 的块。选中 m 页后交付前 n 页；若 m&gt;n，把 base+n 登记为 m-n 页余块，保持地址顺序。nr_free 只减少实际交付的 n 页，已分配块首清除 Property。</p>
+<p>default_free_pages(base,n) 重设描述符、登记新块并增加 n 页，再按地址插回。若前块末端等于 base，就先向前合并并更新 base；再比较合并后的末端与后块起点。链表相邻不等于物理相邻，必须核对区间端点。合并只改元数据，不搬移页数据，也不重复增加 nr_free。</p>
+<h3 id="42-实际修复与改进空间">4.2 实际修复与改进空间</h3>
+<p>原框架的登记和释放函数有两处尾插后未退出循环，会再次访问刚插入的节点并把节点插入自己之后，破坏 prev/next。两处增加 break 后，新增双向链接检查通过。受控副本撤销修复时，原始 check_alloc_page 已成功，仍能触发 <code>list_next(le)-&gt;prev == le</code> 断言，见<a href="logs/member2_first_fit_defect_portable_qemu.log">旧缺陷复现</a>；修复后课程环境回归见<a href="logs/member3_bestfit_128M_first_fit_qemu.log">First-Fit 日志</a>。</p>
+<p>若空闲块数为 F，搜索最坏 O(F)，释放还需重设 n 个描述符，成本为 O(n+F)。可用 Next-Fit 改变起点，或增加分桶、平衡树等索引减少扫描；这些方法增加维护成本，也不保证碎片一定更少。还可加强区间重叠检查和并发保护。当前接口要求调用者释放合法拥有的范围，Property 不是每页独立的“已分配位”。</p>
+<h2 id="五-best-fit-实现">五 Best-Fit 实现</h2>
+<h3 id="51-规格与选择策略">5.1 规格与选择策略</h3>
+<p>Best-Fit 实现 pmm_manager 的 init、init_memmap、alloc_pages、free_pages、nr_free_pages、check 六个方法。规格要求选最小充分块、同长取低地址、分割保留余块、回收双侧合并，失败不改动状态；同时保留原始 basic_check 和 best_fit_check。完整约束见<a href="specs/member2.html">成员二规格</a>。</p>
+<p>地址排序用于找到物理邻居，大小比较用于选择候选，两者职责不同。例如地址顺序的空闲块为 8、5、12 页，请求 4 页时 First-Fit 选 8 页，Best-Fit 扫描后选 5 页，分别留下 4 页与 1 页。</p>
+<h3 id="52-核心函数与接入">5.2 核心函数与接入</h3>
+<p>best_fit_init 初始化 free_area；best_fit_init_memmap 解除合法区间的保留状态，建立块首后交给 best_fit_insert。best_fit_alloc_pages 遍历所有足够大的块，保存最小候选；地址有序遍历使同长候选保留低地址。exact fit 已不能改善，可提前停止。</p>
+<p>选中块后从链表摘除，交付前 n 页，余块保留在原位置；nr_free 减 n。best_fit_free_pages 重设被归还的描述符、增加 n 页，再按地址插入，合并前后物理邻居。best_fit_insert 也用于初始化登记，因而能处理多次登记的相邻区间。</p>
+<p>当前默认编译定义为 USE_BEST_FIT_PMM，init_pmm_manager 真正注册 best_fit_pmm_manager；原测试保持不变，并由<a href="specs/protected_functions.json">五函数保护清单</a>核对。</p>
+<h3 id="53-不变量和进一步改进">5.3 不变量和进一步改进</h3>
+<p>链表只含空闲块首，区间地址有序、不重叠，块长总和等于 nr_free；拆分不能丢余块，合并要删除旧块首并清其标志。总空闲页数够用也可能没有足够大的连续块，这时必须返回 NULL。</p>
+<p>申请最坏 O(F)，释放 O(n+F)。可保留地址索引并增加按 <code>(块长,地址)</code> 排序的树，用 lower_bound 查找最小充分块，但拆分、合并时需同步维护两套索引，逐页状态更新成本也仍然存在。Best-Fit 只最小化当前剩余量，不知道未来请求，可能积累难用的小块，并非整个请求序列的全局最优。</p>
+<h2 id="六-buddy-system-实现">六 Buddy System 实现</h2>
+<h3 id="61-规格与按阶组织">6.1 规格与按阶组织</h3>
+<p>Buddy 以 order 0～15 的 16 条空闲链表管理 2^order 页块；块首物理页号按块大小对齐。buddy_init_memmap 将任意起点、任意长度的空闲区拆成既能放入剩余区间、又满足起点对齐的最大二次幂块，再逐块登记。不能假设 page_init 交出的起点已经按大块对齐。</p>
+<p>buddy_order_of(n) 求最小 k，使 2^k≥n；超出支持阶时返回饱和值，避免极大请求移位或循环溢出。buddy_alloc_pages 从 need 阶向上找空闲块，逐级二分并把上半块放回，最终交付低半块。</p>
+<p>伙伴通过描述符索引 <code>index XOR (1&lt;&lt;order)</code> 查找，先检查管理边界，再要求对方是同阶空闲块首。本框架 nbase=0x80000 对当前各阶充分对齐，索引计算与物理页号的伙伴关系一致；扩展到不同基址或多个 zone 时必须重新明确对齐基准和边界。</p>
+<h3 id="62-真实阶数与-slub-契约">6.2 真实阶数与 SLUB 契约</h3>
+<pre><code class="language-text">alloc_pages(3)      → order=2，实际占 4 页，块首 property 记录 2
+free_pages(base,3)  → 从块首读回 order=2，完整归还 4 页
+</code></pre>
+<p>SLUB 保存的是请求页数，Buddy 保存真实阶数，因此不用改 slub.c 也能完整归还大对象使用的页。buddy_free_pages 先校验块首状态和请求对应的阶，再重设整个块并合并；buddy_insert 只在合并前增加本次归还块的页数，伙伴原本已计数，不能再按合并后大小重复累加。</p>
+<p>合法调用要求传回原块首及原请求。当前断言检查的是请求是否落在同一阶的范围，并未保存原始 n，不能识别“误传了同阶的另一个请求页数”。不能据此声称任意错误释放都可检测或恢复，也不支持将大块的一部分单独释放。</p>
+<h3 id="63-成本碎片与接入">6.3 成本、碎片与接入</h3>
+<p>若实际分配 A=2^k 页，则 n≤A&lt;2n，额外页数 A-n&lt;n。这是按阶取整造成的内部余量。Best-Fit 在页数接口层面精确交付 n 页，但两者都仍有 4 KiB 页粒度和对象层带来的取整成本。</p>
+<p>查阶、拆分和逐级合并最多经过 H=16 个阶；本实现还逐页清状态，所以分配和释放总成本应写为 O(H+A)，不能把整个 C 函数笼统写成只有 O(log N)。</p>
+<p><code>PMM=buddy</code> 定义 USE_BUDDY_PMM。Buddy 配置不运行断言 Best-Fit 具体地址的 member2_page_check；slub_check 的 OOM 构造改为逐页申请；独立测试由 MEMBER3_TESTS 开关接入。完整规格见<a href="specs/member3.html">成员三规格</a>。</p>
+<h2 id="七-简化-slub-的两层结构">七 简化 SLUB 的两层结构</h2>
+<h3 id="71-接口规格与元数据">7.1 接口规格与元数据</h3>
+<p>底层通过 alloc_pages/free_pages 取得连续页，上层用 kmalloc/kfree 分配对象。小对象使用 16、32、64、128、256、512、1024、2048 B 八个规格，每个 slab 一页。页头记录魔数、规格号、capacity、inuse、页数、freelist、链表节点与位图，头部按 16 B 对齐。</p>
+<p>容量按 <code>(4096-header_size)/stride</code> 计算，不能直接用 4096/stride。当前 RV64 页头为 96 B，16 B 规格可放 250 个对象，2048 B 规格一页只能放一个对象；页头开销不能省略。测试中的关键行为尽量不依赖该内部布局。</p>
+<p>slub_init 在 pmm_init 成功后执行一次；kmalloc(0) 返回 NULL，kfree(NULL) 无操作，OOM 返回 NULL，返回地址按 16 B 对齐，内容不保证清零。</p>
+<h3 id="72-空闲槽与状态转换">7.2 空闲槽与状态转换</h3>
+<p>空闲槽位的前几个字节保存下一槽位指针。分配时弹出 freelist、更新位图和 inuse；对象交给调用者后，这些字节可以被正常业务数据覆盖。释放后对象重新属于分配器，调用者不能继续读写。</p>
+<p>只有未满 slab 在 partial 链表。满页移出，full 页释放一个对象后重新入链；最后一个对象被释放时删除页记录并把整页归还底层。释放单个对象不一定增加 nr_free_pages，只有空页回收到页层后才增加。</p>
+<h3 id="73-大对象与边界">7.3 大对象与边界</h3>
+<p>大于 2048 B 的请求取得 <code>ceil((size+header_size)/4096)</code> 页，在头部记录请求页数。4096 B 对象加上页头后需要两页；在 Buddy 下请求页数还可能提升为更大的二次幂块，按上一节的真实阶数契约归还。</p>
+<p>在长度加头部和舍入余量之前检查溢出，页分配失败不写 NULL。小对象释放检查魔数、规格号、槽位边界和位图。这些是有限诊断，不能保证野指针、重复释放或释放后访问安全。当前没有锁、每 CPU 缓存、NUMA、构造器和压力回收；立即归还空页便于核对恢复，但频繁申请释放可能增加底层调用成本。</p>
+<h2 id="八-sv39-地址翻译和-tlb-调试">八 Sv39 地址翻译和 TLB 调试</h2>
+<h3 id="81-页表不是页分配器">8.1 页表不是页分配器</h3>
+<p>Sv39 使用三级索引，每级 9 位、页内偏移 12 位，页表项为 8 B。satp.MODE=8 表示 Sv39，PPN 字段给出根表物理页号。R/W/X 全零的有效项指向下级表；具有合法访问许可的项可成为叶子，仍需检查权限和大页对齐。三级结构表示最多三级，本实验启动映射在根级就是 1 GiB 叶子。</p>
+<p>当前课程根表第 511 项为 0x200000cf，包含 V/R/W/X/A/D 标志，PPN=0x80000。映射把高地址根区对应到物理 0x80000000 起的区域；实际 RAM 管理仍受 128 MiB 上界和保留区约束，映射跨度不是可分配 RAM 大小。</p>
+<h3 id="82-两个-gdb-的分工">8.2 两个 GDB 的分工</h3>
+<p>RISC-V GDB 连接 QEMU gdb stub，观察客体指令、satp、Page 数组和内核符号；主机 x86_64 GDB 调试 QEMU 进程，观察 get_physical_address、页表读取和软件 TLB。二者暂停的是不同层次；主机停住时客体 GDB 的远程请求可能等待。</p>
+<p>成员一的<a href="logs/os2026_guest_gdb.log">内核日志</a>和<a href="logs/os2026_host_gdb.log">QEMU 日志</a>记录了以下旧内核现场，不能直接当作新增 Buddy 后的地址：</p>
+<table>
+<thead>
+<tr>
+<th>观察量</th>
+<th>成员一实际记录</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>取指 VA</td>
+<td><code>0xffffffffc02000d8</code></td>
+</tr>
+<tr>
+<td>satp</td>
+<td><code>0x8000000000080205</code></td>
+</tr>
+<tr>
+<td>根表 PA</td>
+<td><code>0x80205000</code></td>
+</tr>
+<tr>
+<td>根索引</td>
+<td>511</td>
+</tr>
+<tr>
+<td>PTE 地址</td>
+<td><code>0x80205000+511×8=0x80205ff8</code></td>
+</tr>
+<tr>
+<td>PTE</td>
+<td><code>0x200000cf</code></td>
+</tr>
+<tr>
+<td>查询循环</td>
+<td>i=0、levels=3、ptshift=18，在首轮遇到叶子</td>
+</tr>
+<tr>
+<td>输出物理页基址</td>
+<td><code>0x80200000</code></td>
+</tr>
+<tr>
+<td>完整 PA</td>
+<td><code>0x80200000+0xd8=0x802000d8</code></td>
+</tr>
+</tbody>
+</table>
+<p>QEMU 该路径给出的是目标 4 KiB 页的物理基址，完整地址还要加低 12 位偏移。根级大页计算保留对应低 30 位，不能把该次查询描述成真正读取了三级页表。源码参照 <a href="https://github.com/qemu/qemu/blob/v4.1.1/target/riscv/cpu_helper.c">QEMU 4.1.1 MMU</a>，实际调试仍以成员一源码和日志为准。</p>
+<p>按成员一主机日志中 <code>HOST single stepping the first kernel instruction translation</code> 及 <code>EVIDENCE PTE loaded</code> 的记录，对照上述 QEMU 4.1.1 源码，关键流程如下：</p>
+<ol>
+<li><code>get_physical_address</code> 先确定有效特权级，再根据 <code>satp.MODE</code> 选择模式。Bare 直接返回原地址；Sv39 设置 <code>levels=3</code>、<code>ptidxbits=9</code>、<code>ptesize=8</code>，从 <code>satp.PPN&lt;&lt;12</code> 取得根表 PA，并检查 VA 高位是否合法。</li>
+<li>循环从最高层开始，初始 <code>ptshift=18</code>，取索引 <code>(addr&gt;&gt;(12+ptshift))&amp;0x1ff</code>。本次得到 511，于是 <code>pte_addr=base+511×8</code>；<code>ldq_phys</code> 按物理地址读取 8 B PTE，<code>pte&gt;&gt;10</code> 得到 PPN。读页表用物理地址，避免为了读取当前页表而无限递归翻译。</li>
+<li><code>!(pte &amp; PTE_V)</code> 进入失败分支；有效且 R/W/X 全零时才更新 <code>base=ppn&lt;&lt;12</code> 进入下一层。叶子分支还检查保留权限组合、U/S 权限、物理页号的大页对齐，以及该次读、写或取指所需的许可。</li>
+<li>本次 PTE 为 <code>0x200000cf</code>，V/R/W/X/A/D 已置位，U 未置位，PPN 为 <code>0x80000</code>，满足根级 1 GiB 叶子的对齐。实际访问为 S 模式取指，X 许可通过；日志单步经过上述判断，直接到达叶子计算，没有再读第二、第三层页表。</li>
+<li>QEMU 4.1.1 在需要时更新 A 位和写访问的 D 位，可能通过原子更新失败后重新查询；本次 A/D 已设置，跳过更新。随后把 PPN 与大页范围内的 VPN 低位组合，得到目标 4 KiB 物理页基址 <code>0x80200000</code>，再由访问地址的低 12 位确定完整 PA <code>0x802000d8</code>，并生成软件 TLB 的读写执行权限。</li>
+</ol>
+<p>这里“最多三级”指同一个循环的层数上限，不是依次运行三个独立循环。完整逐步输出来自<a href="logs/os2026_host_gdb.log">成员一主机 GDB 原始日志</a>；本次没有另造对应的 Sv39 截图。</p>
+<h3 id="83-tlb-缺失-填充和命中">8.3 TLB 缺失 填充和命中</h3>
+<p>成员一记录的取指路径为 <code>get_page_addr_code → tlb_fill → riscv_cpu_tlb_fill → get_physical_address → tlb_set_page → tlb_set_page_with_attrs</code>。首次查询的 addr_code 为全 1，目标页未匹配；填充把 VA 页 0xffffffffc0200000 映射到 PA 页 0x80200000。后续该页的 addr_code 为 0xffffffffc0200000，符合命中条件。</p>
+<p>这与 <a href="https://github.com/qemu/qemu/blob/v4.1.1/accel/tcg/cputlb.c">QEMU 4.1.1 软件 TLB 查询源码</a>的查表、慢路径填充流程一致。TCG 有生成的快路径，取指还可能复用已翻译执行块，不能要求每次访存都进入同一个 C helper。优化导致数据读局部变量 optimized out 时，保留原始记录，不补写无法观察的值。</p>
+<p>在 <code>cputlb.c:get_page_addr_code</code> 中，<code>tlb_index</code> 与 <code>tlb_entry</code> 选择当前 <code>mmu_idx</code> 和虚拟页对应的槽位。<code>!tlb_hit(entry-&gt;addr_code,addr)</code> 为真时，再检查 victim TLB；两者都未命中才调用 <code>tlb_fill</code>，完成后重新取 entry 并断言已经匹配。正常命中时跳过翻译慢路径，利用 <code>addr+entry-&gt;addend</code> 找到宿主内存；该函数最后返回 QEMU RAM 内部地址，不能把它与客体 PA、宿主虚拟地址混为一谈。带 <code>TLB_RECHECK</code> 或 <code>TLB_MMIO</code> 的条目另走特殊路径。</p>
+<p>原始日志的 <code>EVIDENCE instruction TLB lookup hit=1</code> 显示 <code>addr_code=0xffffffffffffffff</code>；<code>EVIDENCE TLB install</code> 记录安装的虚拟页与物理页；后续 <code>hit=2/3</code> 显示标签变为目标页 <code>0xffffffffc0200000</code>。这些“hit=N”是断点触发次数标记，是否为 TLB 命中还要根据标签和上述判断确定。该证据组与 Sv39 查询来自成员一同一次旧内核运行，完整来源仍为<a href="logs/os2026_host_gdb.log">成员一主机日志</a>。</p>
+<h3 id="84-bare-与硬件-tlb-的区别">8.4 Bare 与硬件 TLB 的区别</h3>
+<p>成员一原始日志中存在 satp=0 时 VA=PA=0x80200000 的软件 TLB 填充；本人在 2026-10-25 又独立观察了这条 Bare 取指路径。主机 GDB 对带符号的 QEMU 设置条件断点 <code>break get_physical_address if addr == 0x80200000</code>；客体 GDB 连接其 1235 端口并继续后，主机停在该函数入口。</p>
+<p><img src="file:///c:\Users\pointzu\Desktop\大三上\操作系统\实验\lab2_new\10-OS2026\lab2\images\S09_bare_translation.png" alt="图3a 本人 VMware 的 Bare 取指调用栈与翻译返回值"></p>
+<p>图3a：调用栈为 <code>tb_htable_lookup → get_page_addr_code → tlb_fill → riscv_cpu_tlb_fill → get_physical_address</code>。现场 <code>addr=0x80200000</code>、<code>access_type=2</code>（取指）、<code>mmu_idx=1</code>（本次 S 模式）、<code>env-&gt;satp=0</code>。先用 <code>set $bare_out=physical</code> 保存输出参数指针，再 <code>finish</code>，返回值为 0（成功），读出 <code>*$bare_out=0x80200000</code>。这说明本次走 Bare 的直接地址分支，未进行 Sv39 页表查询。</p>
+<p><img src="file:///c:\Users\pointzu\Desktop\大三上\操作系统\实验\lab2_new\10-OS2026\lab2\images\S09_bare_tlb.png" alt="图3b 本人 VMware 的 Bare 软件 TLB 填充参数"></p>
+<p>图3b：继续运行到条件临时断点 <code>tlb_set_page_with_attrs</code>，<code>vaddr=paddr=2149580800=0x80200000</code>、<code>prot=7</code>、<code>mmu_idx=1</code>、<code>size=4096</code>。该图证明没有开启客体分页时，QEMU 仍调用软件 TLB 的填充函数；它没有展示 Sv39 的页表遍历或填充后的再次命中。这一组在 Ubuntu 虚拟机内保存的主机 GDB 原始日志为 <code>logs/my_vm_host_gdb_S09.log</code>，仓库保留实际截图。</p>
+<p>Bare 关闭客体分页，不意味着 QEMU 不再缓存客体访问到宿主内存的关系。真实 CPU TLB 服务硬件地址翻译；QEMU soft TLB 除了保存客体权限与虚拟页标签，还服务客体地址到宿主 RAM、MMIO 和访问处理路径的快速定位，因此不能逐项等同。对比 8.2 节 Sv39 的页表查询与这里 Bare 的直接返回，可以看到两者翻译方式不同，却都可能进入模拟器的填充路径。数据写入路径另记录到 <code>store_helper → tlb_fill → get_physical_address</code>，详见成员一原始主机日志。</p>
+<h2 id="九-规格与提示词的编写">九 规格与提示词的编写</h2>
+<p>我们先把每个任务写成“输入与输出、状态不变量、合法调用范围、失败行为、验收判据”，再把这些内容转成提示词。初始化强调地址单位和保留区；Best-Fit 强调框架兼容与不改测试；Buddy 强调对齐、真实阶数和释放契约；SLUB 强调两层结构与对象生命周期。测试提示词单独规定能发现哪些错误，避免只让实现者重复描述自己的代码。</p>
+<p>下文完整收录交付材料中的提示词。page_init、Best-Fit 和 SLUB 实现提示词为各成员整理的可复现版本，不冒充历史对话逐字导出；Buddy 与独立测试提示词对应成员三提交的三份文件。实现与测试的主体内容分别保留，报告中不以一句“已使用 AI”代替。</p>
+<h3 id="91-page_init-实现提示词">9.1 page_init 实现提示词</h3>
+<p>来源：<a href="reports/%E6%88%90%E5%91%98%E4%B8%80%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A.html">reports/成员一实验报告.md</a>。</p>
+<pre><code class="language-text">请阅读当前 lab2 的 kern/mm/pmm.c、pmm.h、memlayout.h、mmu.h、
+kern/driver/dtb.c、default_pmm.c 和 tools/test_lab2.c，
+仅实现 //lab2 function1 标记处的 static void page_init(void)。
+
+保持实验现有物理内存管理接口，不实现或修改 Best-Fit、Buddy 和 SLUB。
+设置 va_pa_offset，读取设备树内存起址和大小，验证缺失信息和地址求和溢出。
+必须区分内核虚拟地址、物理地址、物理页号和 Page 描述符地址。
+可管理上界不能超过 PHYSICAL_MEMORY_END，向下按 PGSIZE 对齐。
+npage 必须使用可管理末端的绝对物理页号，描述符数量为 npage-nbase。
+将 pages 放在链接符号 end 之后并按页对齐；写数组前检查容量。
+先把全部 Page 标为 reserved，再登记描述符数组末端之后的完整空闲页。
+保证 OpenSBI、内核和描述符数组占用空间不会进入空闲区。
+没有完整空闲页面时，不得调用 init_memmap(base,0)。
+无效设备树和无法容纳描述符时调用 panic。
+保留 lab2 注释，将本任务 YOUR CODE 替换成 2411804。
+解释每个地址计算式，并检查 tools/test_lab2.c 的初始化检查约定。
+</code></pre>
+<h3 id="92-page_init-边界测试提示词">9.2 page_init 边界测试提示词</h3>
+<p>来源：<a href="reports/%E6%88%90%E5%91%98%E4%B8%80%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A.html">reports/成员一实验报告.md</a>。</p>
+<pre><code class="language-text">请对最终 page_init 实现设计测试。先在 os2026 中运行真实 RISC-V 内核，
+调用原框架 test_page_init 并保留串口日志，再验证默认分配器自检。
+另外提取最终 C 函数体，在隔离的模拟物理内存中测试：正常范围、
+未对齐尾页、管理上限截断、起址为零、长度为零、求和溢出、
+DRAM 起点不匹配、内核超出内存、描述符放不下和无完整空闲页。
+测试实际 C 代码，不只重写一遍计算公式；模拟环境测试与内核实测须分开标注。
+</code></pre>
+<h3 id="93-best-fit-实现与接入提示词">9.3 Best-Fit 实现与接入提示词</h3>
+<p>来源：<a href="prompt.html">prompt.md</a>。</p>
+<pre><code class="language-text">阅读成员一交付中的 pmm.c、pmm.h、memlayout.h、default_pmm.c、
+best_fit_pmm.c 和 libs/list.h。在 lab2 function2-2 标记处完成 Best-Fit。
+保留成员一 page_init 函数体与其署名，不用旧参考版本替换。
+保持 basic_check 和 best_fit_check 完全不变，兼容 free_list/nr_free 约定。
+实现 init、init_memmap、alloc_pages、free_pages、nr_free_pages 和 manager。
+链表按地址排序；申请选最小充分块，同长取低地址，exact fit 可停止。
+分割保留剩余块；回收先前后后合并并维护头指针、标志和总页数。
+在 pmm.c 真正选用 best_fit_pmm_manager。
+解释不变量、First-Fit 对比、复杂度和可能改进。
+运行真实 RISC-V 内核、原始评分与额外边界检查，不改测试绕过失败。
+本人学号必须来自用户确认，不能挪用成员一学号。
+</code></pre>
+<h3 id="94-slub-实现提示词">9.4 SLUB 实现提示词</h3>
+<p>来源：<a href="prompt.html">prompt.md</a>。</p>
+<pre><code class="language-text">基于已有页接口实现简化 SLUB，提供 slub_init/kmalloc/kfree。
+16 至 2048 共八个大小类，每个 slab 一页，元数据位于页内头部。
+用空闲槽位内嵌指针组成 freelist，位图记录槽位占用。
+只将未满页加入 partial 链表，full 释放后重新加入，empty 立即还页。
+大对象申请包含头部的连续多页并记下页数，注意溢出、OOM、0、NULL。
+数据地址必须由物理页通过内核直接映射得到，不能写 Page 描述符。
+不使用宿主机 malloc，不递归依赖 kmalloc 分配元数据。
+在物理页管理成功初始化后接入，并明确只有单 hart 和16字节对齐。
+配套自检覆盖规格边界、跨 slab、数据保持与不重叠、重用、页数恢复。
+自检不冒充成员三的独立测试；保留真实编译和运行记录。
+</code></pre>
+<h3 id="95-buddy-实现提示词">9.5 Buddy 实现提示词</h3>
+<p>来源：<a href="prompts/member3/01_buddy_implementation_prompt.html">prompts/member3/01_buddy_implementation_prompt.md</a>。</p>
+<pre><code class="language-text">你要为这个 RISC-V ucore 实验实现一个 Buddy System 物理页分配器，并接入
+kern/mm/pmm.h 里的 struct pmm_manager。先读 pmm.c、pmm.h、memlayout.h、
+libs/list.h 和成员二写好的 best_fit_pmm.c。
+
+必须满足的接口与不变量：
+
+1. 提供 buddy_pmm_manager，实现 init、init_memmap、alloc_pages、
+   free_pages、nr_free_pages、check 六个方法。
+2. 空闲块按 order 分链表，第 k 条链只放 2^k 页的块，最多 MAX_ORDER 阶。
+3. 只有块首页 set PG_property，property 记录该块的 order。非块首页清零。
+4. 块首物理页号必须按 2^k 对齐，否则 pfn XOR (1&lt;&lt;k) 不能定位伙伴。
+5. init_memmap 收到的是一段任意对齐、任意长度的连续空闲区，必须把它拆
+   成若干按自身大小对齐的 2 的幂块，不能假设起点是大阶对齐的。
+6. alloc_pages(n) 取 k = ceil(log2(n))，从最小可用阶找块，逐级二分，
+   把上半块放回对应阶链表，返回低半块。返回块必须对齐且不和别人重叠。
+7. free_pages(base,n) 必须能和合法的同阶空闲伙伴逐级合并；只有同阶、
+   仍是空闲块首的伙伴才可合并，不能按&quot;物理相邻&quot;就合并。
+8. 关键：alloc_pages(n) 在块首记录真实 order。free_pages(base,n) 用它
+   恢复真实块大小，而不是只按调用者传的 n 去猜。原因是上层 SLUB 的大对象
+   保存的是请求页数（例如 3 页），而实际拿到的是 4 页块；释放时若只还 3
+   页，会永久丢页，或错误拆开仍在使用的块。同时校验
+   2^order &gt;= n &gt; 2^(order-1)，请求与块不符就断言失败。
+9. 失败路径（超出总空闲页、超出最大阶、无合适阶）必须返回 NULL，且不
+   改变任何链表和计数。
+10. nr_free_pages() 必须等于所有阶链表块数乘 2^k 之和。
+11. check() 要覆盖：各阶对齐、order 记录、拆分后合并、相邻非伙伴不合并、
+    逐页耗尽、乱序归还后形状恢复、超量请求失败且无副作用。
+
+约束：
+- 不修改成员一的 page_init，不修改 best_fit_pmm.c 与 default_pmm.c 里的
+  框架测试函数（见 specs/protected_functions.json）。
+- 单 hart 教学实现，不要求并发保护，但要在文档中写明这一点。
+- 启动栈只有 2 页（8 KiB）：测试里的指针数组必须放静态区，不能放大数组
+  到栈上，不能递归。
+- 不用 alloc_pages(全部空闲页) 来测试 Buddy：它的空闲区跨多个阶，这种
+  请求可能合法失败。改为逐页持有来耗尽。
+- 用真实编译和 QEMU 运行验证，不修改测试绕过失败。
+
+完成后给我：实现文件、接口说明、不变量、与 Best-Fit 的差异、
+以及真实运行日志。
+</code></pre>
+<h3 id="96-buddy-独立测试提示词">9.6 Buddy 独立测试提示词</h3>
+<p>来源：<a href="prompts/member3/02_buddy_test_prompt.html">prompts/member3/02_buddy_test_prompt.md</a>。</p>
+<pre><code class="language-text">请为 kern/mm/buddy_pmm.c 的 Buddy 页分配器设计一套独立的黑盒测试，
+放进 kern/mm/member3_buddy_test.c。只使用 alloc_pages / free_pages /
+nr_free_pages，加上 buddy_order_of 和 buddy_free_blocks 两个检查辅助
+接口；不要读 allocator 的静态变量，不要复制实现内部逻辑。
+
+必须覆盖并说明每一项能发现什么缺陷：
+
+1. 阶数取整：1..10 页请求分别应得到 order 0,1,2,2,3,3,3,3,4,4。
+   实现若把请求页数当阶数记录，这里会失败。
+2. 对齐：每个返回块的首物理页号必须按 2^order 对齐。
+3. 拆分：申请一个当前最大阶的块，块首记录的 order 必须正确，
+   空闲页数必须精确减少 2^order。
+4. 合并：把第 3 步的块释放，各阶空闲块数量必须逐阶恢复到申请前的快照。
+   只比较总页数不够：错误的合并会保持总数但改变形状。
+5. 相邻非伙伴不合并：order 0 的伙伴是 (偶数页号, 偶数页号+1) 这一对。
+   取一个奇数页号和它的后一页释放（两者物理相邻但不是伙伴），在各自
+   伙伴仍被占用时，两个块必须仍是两条 order-0 记录，不能合并。
+6. 乱序释放：同时持有多个不同阶的块，按打乱顺序归还，形状必须恢复。
+7. 耗尽：逐页申请直到 NULL，申请数必须恰好等于初始空闲页数，
+   此时 alloc_page()、alloc_pages(2)、alloc_pages(全部页) 都必须返回 NULL。
+8. 恢复：耗尽后逐页归还（逆序），空闲页数和各阶块形状都必须恢复。
+9. OOM 无副作用：申请超过总空闲页、申请 SIZE_MAX，都必须返回 NULL，
+   且前后快照完全一致。
+10. 边界：n=0 的行为需与接口定义一致（当前框架约定 n&gt;0，测试不应传 0
+    给 alloc_pages）。
+
+约束：
+- 启动栈只有 2 页。大量指针用 static 数组；不要递归。
+- 不要在测试里 malloc，也没有 libc。
+- 断言失败要能打印可诊断的信息（规模、阶数、期望值）。
+- 测试结束后空闲页数必须回到进入测试前的值，否则视为测试自身泄漏。
+- 不修改被保护的框架测试函数。
+- 必须真实编译并在 QEMU 里运行，给出原始日志。
+
+另外说明：测试通过只证明所覆盖场景，不等于对任意非法调用、多核并发或
+所有负载都正确。请如实写出未覆盖范围。
+</code></pre>
+<h3 id="97-slub-独立测试提示词">9.7 SLUB 独立测试提示词</h3>
+<p>来源：<a href="prompts/member3/03_slub_independent_test_prompt.html">prompts/member3/03_slub_independent_test_prompt.md</a>。</p>
+<pre><code class="language-text">请为 kern/mm/slub.c 的 kmalloc/kfree 写一套独立黑盒测试，放进
+kern/mm/member3_slub_test.c。只使用 kmalloc、kfree、nr_free_pages 和
+public 的页接口；不要读 struct slab 的内部字段，不要复用实现者的
+slub_check。
+
+先读 specs/member2.md 的对象层契约：16..2048 共八种规格、每 slab 一页、
+页内元数据、freelist、位图、full/partial 切换、空页归还、大对象连续多页、
+0 长度返回 NULL、NULL 释放无操作、OOM 返回 NULL、16 字节对齐。
+
+必须覆盖：
+
+1. 规格边界两侧：1,15,16,17,31,32,33,...,2047,2048 全部可分配；
+   写入完整请求长度后逐字节读回，验证没有越界或短分配。
+2. 同页共享：分配多个同规格对象，至少有两个落在同一页，且页数增长
+   小于对象数。实现若让每个对象独占一页，这里会失败。
+3. 跨页/多页：分配超过 2048 字节的对象（如 4097、9000、12288），
+   验证可写满、对齐、释放后页数恢复。
+4. full → partial：填满一个 slab 后释放一个对象，下一次同规格申请
+   必须复用该槽位（LIFO）。
+5. 不重叠：让大量不同规格对象同时存活，两两检查 [ptr, ptr+size)
+   区间不相交；这是发现槽位重复发放的关键。
+6. 数据保持：所有活对象写入不同图案，在后续分配和部分释放之后再次
+   逐字节校验，确保邻居操作没有覆盖数据。
+7. 部分释放：释放一半对象后，存活对象内容和地址必须保持不变。
+8. 乱序回收：按与分配不同的顺序释放，最终空闲页数必须回到初始值。
+9. OOM：必须真的耗尽页层，而不是只申请一个超大长度。逐页调用
+   alloc_page() 直到 NULL，此时 kmalloc(16) 和 kmalloc(4096) 都必须
+   返回 NULL；释放页面后分配器必须恢复可用。
+   注意不要用 alloc_pages(全部空闲页)：Buddy 下空闲区跨多个阶，
+   这种请求可能合法失败，不能当作页层为空。
+10. 退化输入：kmalloc(0)==NULL、kfree(NULL) 无副作用、
+    kmalloc(SIZE_MAX)==NULL、kmalloc(SIZE_MAX-8)==NULL，
+    且这些调用不改变空闲页数。
+
+约束：
+- 启动栈只有 2 页。对象指针数组与页指针数组都放 static；不要递归。
+- 测试结束时空闲页数必须与进入时相同，否则视为泄漏。
+- 不要修改 slub.c 来迁就测试；失败要如实记录。
+- 同一个测试要在 PMM=best_fit 和 PMM=buddy 下都跑通。
+- 真实编译并运行，保留原始日志和版本信息。
+
+额外说明：非法释放（野指针、重复释放）当前会导致断言/panic。
+若要测它，应单独启动一次并期望 panic，不能混在正常通过用例里。
+测试通过也不等于证明多核并发或任意非法输入安全。
+</code></pre>
+<h2 id="十-测试设计与实际结果">十 测试设计与实际结果</h2>
+<h3 id="101-成员三保存的课程环境结果">10.1 成员三保存的课程环境结果</h3>
+<table>
+<thead>
+<tr>
+<th>验证项目</th>
+<th>实际结果</th>
+<th>原始证据</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>五个保护函数</td>
+<td>摘要一致</td>
+<td><a href="logs/member3_bestfit_128M_preserved.log">protected</a></td>
+</tr>
+<tr>
+<td>page_init 隔离边界</td>
+<td>10/10</td>
+<td><a href="logs/member3_bestfit_128M_page_init_boundaries.log">boundaries</a></td>
+</tr>
+<tr>
+<td>默认 Best-Fit 与实现自检</td>
+<td>PASS</td>
+<td><a href="logs/member3_bestfit_128M_qemu.log">normal</a></td>
+</tr>
+<tr>
+<td>原始评分</td>
+<td>Page Init、Best-Fit 各 10 分，总计 20/20</td>
+<td><a href="logs/member3_bestfit_128M_grade.log">grade</a></td>
+</tr>
+<tr>
+<td>First-Fit 修复后回归</td>
+<td>原自检、双向链表检查、SLUB 自检 PASS</td>
+<td><a href="logs/member3_bestfit_128M_first_fit_qemu.log">First-Fit</a></td>
+</tr>
+<tr>
+<td>Buddy 自检及六组独立测试</td>
+<td>PASS，T5 此次未跳过，T2 回收 31924 页</td>
+<td><a href="logs/member3_vm_buddy_qemu.log">Buddy integration</a></td>
+</tr>
+<tr>
+<td>Buddy 下独立 SLUB 八组</td>
+<td>PASS</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>Best-Fit 下独立 SLUB 八组</td>
+<td>PASS，T8 恢复 31925 页</td>
+<td><a href="logs/member3_vm_best_fit_qemu.log">Best-Fit integration</a></td>
+</tr>
+<tr>
+<td>两种页策略集成摘要</td>
+<td>两者均 PASS</td>
+<td><a href="logs/member3_vm_results.json">summary</a></td>
+</tr>
+</tbody>
+</table>
+<p>原始 20/20 只覆盖其两个评分项目。Buddy、SLUB 与源码调试由各自独立证据支持，不把评分扩展成所有机制均已证明。初始化十项边界使用提取出的实际 C 函数与宿主模拟内存，不等价于十次 RISC-V 启动。内核最终永久循环，日志末尾 signal 15 来自采集脚本主动结束 QEMU，不能与 panic 混淆。</p>
+<h3 id="102-各类测试为何有效">10.2 各类测试为何有效</h3>
+<p>初始化覆盖正常范围、未对齐尾页、管理上界截断、缺失起址、缺失长度、求和溢出、DRAM 起点不支持、内核超界、描述符放不下和无完整空闲页。它们分别检查对齐、单位、容量和失败路径。</p>
+<p>成员二页测试构造 8、5、5、3 页等隔离空闲块，检查最小充分块、同长低地址、余块、乱序回收与双侧合并；把两个不相邻的 2 页块留空，验证总数 4 页仍不能满足连续 3 页请求。SLUB 实现自检让 300 个对象同时存活，检查规格边界、跨 slab、区间不重叠、逐字节数据、复用、乱序释放和页数恢复。</p>
+<table>
+<thead>
+<tr>
+<th>Buddy 独立用例</th>
+<th>实际检查内容</th>
+<th>可发现的问题</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T1</td>
+<td>请求 1～10 页的取整阶、块首记录及对齐</td>
+<td>请求数误当阶数、错误取整</td>
+</tr>
+<tr>
+<td>T2</td>
+<td>逐页耗尽，逆序归还，比对页数与各阶快照</td>
+<td>丢页、计数漂移、错误合并</td>
+</tr>
+<tr>
+<td>T3</td>
+<td>超量和 SIZE_MAX 失败且快照不变</td>
+<td>失败路径破坏状态、移位溢出</td>
+</tr>
+<tr>
+<td>T4</td>
+<td>当前最大可用块的申请归还与形状复核</td>
+<td>大块往返或空闲形状恢复错误</td>
+</tr>
+<tr>
+<td>T5</td>
+<td>物理相邻但非伙伴的页保持分离</td>
+<td>仅凭物理相邻就合并</td>
+</tr>
+<tr>
+<td>T6</td>
+<td>同时持有 order 0～8 的块并乱序归还</td>
+<td>对齐错误、混合阶回收问题</td>
+</tr>
+</tbody>
+</table>
+<p>T4 日志文字为“split then merge”，其独立函数实际重点是最大块往返与形状恢复；不能单凭这一个用例认定每次二分都被强制触发。拆分、合并还由实现自检、逐页耗尽与多阶申请共同覆盖。T5 在不具备所需布局时允许 SKIP，本次保存的日志明确为 PASS。</p>
+<table>
+<thead>
+<tr>
+<th>独立 SLUB 用例</th>
+<th>实际检查内容</th>
+<th>可发现的问题</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T1</td>
+<td>1～2048 各边界可分配、对齐、全长写入</td>
+<td>规格选择或短分配问题</td>
+</tr>
+<tr>
+<td>T2</td>
+<td>16 个 256 B 对象共享两页，另申请 9000 B</td>
+<td>每对象独占一页、多页不可用</td>
+</tr>
+<tr>
+<td>T3</td>
+<td>240 个 32 B 对象后释放首槽并要求复用</td>
+<td>full→partial 未重新入链</td>
+</tr>
+<tr>
+<td>T4</td>
+<td>240 个混合对象，两两不重叠、内容一致、乱序回收</td>
+<td>重复发放、覆盖、泄漏</td>
+</tr>
+<tr>
+<td>T5</td>
+<td>部分释放后核对 64 B 存活对象内容</td>
+<td>释放破坏邻居</td>
+</tr>
+<tr>
+<td>T6</td>
+<td>2049、4096、4097、8192、12288 B 全长读写与回收</td>
+<td>大对象页数或边界错误</td>
+</tr>
+<tr>
+<td>T7</td>
+<td>0、NULL、SIZE_MAX、SIZE_MAX-8，不改页数</td>
+<td>退化输入与溢出处理错误</td>
+</tr>
+<tr>
+<td>T8</td>
+<td>逐页耗尽后小/大对象均失败，回收后再分配</td>
+<td>伪 OOM、页泄漏或无法恢复</td>
+</tr>
+</tbody>
+</table>
+<p>独立对象测试不读取 slab 私有头部，但 OOM 恢复使用公开页描述符，前提是该启动测试阶段没有其他活页和活对象。它不是可直接用于任意运行中内核的通用回收算法。测试仍是有限场景，未宣称任意野指针、多核并发或长期随机负载全部正确。</p>
+<h3 id="103-复现实验命令">10.3 复现实验命令</h3>
+<p>在实际配置了课程工具链的 Ubuntu 中，进入本仓库 lab2。以下命令使用本人 VMware 中已核对的安装路径，也可用 <code>command -v</code> 确认其他机器的真实路径：</p>
+<pre><code class="language-sh"><span class="hljs-built_in">export</span> LAB_QEMU=<span class="hljs-string">&quot;<span class="hljs-subst">$(command -v qemu-system-riscv64)</span>&quot;</span>
+<span class="hljs-string">&quot;<span class="hljs-variable">$LAB_QEMU</span>&quot;</span> --version
+python3 tests/check_preserved.py
+python3 tests/run_checks.py --profile course --qemu <span class="hljs-string">&quot;<span class="hljs-variable">$LAB_QEMU</span>&quot;</span> --grade --first-fit --log-prefix my_vm_bestfit
+python3 tests/run_member3_checks.py --qemu <span class="hljs-string">&quot;<span class="hljs-variable">$LAB_QEMU</span>&quot;</span> --log-prefix my_vm_integration
+</code></pre>
+<p>run_checks 和 run_member3_checks 均在隔离临时副本构建，避免切换编译参数时复用旧对象。成员三运行器固定使用课程 loader，不能直接换成现代 QEMU 就假定支持 portable；现代配置要按截图指南手动传入完整构建与启动参数。</p>
+<h3 id="104-本人-vmware-复跑结果与截图">10.4 本人 VMware 复跑结果与截图</h3>
+<p>本人按上节命令完成复跑。<code>run_checks.py</code> 的日志前缀为 <code>my_vm_bestfit</code>；<code>run_member3_checks.py</code> 的前缀为 <code>my_vm_integration</code>。以下三张图是本人 VMware 终端截图，所有图片原样保留。</p>
+<p><img src="file:///c:\Users\pointzu\Desktop\大三上\操作系统\实验\lab2_new\10-OS2026\lab2\images\S02_checks_summary.png" alt="图4a 本人 VMware 的 Best-Fit、20/20 评分及 First-Fit 回归摘要"></p>
+<p>图4a：正常 Best-Fit 启动、原评分 20/20 和 First-Fit 回归全部 PASS。原评分的分项另在终端用 <code>tail -n 3 logs/my_vm_bestfit_128M_grade.log</code> 核对，Page Init、Best-Fit 两项均为 OK，总分为 20/20；这段分项输出来自本次操作记录，不是另附的截图。</p>
+<p><img src="file:///c:\Users\pointzu\Desktop\大三上\操作系统\实验\lab2_new\10-OS2026\lab2\images\S02_preserved_boundaries.png" alt="图4b 本人 VMware 的保护函数与初始化边界检查"></p>
+<p>图4b：5 个受保护函数检查通过，page_init 边界 10/10。第三条 tail 命令末尾有可见的粘贴控制字符，因此本图只用于证明前两条 <code>cat</code> 的检查结果，评分结论由图4a及上面的正确重输记录支持。</p>
+<p><img src="file:///c:\Users\pointzu\Desktop\大三上\操作系统\实验\lab2_new\10-OS2026\lab2\images\S03_integration_summary.png" alt="图4c 本人 VMware 两种页管理器的独立集成测试摘要"></p>
+<p>图4c：运行器分别检查 Buddy 和 Best-Fit 的必需成功标记，两者通过。该图展示运行器摘要，逐项覆盖与源码对应关系见 10.2 节；不把摘要图描述为含有所有独立用例的逐行输出。</p>
+<p>随后本人分别展示 <code>logs/my_vm_integration_buddy_qemu.log</code> 和 <code>logs/my_vm_integration_best_fit_qemu.log</code>。当时提供的终端文本显示 Buddy T1～T6 均 PASS（T5 未跳过），Buddy 下 SLUB T1～T8 均 PASS，Best-Fit 下同一套 SLUB T1～T8 均 PASS。Buddy 的逐页耗尽与 SLUB T8 为 31924 页，Best-Fit 的 SLUB T8 为 31925 页；16 个 256 B 对象共享两页，240 个 32 B 对象的 full→partial 复用检查通过。这些数值与仓库中成员三保存的集成日志一致。</p>
+<p>本次 <code>my_vm_*</code> 原始日志仍位于本人虚拟机的 <code>/opt/riscv/lab2/lab2/logs</code>，本报告以提供的截图与终端记录报告复验结果，不声称仓库中已经有这些完整新日志。可下载复核的逐项原始输出仍为 10.1 节链接的成员三日志。两类来源分开保留，避免用他人原始文件冒充本人新运行的输出。</p>
+<h2 id="十一-实际问题与解决过程">十一 实际问题与解决过程</h2>
+<table>
+<thead>
+<tr>
+<th>问题与来源</th>
+<th>原因</th>
+<th>处理</th>
+<th>可复核的结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>成员一早期整体编译被未完成 Best-Fit 阻塞</td>
+<td>原测试引用状态尚未定义</td>
+<td>在独立副本用 First-Fit 验证初始化，后续实现完整 Best-Fit</td>
+<td>成员一报告及最终评分</td>
+</tr>
+<tr>
+<td>原框架 First-Fit 尾插破坏链表</td>
+<td>插入后循环再次访问新尾节点</td>
+<td>两个尾插分支增加 break</td>
+<td>旧缺陷预期失败与修复后回归日志</td>
+</tr>
+<tr>
+<td>成员三记录的 Buddy 空闲计数重复</td>
+<td>合并后按新阶再加导致伙伴重复计数</td>
+<td>仅在合并前按本次归还块加一次</td>
+<td>nr_free 与各阶快照恢复检查</td>
+</tr>
+<tr>
+<td>成员三记录的极大请求循环不终止</td>
+<td>越界阶返回零后零仍小于请求</td>
+<td>buddy_order_of 在 NR_ORDERS 饱和返回</td>
+<td>SIZE_MAX 无副作用测试</td>
+</tr>
+<tr>
+<td>测试曾假设 2048 B 一页可放两个</td>
+<td>忽略 slab 页头</td>
+<td>用 256 B 同页共享行为检查，避免硬编码元数据大小</td>
+<td>16 对象占两页，payload 保持</td>
+</tr>
+<tr>
+<td>Best-Fit 的全池 OOM 写法不适合 Buddy</td>
+<td>多阶空闲块无法总在一次申请中取得</td>
+<td>Buddy 与独立测试逐页持有至 NULL</td>
+<td>实现自检与独立 OOM 均通过</td>
+</tr>
+<tr>
+<td>成员一汇编符号不支持直接指针运算</td>
+<td>GDB 缺少 C 类型</td>
+<td>使用 <code>(char *)&amp;boot_page_table_sv39+4088</code></td>
+<td>读出根末项 PTE</td>
+</tr>
+<tr>
+<td>QEMU 调试混入 GDB 读内存与变量优化</td>
+<td>调试器访问也可触发翻译，局部变量可能 optimized out</td>
+<td>核对调用栈、赋值后查看、按本机源码定位</td>
+<td>主机日志保留完整现场及不可读值</td>
+</tr>
+<tr>
+<td>现代固件启动与课程启动不同</td>
+<td>satp 切换后的过渡取指需要可用映射</td>
+<td>默认课程配置外提供显式 portable 配置</td>
+<td>两配置根项检查与 WSL 运行</td>
+</tr>
+<tr>
+<td>原评分脚本残留 QEMU</td>
+<td>客体内核末尾永久循环</td>
+<td>EXIT trap 结束脚本自己启动的进程</td>
+<td>原评分和后续回归正常结束</td>
+</tr>
+</tbody>
+</table>
+<p>其中 Buddy 两项和测试容量问题由成员三工作记录说明，当前代码与通过日志可复核修复后的行为；没有把未保存的旧失败现场补写成原始日志。成员一初始化算法在其十项边界测试中未出现失败，也不为凑问题数量编造初始化 bug。</p>
+<h3 id="111-本人复验中的环境和调试问题">11.1 本人复验中的环境和调试问题</h3>
+<table>
+<thead>
+<tr>
+<th>当时现象</th>
+<th>排查思路与处理</th>
+<th>实际结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>使用其他成员的绝对 QEMU 路径后提示“没有那个文件或目录”</td>
+<td>先查本机实际安装位置，将 <code>LAB_QEMU</code> 设置为 <code>command -v qemu-system-riscv64</code> 的结果，而非照抄另一台机器路径</td>
+<td>本机为 <code>/usr/local/bin/qemu-system-riscv64</code>，测试能启动</td>
+</tr>
+<tr>
+<td>内核正常运行，但 <a href="http://grade.sh">grade.sh</a> 报 <code>bad trap</code> 与第 149 行语法错误</td>
+<td>错误位于 shell 评分阶段，先检查换行格式；在虚拟机执行 <code>sed -i 's/\r$//' tools/grade.sh</code> 转为 LF，并用 <code>sh -n tools/grade.sh</code> 检查语法</td>
+<td>重新运行得到 20/20；没有因此修改内存分配算法</td>
+</tr>
+<tr>
+<td><code>get_physical_address</code> 函数不存在</td>
+<td>用 <code>file</code> 发现安装的 QEMU 已 stripped，再查找已有构建目录，选择保留 debug_info 的二进制</td>
+<td>主机 GDB 在 <code>cpu_helper.c:158</code> 正常命中条件断点，见图3a</td>
+</tr>
+<tr>
+<td>远程连接超时、<code>bt</code> 无栈，pages/npage 为零</td>
+<td>先确认 QEMU 已在主机 GDB 内 <code>run</code>，其 1235 端口在监听；再连接客体 GDB，逐条执行命令，等待断点命中后读变量</td>
+<td>slub_init 断点后的有效结果见图2，早先未连接时的初值未纳入结论</td>
+</tr>
+<tr>
+<td>Bash 不识别 break/run，或 GDB 把多行粘贴作为一个表达式</td>
+<td>区分 shell 的 <code>$</code> 与 GDB 的 <code>(gdb)</code> 提示符；遇到重新载入符号的 y/n 问题先单独回答，再逐条输入调试命令</td>
+<td>连接、断点、finish 和 TLB 填充观察依次完成</td>
+</tr>
+</tbody>
+</table>
+<p>这些是复验环境、输入方式和取证位置问题，应与上表中的算法和测试设计缺陷区别。图4b保留了真实操作中的粘贴残留，报告没有删改输出来制造无失误的过程。</p>
+<h3 id="112-与大模型交互的思路和反思">11.2 与大模型交互的思路和反思</h3>
+<p>实现阶段，提示词先规定接口和不变量，再要求生成核心函数，最后用原始测试与独立测试检查。First-Fit 链表问题的关键不是让模型再次声称算法正确，而是提供尾插分支和断言，要求沿新节点进入循环的路径解释 prev/next 为什么被破坏；修复后再用旧缺陷复现与修复版本比较。Buddy 与 SLUB 的测试提示词进一步要求 OOM、取整、状态恢复和 payload 检查，用外部可见行为约束实现。</p>
+<p>本人复验时采用“给出原始错误→先定位所处层次→只改变相关条件→重新记录”的交互方式。例如，提供 <code>get_physical_address not defined</code> 和 <code>file</code> 输出后，判断问题在符号信息，找到未 stripped 的现有 QEMU，而不是修改内核；提供远程超时和零变量后，先核对进程、端口和断点时机，再读取初始化结果。两次排查都把模型给出的推断当作待验证解释，最终以图2、图3和测试结果为准。</p>
+<p>调试中的另一个收获是：进入 get_physical_address 并不自动表示发生了真实的客体访存，GDB 读内存也可能触发翻译；进入软件 TLB 填充也不自动表示启用了分页。必须同时看调用栈、访问类型、mmu_idx、satp 和最终地址，才能解释当前现场。完整提示词保留在第九节，本文的过程叙述是基于实际记录整理的说明，不伪装成完整对话逐字稿。</p>
+<h2 id="十二-思考题与操作系统原理">十二 思考题与操作系统原理</h2>
+<h3 id="121-操作系统如何获知物理内存范围">12.1 操作系统如何获知物理内存范围</h3>
+<p>本实验优先使用启动固件传入的 DTB，读取 memory 节点 reg 属性中的 RAM 地址与长度。通用实现还应处理多段 RAM 和保留区，取得布局后再校验、对齐并扣除内核与元数据。<a href="https://devicetree-specification.readthedocs.io/en/stable/devicenodes.html#memory-node">Devicetree memory 节点规范</a>说明了这种描述方式。</p>
+<p>其他平台可由 UEFI GetMemoryMap 向 OS Loader 提供区间与类型，或由传统 x86 BIOS E820 接口提供系统地址映射，再传给内核；这些不是本实验的 RISC-V 接口。参见 <a href="https://uefi.org/specs/ACPI/6.5/15_System_Address_Map_Interfaces.html">ACPI 系统地址映射接口</a>。没有固件或受支持的平台协议时，不能靠盲写未知地址安全可靠地发现全部可用 RAM，因为地址还可能对应 MMIO、空洞或已占用空间。</p>
+<p>地址存在、属于 RAM、当前允许分配是三个不同条件。malloc 是使用已有内存分配器的接口，不能替代物理内存资源发现。</p>
+<h3 id="122-实验知识点与原理的联系和差异">12.2 实验知识点与原理的联系和差异</h3>
+<table>
+<thead>
+<tr>
+<th>实验知识点</th>
+<th>原理对应</th>
+<th>联系与差异</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DTB、Reserved 与保留区</td>
+<td>物理地址空间、资源发现与保护</td>
+<td>RAM 描述不等于全都可分配</td>
+</tr>
+<tr>
+<td>Page 数组</td>
+<td>物理页帧管理</td>
+<td>元数据自身占 RAM，不是页内业务数据</td>
+</tr>
+<tr>
+<td>页对齐与上下界</td>
+<td>分页粒度、内存安全</td>
+<td>仅登记完整页面，避免覆盖占用区</td>
+</tr>
+<tr>
+<td>First-Fit / Best-Fit</td>
+<td>连续分配、外部碎片</td>
+<td>选择策略不同，都需连续区间</td>
+</tr>
+<tr>
+<td>Buddy</td>
+<td>二次幂分配与伙伴合并</td>
+<td>规则化合并以按阶取整余量为代价</td>
+</tr>
+<tr>
+<td>SLUB</td>
+<td>对象缓存与两层分配</td>
+<td>多个小对象共享页，减少独占整页的浪费</td>
+</tr>
+<tr>
+<td>satp、Sv39 根级叶子</td>
+<td>多级页表与大页</td>
+<td>本次根级即可结束，不必访问全部层级</td>
+</tr>
+<tr>
+<td>直接映射偏移</td>
+<td>内核虚实地址关系</td>
+<td>固定偏移只适用于该段映射</td>
+</tr>
+<tr>
+<td>TLB 与 sfence.vma</td>
+<td>翻译缓存和同步</td>
+<td>TLB 不是数据缓存，QEMU soft TLB 还有模拟器职责</td>
+</tr>
+<tr>
+<td>不变量与独立测试</td>
+<td>正确性验证</td>
+<td>覆盖场景通过不等于形式化证明或并发安全</td>
+</tr>
+</tbody>
+</table>
+<h3 id="123-重要但本实验未完整实现的内容">12.3 重要但本实验未完整实现的内容</h3>
+<p>本实验没有完整实现每进程用户地址空间、按需分页与缺页处理、页面置换、交换区、写时复制、完整共享内存生命周期、多核 TLB 一致性、并发分配、NUMA、跨 zone、内存热插拔及压力回收。内核启动和分配器测试成功不能推出这些机制已经具备。</p>
+<h2 id="十三-指导书要求核对与提交材料">十三 指导书要求核对与提交材料</h2>
+<p>实验指导书要求报告以 Markdown 文本说明为主，没有规定固定截图数量。本报告插入 8 张本人 VMware 原始截图：图1a/1b 为环境，图2为初始化断点，图3a/3b 为 Bare 翻译和软件 TLB 填充，图4a/4b/4c 为评分、边界和两策略集成摘要。图片来源和 SHA256 见 <a href="images/README.html">images/README.md</a>。Sv39 查询与 TLB 缺失/命中的完整证据使用成员一已提交原始日志，逐项 Buddy/SLUB 结果使用成员三原始日志，并在对应章节明确注明。</p>
+<table>
+<thead>
+<tr>
+<th>指导书要求</th>
+<th>本报告对应内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>整体实现顺序与每个模块核心函数</td>
+<td>第二至第八节</td>
+</tr>
+<tr>
+<td>First-Fit 四个函数及进一步改进</td>
+<td>4.1、4.2 节</td>
+</tr>
+<tr>
+<td>Best-Fit 接入、保留原测试、提示词与改进</td>
+<td>第五节、9.3 节、10.1/10.4 节</td>
+</tr>
+<tr>
+<td>Buddy 实现与测试两份 prompt，覆盖及有效性</td>
+<td>第六节、9.5/9.6 节、10.2 节</td>
+</tr>
+<tr>
+<td>SLUB 两层结构、实现与测试两份 prompt</td>
+<td>第七节、9.4/9.7 节、10.2 节</td>
+</tr>
+<tr>
+<td>QEMU 调用路径、关键分支、页表单步与 TLB 对比</td>
+<td>第八节及成员一原始主机/客体日志</td>
+</tr>
+<tr>
+<td>各练习 spec、prompt 的形成方式与实际问题</td>
+<td>第三、五、六、七、九、十一节及 specs/</td>
+</tr>
+<tr>
+<td>内存探测思考题、OS 原理联系与未实现知识点</td>
+<td>第十二节</td>
+</tr>
+<tr>
+<td>正确署名、代码标记、代码与报告共同交付</td>
+<td>第一节、保护函数清单及本仓库 lab2 目录</td>
+</tr>
+</tbody>
+</table>
+<p>提交材料包括本报告、源码、spec、prompt、测试脚本、各成员原始日志和上述实际截图。原始框架测试与成员一初始化继续由<a href="tests/check_preserved.py">保护检查</a>核对。<a href="https://github.com/shangyang61/10-OS2026/pull/1">PR #1</a>已合入 main，记录实现与报告初稿；本次在 main 整理截图和复验分析。课程平台的提交按小组要求另行办理，不将 GitHub 上传写成课程平台已提交。</p>
+<h2 id="十四-文件与原始证据索引">十四 文件与原始证据索引</h2>
+<ul>
+<li>代码：<a href="kern/mm/pmm.c">page_init</a>、<a href="kern/mm/default_pmm.c">First-Fit</a>、<a href="kern/mm/best_fit_pmm.c">Best-Fit</a>、<a href="kern/mm/buddy_pmm.c">Buddy</a>、<a href="kern/mm/slub.c">SLUB</a>。</li>
+<li>规格：<a href="specs/member2.html">成员二</a>、<a href="specs/member3.html">成员三</a>；初始化规格与完整调试记录见<a href="reports/%E6%88%90%E5%91%98%E4%B8%80%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A.html">成员一报告</a>。</li>
+<li>提示词：<a href="prompt.html">成员二整理</a>、<a href="prompts/member3/01_buddy_implementation_prompt.html">Buddy 实现</a>、<a href="prompts/member3/02_buddy_test_prompt.html">Buddy 测试</a>、<a href="prompts/member3/03_slub_independent_test_prompt.html">独立 SLUB 测试</a>。</li>
+<li>测试：<a href="kern/mm/member2_check.c">页测试</a>、<a href="kern/mm/slub_check.c">SLUB 实现自检</a>、<a href="kern/mm/member3_buddy_test.c">独立 Buddy</a>、<a href="kern/mm/member3_slub_test.c">独立 SLUB</a>。</li>
+<li>运行器：<a href="tests/run_checks.py">原评分与回归</a>、<a href="tests/run_member3_checks.py">成员三集成</a>、<a href="tests/member1/test_page_init.py">初始化边界</a>。</li>
+<li>过程说明：<a href="reports/%E6%88%90%E5%91%98%E4%BA%8C%E5%B7%A5%E4%BD%9C%E8%AF%B4%E6%98%8E.html">成员二</a>、<a href="reports/%E6%88%90%E5%91%98%E4%B8%89%E5%B7%A5%E4%BD%9C%E8%AF%B4%E6%98%8E.html">成员三</a>。历史交接文档记录阶段状态，以本报告及最终日志为当前完成依据。</li>
+<li>核对的新增成果范围：<a href="https://github.com/shangyang61/10-OS2026/compare/32f530c778478d84a0435eeb468e6afd1a7ed34d...27a9202e66fbbec859b06c7b3054afa4fb6558f4">32f530c 到 27a9202</a>。</li>
+</ul>
+
+            <script async src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
+            
+        </body>
+        </html>
