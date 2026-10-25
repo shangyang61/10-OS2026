@@ -1,8 +1,6 @@
 # Lab2 物理内存和页表
 
-当前目录已整合三位成员的初始化、Best-Fit、Buddy、简化 SLUB 与独立测试。完整实验报告见 [实验报告.md](实验报告.md)，已插入本人于 2026-10-25 在 VMware 中取得的 8 张实际截图；来源见 [images/README.md](images/README.md)，复现步骤见 [截图操作指南.md](截图操作指南.md)。
-
-交接入口：[交接给成员三.md](交接给成员三.md)；本机操作步骤：[VMware手动验证.md](VMware手动验证.md)。
+当前目录已整合三位成员的初始化、Best-Fit、Buddy、简化 SLUB 与独立测试。完整实验报告见 [实验报告.md](实验报告.md)，已插入本人于 2026-10-25 在 VMware 中取得的 8 张实际截图；来源见 [images/README.md](images/README.md)，复现命令与调试过程见实验报告第八、十节。
 
 ## 当前状态
 

@@ -30,4 +30,4 @@ b3725af89fe28326ff2333999fbf87178d2060a3b9d360cdae5440b20358595f  S02_preserved_
 28136e56ae2f18c5682b8b313272855d8765bba786db9a366a4d57549efd1d56  S03_integration_summary.png
 ```
 
-PNG 由仓库 `.gitattributes` 标为 binary，避免 Git 的文本换行转换损坏图片。复现操作见[截图操作指南](../截图操作指南.md)。
+PNG 由仓库 `.gitattributes` 标为 binary，避免 Git 的文本换行转换损坏图片。复现命令与调试过程见[实验报告](../实验报告.md)第八、十节。
