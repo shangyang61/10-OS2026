@@ -1,3 +1,32 @@
+/*
+ * ============================================================================
+ * libs/riscv.h —— RISC-V 架构定义与 CSR 封装（Lab2 答辩常问）
+ * ============================================================================
+ * 【文件结构】
+ *   1. 32/64 位通用宏（LOAD/STORE/REGBYTES…）；
+ *   2. mstatus/sstatus/mip/mie 等 CSR 的位域定义；
+ *   3. PTE 标志与页表常量（RISCV_PGSHIFT/PGSIZE）；
+ *   4. read_csr/write_csr/set_csr/clear_csr/swap_csr 内联汇编封装；
+ *   5. 自动生成的指令编码表（MATCH_/MASK_）、CSR 编号、异常号。
+ *
+ * 【答辩要点一：CSR 怎么读写】
+ *   csrr  rd, csr        读
+ *   csrw  csr, rs        写
+ *   csrrs rd, csr, rs    读后置位
+ *   csrrc rd, csr, rs    读后清位
+ *   csrrw rd, csr, rs    读写交换
+ *   这些宏把汇编封成 C 表达式，返回值是操作前的旧值。
+ *
+ * 【答辩要点二：satp 的组成】
+ *   MODE(63..60) | ASID(59..44) | PPN(43..0)
+ *   Sv39 的 MODE=8。只写 PPN 而不写 MODE，等于切回 Bare（无分页），
+ *   这是初学最容易踩的坑。真正切换页表请参考 entry.S 的写法。
+ *
+ * 【答辩要点三：本文件在 Lab2 的角色】
+ *   page_init 用 read_csr/write_csr 的场合不多；
+ *   真正关键的是 PTE 标志与 satp 的语义。
+ * ============================================================================
+ */
 // See LICENSE for license details.
 
 #ifndef __LIBS_RISCV_H__
@@ -184,10 +213,12 @@
 
 #ifdef __GNUC__
 
+/* 读 CSR：csrr。返回旧值。 */
 #define read_csr(reg) ({ unsigned long __tmp; \
   asm volatile ("csrr %0, " #reg : "=r"(__tmp)); \
   __tmp; })
 
+/* 写 CSR：csrw。常量且 <32 时用立即数形式，否则用寄存器。 */
 #define write_csr(reg, val) ({ \
   if (__builtin_constant_p(val) && (unsigned long)(val) < 32) \
     asm volatile ("csrw " #reg ", %0" :: "i"(val)); \
@@ -221,6 +252,8 @@
 
 #endif
 
+/* 除法取余：printfmt 打印数字时用。
+ * n 被原地改成商，返回值是余数，避免依赖 libgcc 的 64 位除法。 */
 #define do_div(n, base)                              \
     ({                                               \
         int __res;                                   \
@@ -231,6 +264,9 @@
 
 #define barrier() __asm__ __volatile__ ("fence" ::: "memory")
 
+/* 切换页表基址。
+ * 注意：这里只写了 PPN，没有 OR 上 MODE=8；如果直接用它切换，
+ * satp 会变成 Bare 模式。Lab2 未调用它，真正写 satp 见 entry.S。 */
 static inline void
 lcr3(unsigned int cr3) {
     write_csr(satp, cr3 >> RISCV_PGSHIFT);

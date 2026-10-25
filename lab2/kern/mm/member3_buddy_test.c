@@ -1,4 +1,22 @@
 //lab2 function3-2 2411738 秦东杰
+/* ============================================================================
+ * member3_buddy_test.c —— 成员三的独立 Buddy 测试（答辩重点）
+ * ============================================================================
+ * 【为什么要有"独立测试"】
+ *   buddy_check 是实现者在实现文件里写的自检，容易"顺着自己的实现写"。
+ *   本文件只使用公开接口（alloc_pages/free_pages/nr_free_pages），
+ *   再加两个只读的检查辅助（buddy_order_of / buddy_free_blocks），
+ *   不读分配器的静态变量，所以能更客观地验证契约。
+ *
+ * 【为什么不能照搬 Best-Fit 的测试】
+ *   member2_page_check 依赖"一次 alloc_pages(全部空闲页) 能成功"，
+ *   但 Buddy 的空闲区分散在多个阶上，这个请求可能合法失败。
+ *   所以这里用"逐页申请直到 NULL"来构造耗尽。
+ *
+ * 【答辩要点：测试有效性】
+ *   好的测试不只是"跑通"，而是"实现写错时会失败"。
+ *   每组的注释都写明它能抓到哪类缺陷。
+ * ============================================================================ */
 /* Independent Buddy System tests, written by member three.
  *
  * These use only the public page interface plus the two inspection helpers in
@@ -53,6 +71,11 @@ total_pages(const size_t *s) {
     return pages;
 }
 
+/* ============================================================================
+ * T1 阶数取整契约
+ *   n=1..10 应分别对应 order 0,1,2,2,3,3,3,3,4,4。
+ *   能让"把请求页数当阶数记录"的实现失败。
+ * ============================================================================ */
 /* T1: rounding contract. A request that is not a power of two must still
  * record its real block order. An allocator that stored the request instead
  * would report 3 for alloc_pages(3) and could not size the free correctly. */
@@ -83,6 +106,14 @@ t1_rounding(void) {
     cprintf("member3 T1 rounding contract: PASS\n");
 }
 
+/* ============================================================================
+ * T2 逐页耗尽 + 逆序归还
+ *   每页单独申请直到 NULL，申请数必须等于初始空闲页数；
+ *   再按相反顺序逐页归还，各阶块数必须恢复原状。
+ *   能让"丢页、错误合并、计数漂移"的实现失败。
+ *   注意：这里比较的是各阶块数快照，不是只比较总页数——
+ *   总页数相同但块形状不同，同样是不变量被破坏。
+ * ============================================================================ */
 /* T2: exhaust the machine one page at a time, then give everything back in
  * reverse order and require the exact original free-list shape.
  * A leak or a bogus merge would show up as a different shape, not just a
@@ -138,6 +169,12 @@ t2_exhaust_and_recover(void) {
     cprintf("member3 T2 exhaust and recover: PASS (%d pages)\n", (int)taken);
 }
 
+/* ============================================================================
+ * T3 失败请求无副作用
+ *   申请超过总空闲页、申请 SIZE_MAX，都必须返回 NULL，
+ *   且前后各阶块数快照完全一致。
+ *   能让"先改链表再检查失败"的实现失败。
+ * ============================================================================ */
 /* T3: a failing request must not perturb the free lists. */
 static void
 t3_oom_is_clean(void) {
@@ -160,6 +197,12 @@ t3_oom_is_clean(void) {
     cprintf("member3 T3 failed request is side-effect free: PASS\n");
 }
 
+/* ============================================================================
+ * T4 大块拆分后释放、形状还原
+ *   找到当前最大可用阶，申请整块，再释放；
+ *   各阶块数必须回到申请前的快照。
+ *   能让"拆分时把余块丢了"或"合并只并一半"的实现失败。
+ * ============================================================================ */
 /* T4: splitting a large block and freeing it again must restore the shape. */
 static void
 t4_split_merge(void) {
@@ -191,6 +234,15 @@ t4_split_merge(void) {
             (int)order);
 }
 
+/* ============================================================================
+ * T5 相邻但非伙伴不能合并（本测试最关键的一组）
+ *   order 0 的伙伴是 (偶数页号, 偶数页号+1)。
+ *   取一个奇数页号 p 和 p+1：它们物理相邻，但
+ *     p 的伙伴是 p-1，p+1 的伙伴是 p+2。
+ *   在 p-1、p+2 仍被占用时把 p 和 p+1 释放，
+ *   它们必须保持为两个独立的 order-0 块。
+ *   能让"只按物理相邻就合并"的错误实现失败。
+ * ============================================================================ */
 /* T5: only true buddies merge.
  *
  * Order-0 buddies are the pairs (even pfn, even pfn + 1). So an odd pfn and
@@ -256,6 +308,12 @@ t5_non_buddy(void) {
     cprintf("member3 T5 adjacent non-buddies stay split: PASS\n");
 }
 
+/* ============================================================================
+ * T6 各阶对齐 + 乱序释放
+ *   申请 order 0..8，检查每个块首按自身大小对齐；
+ *   再按打乱顺序释放，验证合并路径。
+ *   能让"块首未对齐"的实现失败——对齐一破，异或伙伴计算就全错。
+ * ============================================================================ */
 /* T6: every returned block must be aligned on its own size; that is the
  * property the XOR buddy computation depends on. */
 static void

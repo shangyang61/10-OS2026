@@ -1,4 +1,20 @@
 //lab2 function3-3 2411738 秦东杰
+/* ============================================================================
+ * member3_slub_test.c —— 成员三的独立 SLUB 测试（答辩重点）
+ * ============================================================================
+ * 【为什么要有"独立测试"】
+ *   slub_check 是实现者自检；本文件按 specs/member2.md 的接口契约重写，
+ *   只使用 kmalloc/kfree/nr_free_pages，不读 slab 头，
+ *   所以内部布局改了测试仍然有效。
+ *
+ * 【答辩要点：两种页管理器都要跑通】
+ *   同一个测试要在 PMM=best_fit 和 PMM=buddy 下都通过。
+ *   因此 OOM 用例不能依赖"一次申请全部空闲页"，
+ *   而是逐页 alloc_page() 直到 NULL——这对两种分配器都成立。
+ *
+ * 【答辩要点：覆盖与有效性】
+ *   每组都说明它能抓到的缺陷类型，避免"只证明能跑"。
+ * ============================================================================ */
 /* Independent SLUB tests, written by member three.
  *
  * Black-box tests: they use only slub_init's contract (already done at boot),
@@ -74,6 +90,11 @@ release_all(void) {
     }
 }
 
+/* ============================================================================
+ * T1 规格边界两侧
+ *   1,15,16,17,31,32,33,...,2047,2048 都能分配，且整段可写。
+ *   能让"规格表错位"或"只分配不校验长度"的实现失败。
+ * ============================================================================ */
 /* T1: each size class on both sides of its boundary must be servable, and
  * every result must be 16-byte aligned as the spec promises. */
 static void
@@ -94,6 +115,12 @@ t1_class_boundaries(void) {
     cprintf("member3 SLUB T1 class boundaries 1..2048: PASS\n");
 }
 
+/* ============================================================================
+ * T2 同页共享 + 跨页对象
+ *   多个同规格对象必须共享页（页数增长 < 对象数），
+ *   且不同对象的数据互不覆盖；再验证 9000 字节跨页对象可用。
+ *   能让"每个对象独占一页"的假 slab 实现失败。
+ * ============================================================================ */
 /* T2: the two-layer promise. "Pages below, objects above" means several
  * objects of one size class share a single page, so N objects must not cost N
  * pages. We do not hard-code the slab header size: we only require that some
@@ -153,6 +180,11 @@ t2_objects_share_pages(void) {
             "(%d objects in %d pages)\n", (int)n, (int)grew);
 }
 
+/* ============================================================================
+ * T3 full → partial 复用
+ *   填满一个 slab 后释放一个对象，下一次同规格申请必须拿回同一地址。
+ *   能让"满页移出 partial 后再也不放回"的实现失败。
+ * ============================================================================ */
 /* T3: full -> partial transition. Fill one class until the slab is full, free
  * one object (slab becomes partial and must be reusable), allocate again and
  * require the same address back. LIFO reuse is the stated contract. */
@@ -190,6 +222,12 @@ t3_full_to_partial(void) {
             (int)count);
 }
 
+/* ============================================================================
+ * T4 混合规格、大量活对象
+ *   240 个不同规格对象同时存活，两两检查区间不重叠，
+ *   写入不同图案后逐字节校验，再按打乱顺序释放。
+ *   能让"同一槽位被发放两次"或"释放踩坏邻居"的实现失败。
+ * ============================================================================ */
 /* T4: mixed size classes, thousands of live objects, no overlap, payloads
  * intact. This is what catches a slot that gets handed out twice. */
 static void
@@ -224,6 +262,11 @@ t4_mixed_no_overlap(void) {
     cprintf("member3 SLUB T4 mixed load, no overlap, payload intact: PASS\n");
 }
 
+/* ============================================================================
+ * T5 部分释放后存活对象不变
+ *   释放一半对象后，存活对象的地址和内容必须保持原样。
+ *   能让"释放时误清整页"的实现失败。
+ * ============================================================================ */
 /* T5: freeing a partial set must not destroy the objects still alive. */
 static void
 t5_survivors(void) {
@@ -249,6 +292,11 @@ t5_survivors(void) {
     cprintf("member3 SLUB T5 survivors keep their payload: PASS\n");
 }
 
+/* ============================================================================
+ * T6 超过 2048 字节的大对象
+ *   2049/4096/4097/8192/12288 字节都要可写满、可释放、页数可恢复。
+ *   能让"大对象只算一页"或"释放时页数记错"的实现失败。
+ * ============================================================================ */
 /* T6: requests above the largest class fall back to whole pages. A 5000-byte
  * request needs two pages (plus header), and must come back usable. */
 static void
@@ -276,6 +324,12 @@ t6_large_objects(void) {
     cprintf("member3 SLUB T6 large objects above 2048B: PASS\n");
 }
 
+/* ============================================================================
+ * T7 退化输入
+ *   kmalloc(0)==NULL、kfree(NULL) 无副作用、
+ *   SIZE_MAX 与接近 SIZE_MAX 的长度必须拒绝（不能溢出成小页数）。
+ *   能让"舍入前不检查溢出"的实现失败。
+ * ============================================================================ */
 /* T7: degenerate inputs. NULL free is a no-op, zero size returns NULL, and a
  * length whose rounding would overflow must be refused, not truncated. */
 static void
@@ -297,6 +351,14 @@ t7_degenerate(void) {
     cprintf("member3 SLUB T7 degenerate inputs: PASS\n");
 }
 
+/* ============================================================================
+ * T8 真实页耗尽
+ *   逐页持有全部空闲页，此时 kmalloc 必须返回 NULL；
+ *   归还页面后分配器必须恢复可用。
+ *   能让"页层已空但仍返回对象"的实现失败（那意味着它在复用别人的页）。
+ *   注意：这里没有用 alloc_pages(全部空闲页)，因为 Buddy 下该请求
+ *   可能合法失败，不能当作"页层已空"。
+ * ============================================================================ */
 /* T8: real page exhaustion. Hold every free page one at a time, then require
  * kmalloc to fail. This works under any page manager, unlike asking for the
  * whole free region in a single call, which only holds for a contiguous

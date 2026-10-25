@@ -1,3 +1,25 @@
+# ============================================================================
+# Makefile —— Lab2 构建总控（答辩常问：make 到底做了什么）
+# ============================================================================
+# 【三条命令，三个层次】
+#   make        : 交叉编译所有 .c/.S → 链接出 ELF 内核 bin/kernel
+#                 → objcopy 成纯二进制 bin/ucore.img
+#   make qemu   : 启动 QEMU，用 OpenSBI 当固件，把镜像加载到 0x80200000
+#   make debug  : 同上，但 QEMU 停在第一条指令等 GDB（-s -S）
+#
+# 【为什么要交叉编译】
+#   主机是 x86_64，内核跑在 RISC-V 上，所以必须用
+#   riscv64-unknown-elf-gcc/ld/objcopy。
+#
+# 【三个编译期开关（答辩重点）】
+#   PORTABLE_BOOT=1  现代 QEMU/OpenSBI 用 -kernel 启动，并加低地址同址映射
+#   PMM=best_fit     默认，课程评分路径（best_fit_pmm_manager）
+#   PMM=buddy        换用 Buddy System（buddy_pmm_manager）
+#   MEMBER3_TESTS=1  额外运行成员三的独立 Buddy/SLUB 测试
+#
+#   注意：这些都是编译期宏，切换时必须 make clean，
+#   否则旧目标文件会被复用，链接出"半套配置"的内核。
+# ============================================================================
 PROJ	:= lab2
 EMPTY	:=
 SPACE	:= $(EMPTY) $(EMPTY)
@@ -13,16 +35,18 @@ ifndef QEMU
 QEMU := qemu-system-riscv64
 endif
 
+# 默认走课程 QEMU 4.1.1 的 -device loader 启动方式；
+# 现代 QEMU/OpenSBI 用 PORTABLE_BOOT=1（-kernel + 启动过渡同址映射）。
 # Keep the course QEMU 4.1.1 boot path by default. Set to 1 for modern OpenSBI.
 PORTABLE_BOOT ?= 0
 ifeq ($(PORTABLE_BOOT),1)
 DEFS += -DBOOT_IDENTITY_MAP
 endif
 
-# Page allocator selection. Best-Fit stays the default so the graded path is
-# unchanged; PMM=buddy boots the same kernel on the Buddy System instead.
-# Changing PMM requires "make clean": the choice is a compile-time define and
-# stale objects would otherwise be reused.
+# 页分配器选择：
+#   默认 Best-Fit，保证课程评分路径不变；
+#   PMM=buddy 时同一个内核改用 Buddy System。
+#   切换必须 make clean（编译期宏不会被 Make 当作依赖追踪）。
 PMM ?= best_fit
 ifeq ($(PMM),buddy)
 DEFS += -DUSE_BUDDY_PMM
@@ -32,9 +56,9 @@ else
 $(error PMM must be best_fit or buddy, got '$(PMM)')
 endif
 
-# MEMBER3_TESTS=1 also runs the member-three independent suites (buddy tests
-# when PMM=buddy, SLUB tests always). Off by default so the graded boot path
-# prints only the original markers.
+# MEMBER3_TESTS=1 时运行成员三独立测试：
+#   PMM=buddy 时跑 Buddy 测试，任何配置都跑 SLUB 测试。
+#   默认关闭，保证评分路径的输出与原来一致。
 MEMBER3_TESTS ?= 0
 ifeq ($(MEMBER3_TESTS),1)
 DEFS += -DUSE_MEMBER3_TESTS
@@ -57,6 +81,9 @@ HOSTCFLAGS	:= -Wall -O2
 GDB		:= $(GCCPREFIX)gdb
 
 CC		:= $(GCCPREFIX)gcc
+# -mcmodel=medany：位置无关的 medium-any 模型，镜像加载到哪里都能用 PC 相对寻址
+# -nostdinc：不用宿主机标准头，全部用 libs/ 下的自实现
+# -ffunction-sections/-fdata-sections + 链接时 --gc-sections：丢弃未用代码
 CFLAGS  := -mcmodel=medany -std=gnu99 -Wno-unused -Werror 
 CFLAGS	+= -fno-builtin -Wall -O2 -nostdinc $(DEFS)
 CFLAGS	+= -fno-stack-protector -ffunction-sections -fdata-sections
@@ -193,6 +220,7 @@ TARGETS: $(TARGETS)
 
 .DEFAULT_GOAL := TARGETS
 .PHONY: qemu spike test
+# 启动 QEMU：virt 机器、无图形、OpenSBI 固件、按启动配置加载镜像。
 qemu: $(UCOREIMG) $(SWAPIMG) $(SFSIMG)
 	$(V)$(QEMU) \
 		-machine virt \
@@ -200,6 +228,7 @@ qemu: $(UCOREIMG) $(SWAPIMG) $(SFSIMG)
 		-bios default \
 		$(QEMU_BOOT_OPTS)
 
+# -s -S：开 GDB 服务（1234 端口）并停在第一条指令，配合 make gdb 使用。
 debug: $(UCOREIMG) $(SWAPIMG) $(SFSIMG)
 	$(V)$(QEMU) \
 		-machine virt \
@@ -208,6 +237,7 @@ debug: $(UCOREIMG) $(SWAPIMG) $(SFSIMG)
 		$(QEMU_BOOT_OPTS)\
 		-s -S
 
+# 连接 make debug 启动的 QEMU。答辩演示时可在 0x80200000 下断点。
 gdb:
 	riscv64-unknown-elf-gdb \
     -ex 'file bin/kernel' \
