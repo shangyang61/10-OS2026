@@ -1,0 +1,7 @@
+{
+  "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+  "date": "2026-11-07",
+  "qemu": "QEMU emulator version 4.1.1",
+  "gcc": "riscv64-unknown-elf-gcc (14.2.0+19) 14.2.0",
+  "gdb": "GNU gdb (Ubuntu 17.1-2ubuntu1) 17.1"
+}

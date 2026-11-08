@@ -1,0 +1,86 @@
+[
+  {
+    "check": "official archive SHA256",
+    "passed": true
+  },
+  {
+    "check": "tools/inject.py unchanged",
+    "passed": true
+  },
+  {
+    "check": "tools/grade.sh unchanged",
+    "passed": true
+  },
+  {
+    "check": "tools/test_lab3.c unchanged",
+    "passed": true
+  },
+  {
+    "check": "tools/test_lab3.h unchanged",
+    "passed": true
+  },
+  {
+    "check": "tools/test_lab3_context.S unchanged",
+    "passed": true
+  },
+  {
+    "check": "kern/trap/trap.h unchanged",
+    "passed": true
+  },
+  {
+    "check": "SAVE_ALL unchanged",
+    "passed": true
+  },
+  {
+    "check": "trap.c:print_ticks unchanged",
+    "passed": true
+  },
+  {
+    "check": "trap.c:idt_init unchanged",
+    "passed": true
+  },
+  {
+    "check": "trap.c:trap_in_kernel unchanged",
+    "passed": true
+  },
+  {
+    "check": "trap.c:print_trapframe unchanged",
+    "passed": true
+  },
+  {
+    "check": "trap.c:print_regs unchanged",
+    "passed": true
+  },
+  {
+    "check": "trap.c:trap_dispatch unchanged",
+    "passed": true
+  },
+  {
+    "check": "trap.c:trap unchanged",
+    "passed": true
+  },
+  {
+    "check": "Lab2 page_init preserved",
+    "passed": true
+  },
+  {
+    "check": "Lab2 basic_check preserved",
+    "passed": true
+  },
+  {
+    "check": "Lab2 best_fit_check preserved",
+    "passed": true
+  },
+  {
+    "check": "Lab2 basic_check preserved",
+    "passed": true
+  },
+  {
+    "check": "Lab2 default_check preserved",
+    "passed": true
+  },
+  {
+    "check": "no unfilled lab2/lab3 YOUR CODE task markers",
+    "passed": true
+  }
+]

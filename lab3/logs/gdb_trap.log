@@ -1,0 +1,28 @@
+The target architecture is set to "riscv:rv64".
+0x0000000000001000 in ?? ()
+Hardware assisted breakpoint 1 at 0xffffffffc0200c0a: file kern/trap/trap.c, line 169.
+
+Breakpoint 1, trap (tf=0xffffffffc0205ed0) at kern/trap/trap.c:186
+186	    trap_dispatch(tf);
+
+=== Hardware-to-C Trap frame ===
+trapframe size: 288 bytes
+tf=0xffffffffc0205ed0 saved_sp=0xffffffffc0205ff0
+status=0x8000000000006120 epc=0xffffffffc0200096 cause=0x8000000000000005
+Hardware assisted breakpoint 2 at 0xffffffffc0200c80: file kern/trap/trapentry.S, line 112.
+
+Breakpoint 2, __trapret () at kern/trap/trapentry.S:112
+112	    RESTORE_ALL
+
+=== Before RESTORE_ALL ===
+frame_sp=0xffffffffc0205ed0 original_sp=0xffffffffc0205ff0 delta=288
+ticks=1
+Hardware assisted breakpoint 3 at 0xffffffffc0200096: file kern/init/init.c, line 50.
+
+Breakpoint 3, kern_init () at kern/init/init.c:50
+50	    while (1)
+
+=== After sret ===
+pc=0xffffffffc0200096 sp=0xffffffffc0205ff0 sstatus=0x8000000000006002
+[GDB] Trap frame, timer cause, SP, EPC and SIE restoration: PASS
+[Inferior 1 (process 1) detached]

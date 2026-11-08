@@ -1,0 +1,16 @@
+/home/monstern/操作系统/labcodes/lab3/screenshots/01_official_grade.png
+/home/monstern/操作系统/labcodes/lab3/screenshots/02_timer_shutdown.png
+Traceback (most recent call last):
+  File "/home/monstern/操作系统/labcodes/lab3/tests/capture_evidence.py", line 84, in <module>
+    main()
+    ~~~~^^
+  File "/home/monstern/操作系统/labcodes/lab3/tests/capture_evidence.py", line 70, in main
+    capture(xterm, env, "02_timer_shutdown",
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        "echo '$ make -j4 && make qemu'\nmake -j4 > logs/screenshot_build.log 2>&1 && "
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        "timeout 25s make qemu 2>&1 | tee logs/screenshot_qemu.log", 35)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/monstern/操作系统/labcodes/lab3/tests/capture_evidence.py", line 43, in capture
+    raise RuntimeError("Captured command failed: " + name)
+RuntimeError: Captured command failed: 02_timer_shutdown

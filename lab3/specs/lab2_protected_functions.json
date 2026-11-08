@@ -1,0 +1,32 @@
+[
+  {
+    "file": "kern/mm/pmm.c",
+    "function": "page_init",
+    "sha256": "c5bda33a81ec87cead8c7fae2f7d5d9bb81d2e68b8d382d7f865250b473822c4",
+    "source": "member-one delivered framework, preserved verbatim"
+  },
+  {
+    "file": "kern/mm/best_fit_pmm.c",
+    "function": "basic_check",
+    "sha256": "e17c2d0b2347077a6c8ffba3b48fc6f734c96f1b9de74a165f09758e9158877a",
+    "source": "member-one delivered framework, preserved verbatim"
+  },
+  {
+    "file": "kern/mm/best_fit_pmm.c",
+    "function": "best_fit_check",
+    "sha256": "42ceb69746ed527e87fa3de4de4bce972f3b017528c5eae2a6ebd97e97467f5d",
+    "source": "member-one delivered framework, preserved verbatim"
+  },
+  {
+    "file": "kern/mm/default_pmm.c",
+    "function": "basic_check",
+    "sha256": "e17c2d0b2347077a6c8ffba3b48fc6f734c96f1b9de74a165f09758e9158877a",
+    "source": "member-one delivered framework, preserved verbatim"
+  },
+  {
+    "file": "kern/mm/default_pmm.c",
+    "function": "default_check",
+    "sha256": "8925d17f7ca3c3755c70dcee2d90372be872463d4c627d9626fde2fd04df8c3d",
+    "source": "member-one delivered framework, preserved verbatim"
+  }
+]

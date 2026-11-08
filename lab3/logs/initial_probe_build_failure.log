@@ -1,0 +1,42 @@
+Makefile:142: warning: overriding recipe for target 'obj/kern/checklab3/trap_probe.d'
+Makefile:142: warning: ignoring old recipe for target 'obj/kern/checklab3/trap_probe.d'
+Makefile:142: warning: overriding recipe for target 'obj/kern/checklab3/trap_probe.o'
+Makefile:142: warning: ignoring old recipe for target 'obj/kern/checklab3/trap_probe.o'
+Makefile:142: warning: overriding recipe for target 'obj/kern/checklab3/trap_probe.d'
+Makefile:142: warning: ignoring old recipe for target 'obj/kern/checklab3/trap_probe.d'
+Makefile:142: warning: overriding recipe for target 'obj/kern/checklab3/trap_probe.o'
+Makefile:142: warning: ignoring old recipe for target 'obj/kern/checklab3/trap_probe.o'
++ cc kern/init/entry.S
++ cc kern/init/init.c
++ cc kern/debug/kdebug.c
++ cc kern/libs/stdio.c
++ cc kern/debug/kmonitor.c
++ cc kern/debug/panic.c
++ cc kern/driver/clock.c
++ cc kern/driver/console.c
++ cc kern/driver/dtb.c
++ cc kern/trap/trap.c
++ cc kern/driver/intr.c
++ cc kern/trap/trapentry.S
++ cc kern/mm/best_fit_pmm.c
++ cc kern/mm/buddy_pmm.c
++ cc kern/mm/default_pmm.c
++ cc kern/mm/member2_check.c
++ cc kern/mm/member3_buddy_test.c
++ cc kern/mm/member3_slub_test.c
++ cc kern/mm/pmm.c
++ cc kern/mm/slub.c
++ cc kern/mm/slub_check.c
++ cc kern/checklab3/trap_probe.c
++ cc libs/printfmt.c
++ cc libs/readline.c
++ cc libs/sbi.c
++ cc libs/string.c
++ ld bin/kernel
+riscv64-unknown-elf-ld: obj/kern/checklab3/trap_probe.o: in function `lab3_probe_exceptions':
+/tmp/lab3-course_128M-p114jcyt/lab3/kern/checklab3/trap_probe.c:12: multiple definition of `lab3_probe_exceptions'; obj/kern/checklab3/trap_probe.o:/tmp/lab3-course_128M-p114jcyt/lab3/kern/checklab3/trap_probe.c:12: first defined here
+riscv64-unknown-elf-ld: obj/kern/checklab3/trap_probe.o: in function `lab3_probe_sync':
+/tmp/lab3-course_128M-p114jcyt/lab3/kern/checklab3/trap_probe.c:27: multiple definition of `lab3_probe_sync'; obj/kern/checklab3/trap_probe.o:/tmp/lab3-course_128M-p114jcyt/lab3/kern/checklab3/trap_probe.c:27: first defined here
+riscv64-unknown-elf-ld: obj/kern/checklab3/trap_probe.o: in function `lab3_probe_exceptions':
+/tmp/lab3-course_128M-p114jcyt/lab3/kern/checklab3/trap_probe.c:14:(.text.lab3_probe_exceptions+0xc): undefined reference to `lab3_probe_registers'
+make: *** [Makefile:153: bin/kernel] Error 1

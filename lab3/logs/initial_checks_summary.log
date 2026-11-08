@@ -1,0 +1,6 @@
+course_128M: build failed; see logs
+course_64M: build failed; see logs
+{"case": "course_256M", "memory": "256M", "options": [], "qemu_command": ["/opt/ucore-manual/qemu-4.1.1/bin/qemu-system-riscv64", "-machine", "virt", "-m", "256M", "-smp", "1", "-nographic", "-bios", "default", "-device", "loader,file=bin/ucore.img,addr=0x80200000", "-monitor", "none", "-no-reboot"], "returncode": 0, "elapsed_seconds": 10.272, "checks": {"normal_qemu_exit": true, "pmm_self_check": true, "ten_tick_groups": true, "shutdown_at_1000": true, "no_panic": true}, "passed": true, "log_sha256": "22ef08f29ba6a5875be66fe994a45bc005f9da49315edb3309a65ac01a672c04"}
+buddy_128M: build failed; see logs
+portable_128M: build failed; see logs
+Integration cases: 1/5 PASS

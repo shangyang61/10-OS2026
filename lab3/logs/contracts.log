@@ -1,0 +1,21 @@
+PASS official archive SHA256
+PASS tools/inject.py unchanged
+PASS tools/grade.sh unchanged
+PASS tools/test_lab3.c unchanged
+PASS tools/test_lab3.h unchanged
+PASS tools/test_lab3_context.S unchanged
+PASS kern/trap/trap.h unchanged
+PASS SAVE_ALL unchanged
+PASS trap.c:print_ticks unchanged
+PASS trap.c:idt_init unchanged
+PASS trap.c:trap_in_kernel unchanged
+PASS trap.c:print_trapframe unchanged
+PASS trap.c:print_regs unchanged
+PASS trap.c:trap_dispatch unchanged
+PASS trap.c:trap unchanged
+PASS Lab2 page_init preserved
+PASS Lab2 basic_check preserved
+PASS Lab2 best_fit_check preserved
+PASS Lab2 basic_check preserved
+PASS Lab2 default_check preserved
+PASS no unfilled lab2/lab3 YOUR CODE task markers

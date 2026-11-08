@@ -1,0 +1,25 @@
++ cc kern/init/init.c
++ cc kern/init/entry.S
++ cc kern/libs/stdio.c
++ cc kern/debug/kdebug.c
++ cc kern/debug/kmonitor.c
++ cc kern/debug/panic.c
++ cc kern/driver/clock.c
++ cc kern/driver/console.c
++ cc kern/trap/trap.c
++ cc kern/driver/dtb.c
++ cc kern/driver/intr.c
+kern/trap/trap.c: In function 'trap_dispatch':
+kern/trap/trap.c:89:9: error: implicit declaration of function 'interrupt_handler' [-Wimplicit-function-declaration]
+   89 |         interrupt_handler(tf);
+      |         ^~~~~~~~~~~~~~~~~
+kern/trap/trap.c:92:9: error: implicit declaration of function 'exception_handler' [-Wimplicit-function-declaration]
+   92 |         exception_handler(tf);
+      |         ^~~~~~~~~~~~~~~~~
++ cc kern/trap/trapentry.S
+make: *** [Makefile:118: obj/kern/trap/trap.o] Error 1
+make: *** Waiting for unfinished jobs....
+/tmp/ccsMwOre.s: Assembler messages:
+kern/trap/trapentry.S:47: Error: unknown CSR `sbadaddr'
+kern/trap/trapentry.S:66:  Info: macro invoked from here
+make: *** [Makefile:118: obj/kern/trap/trapentry.o] Error 1

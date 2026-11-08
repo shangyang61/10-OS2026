@@ -1,0 +1,22 @@
+[
+  {
+    "file": "screenshots/01_official_grade.png",
+    "sha256": "49df764a938a7f65388a28f1fccfff7e0c9f69ca9fd166e23eb725b76d1d2534",
+    "kind": "live terminal framebuffer"
+  },
+  {
+    "file": "screenshots/02_timer_shutdown.png",
+    "sha256": "2628f4f3362abc3d3a6ecef7a86ac1a4cc93d1ea34fe21867c5a134f8f6d2b90",
+    "kind": "live terminal framebuffer"
+  },
+  {
+    "file": "screenshots/03_gdb_trap_return.png",
+    "sha256": "a3f895de62550e71628fb7b559fa9a4fa3bbd1e523d1a26717560edbb1a7da3b",
+    "kind": "live terminal framebuffer"
+  },
+  {
+    "file": "screenshots/04_extra_test_logs.png",
+    "sha256": "a97799dbfef1640b76d7f3b35ca35503bdabcb5f2d8d786657610c4b64611916",
+    "kind": "terminal viewing saved raw logs"
+  }
+]
