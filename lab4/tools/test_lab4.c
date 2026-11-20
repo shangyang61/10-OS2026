@@ -81,6 +81,7 @@ static int test_lab4_thread(void *arg)
         current->need_resched = 1;
         schedule();
     }
+    __builtin_unreachable();
 }
 
 void test_lab4_schedule(void)
